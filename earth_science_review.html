@@ -262,4 +262,276 @@
 </div>
 
 </body>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地科圖解：海洋與大氣</title>
+    <style>
+        :root {
+            --bg-color: #f3f4f6;
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --primary-blue: #0ea5e9;
+            --deep-blue: #1e3a8a;
+            --warm-red: #ef4444;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .header h1 { color: #111827; }
+        .back-link { color: #6b7280; text-decoration: none; font-size: 0.9rem; }
+        .back-link:hover { text-decoration: underline; }
+
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        .card h2 {
+            margin-top: 0;
+            border-bottom: 2px solid #e5e7eb;
+            padding-bottom: 10px;
+            color: #374151;
+        }
+
+        /* SVG 容器樣式 */
+        .diagram-box {
+            display: flex;
+            justify-content: center;
+            background: #f8fafc;
+            border-radius: 8px;
+            padding: 10px;
+            margin: 20px 0;
+            overflow-x: auto; /* 手機版可左右滑 */
+        }
+
+        svg {
+            max-width: 100%;
+            height: auto;
+            font-family: sans-serif;
+        }
+
+        .note {
+            background-color: #eff6ff;
+            border-left: 4px solid var(--primary-blue);
+            padding: 12px;
+            border-radius: 4px;
+            font-size: 0.95rem;
+            color: #1e40af;
+        }
+
+        /* 文字標籤樣式 */
+        .label-text { font-size: 14px; font-weight: bold; fill: #333; }
+        .desc-text { font-size: 12px; fill: #666; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <a href="index.html" class="back-link">← 回首頁</a>
+        <h1>📊 地科關鍵圖解</h1>
+        <p>海洋分層、湧升流機制與聖嬰現象</p>
+    </div>
+
+    <!-- 1. 海洋垂直分層 -->
+    <div class="card">
+        <h2>1. 海洋垂直分層構造 (依溫度)</h2>
+        <p>這張圖是學測最愛考的曲線圖。請注意<strong>溫度隨深度</strong>的變化。</p>
+        
+        <div class="diagram-box">
+            <svg width="500" height="350" viewBox="0 0 500 350">
+                <!-- 背景網格 -->
+                <rect x="50" y="20" width="400" height="300" fill="white" stroke="#ccc" />
+                <line x1="50" y1="20" x2="50" y2="320" stroke="black" /> <!-- Y軸 -->
+                <line x1="50" y1="20" x2="450" y2="20" stroke="black" /> <!-- X軸 -->
+                
+                <!-- 軸標籤 -->
+                <text x="250" y="15" text-anchor="middle" font-size="12">溫度 (°C)</text>
+                <text x="10" y="170" text-anchor="middle" font-size="12" transform="rotate(-90, 10, 170)">深度 (km)</text>
+                
+                <!-- 刻度 -->
+                <text x="50" y="335" text-anchor="middle" font-size="10">0</text>
+                <text x="150" y="335" text-anchor="middle" font-size="10">10</text>
+                <text x="250" y="335" text-anchor="middle" font-size="10">20</text>
+                <text x="450" y="335" text-anchor="middle" font-size="10">30°C</text>
+                
+                <text x="40" y="20" text-anchor="end" font-size="10">0</text>
+                <text x="40" y="120" text-anchor="end" font-size="10">1</text>
+                <text x="40" y="220" text-anchor="end" font-size="10">2</text>
+                <text x="40" y="320" text-anchor="end" font-size="10">深</text>
+
+                <!-- 分層背景色塊 -->
+                <rect x="51" y="21" width="398" height="50" fill="rgba(255, 200, 0, 0.1)" />
+                <rect x="51" y="71" width="398" height="130" fill="rgba(0, 100, 255, 0.1)" />
+                <rect x="51" y="201" width="398" height="119" fill="rgba(0, 0, 100, 0.1)" />
+
+                <!-- 溫度曲線 -->
+                <path d="M400,20 L400,70 Q300,100 100,200 L100,320" fill="none" stroke="#ef4444" stroke-width="4" />
+
+                <!-- 說明標籤 -->
+                <text x="410" y="50" class="label-text" fill="#d97706">混合層</text>
+                <text x="410" y="65" class="desc-text">受風浪攪拌，溫度一致</text>
+                
+                <text x="260" y="140" class="label-text" fill="#0284c7">斜溫層</text>
+                <text x="280" y="155" class="desc-text">溫度劇烈下降</text>
+                <text x="280" y="170" class="desc-text">阻擋上下對流</text>
+
+                <text x="120" y="280" class="label-text" fill="#1e3a8a">深水層</text>
+                <text x="120" y="295" class="desc-text">終年低溫(1~4°C)</text>
+                <text x="120" y="310" class="desc-text">密度最大</text>
+            </svg>
+        </div>
+        <div class="note">
+            <strong>💡 考試重點：</strong><br>
+            高緯度地區（如北極）沒有斜溫層！因為表面本來就很冷，整條線是直直的（從頭冷到腳），所以高緯度海水最容易上下垂直混合。
+        </div>
+    </div>
+
+    <!-- 2. 沿岸湧升流 -->
+    <div class="card">
+        <h2>2. 沿岸湧升流 (Upwelling)</h2>
+        <p>為什麼風吹一吹，水會變冷、魚會變多？</p>
+
+        <div class="diagram-box">
+            <svg width="600" height="300" viewBox="0 0 600 300">
+                <!-- 陸地 -->
+                <path d="M500,0 L600,0 L600,300 L500,300 Q450,150 500,0" fill="#a16207" />
+                <text x="540" y="150" fill="white" font-weight="bold">陸地</text>
+
+                <!-- 海洋 -->
+                <rect x="0" y="50" width="500" height="250" fill="#e0f2fe" />
+                <!-- 深海顏色漸層 -->
+                <defs>
+                    <linearGradient id="oceanGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#bae6fd;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#1e40af;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                <rect x="0" y="50" width="510" height="250" fill="url(#oceanGrad)" />
+
+                <!-- 風向箭頭 (平行海岸) -->
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#333" />
+                    </marker>
+                </defs>
+                <line x1="480" y1="250" x2="480" y2="50" stroke="#333" stroke-width="10" marker-end="url(#arrow)" />
+                <text x="495" y="100" font-weight="bold" fill="#333">風向 (北風)</text>
+                <text x="495" y="120" font-size="12" fill="#555">(北半球為例)</text>
+
+                <!-- 表層海水流向 (離岸流) -->
+                <path d="M450,60 L200,60" stroke="white" stroke-width="4" marker-end="url(#arrow)" stroke-dasharray="10,5"/>
+                <text x="250" y="40" font-weight="bold" fill="#0284c7">艾克曼傳送 (向右偏)</text>
+                <text x="250" y="55" font-size="12" fill="#555">表層海水被吹離陸地</text>
+
+                <!-- 湧升流 (深水上補) -->
+                <path d="M100,280 Q400,280 440,70" fill="none" stroke="#ffff00" stroke-width="6" marker-end="url(#arrow)" />
+                <text x="250" y="200" font-weight="bold" fill="#ffff00" font-size="18">湧升流</text>
+                <text x="250" y="220" fill="white" font-size="12">深層冷水上補，帶來營養鹽</text>
+                
+                <!-- 魚群 -->
+                <text x="420" y="90" font-size="20">🐟</text>
+                <text x="400" y="110" font-size="20">🐟</text>
+                <text x="430" y="120" font-size="20">🐟</text>
+            </svg>
+        </div>
+        <div class="note">
+            <strong>原理詳解：</strong><br>
+            當風<strong>平行海岸</strong>吹拂，受<strong>科氏力</strong>影響，表層海水會轉向 90 度往外海流去（離岸流）。海邊的水被帶走了，底下的水只好跑上來補，這就是湧升流。
+        </div>
+    </div>
+
+    <!-- 3. 太平洋聖嬰現象 -->
+    <div class="card">
+        <h2>3. 太平洋聖嬰現象 (ENSO)</h2>
+        <p>比較「正常年」與「聖嬰年」的海水溫度與氣流變化。</p>
+
+        <div class="diagram-box">
+            <svg width="700" height="400" viewBox="0 0 700 400">
+                <!-- 分隔線 -->
+                <line x1="0" y1="200" x2="700" y2="200" stroke="#ccc" stroke-width="2" stroke-dasharray="5,5" />
+                
+                <!-- 上半部：正常年 -->
+                <text x="10" y="30" font-weight="bold" font-size="16">🟢 正常年 (Normal)</text>
+                
+                <!-- 亞洲/澳洲 -->
+                <path d="M20,100 L80,100 L80,180 L20,180 Z" fill="#65a30d" />
+                <text x="30" y="140" fill="white" font-size="12">亞洲</text>
+
+                <!-- 南美洲 -->
+                <path d="M620,100 L680,100 L680,180 L620,180 Z" fill="#65a30d" />
+                <text x="630" y="140" fill="white" font-size="12">秘魯</text>
+
+                <!-- 海洋 (正常) -->
+                <!-- 西邊熱 -->
+                <rect x="80" y="120" width="300" height="60" fill="#ef4444" opacity="0.8" />
+                <!-- 東邊冷 -->
+                <rect x="380" y="120" width="240" height="60" fill="#3b82f6" opacity="0.8" />
+                
+                <!-- 風向 (強東風) -->
+                <path d="M600,110 L150,110" stroke="#333" stroke-width="3" marker-end="url(#arrow)" />
+                <text x="350" y="100" text-anchor="middle" font-size="12">強勁東風 (信風)</text>
+
+                <!-- 雲雨 (在西邊) -->
+                <text x="100" y="90" font-size="30">🌧️</text>
+                <text x="100" y="170" font-size="12" fill="white">水熱多雨</text>
+                <text x="550" y="170" font-size="12" fill="white">湧升流強</text>
+
+
+                <!-- 下半部：聖嬰年 -->
+                <text x="10" y="230" font-weight="bold" font-size="16" fill="#dc2626">🔴 聖嬰年 (El Niño)</text>
+
+                <!-- 亞洲/澳洲 -->
+                <path d="M20,300 L80,300 L80,380 L20,380 Z" fill="#65a30d" />
+
+                <!-- 南美洲 -->
+                <path d="M620,300 L680,300 L680,380 L620,380 Z" fill="#65a30d" />
+
+                <!-- 海洋 (聖嬰) -->
+                <!-- 熱水往東擴散 -->
+                <rect x="80" y="320" width="540" height="60" fill="#ef4444" opacity="0.8" />
+                
+                <!-- 風向 (減弱) -->
+                <path d="M600,310 L400,310" stroke="#333" stroke-width="1" stroke-dasharray="5,5" marker-end="url(#arrow)" />
+                <text x="500" y="300" text-anchor="middle" font-size="12">東風減弱</text>
+
+                <!-- 雲雨 (跑到中間/東邊) -->
+                <text x="100" y="290" font-size="30">🔥</text>
+                <text x="550" y="290" font-size="30">🌧️</text>
+                
+                <text x="100" y="360" font-size="12" fill="white" font-weight="bold">乾旱/大火</text>
+                <text x="550" y="360" font-size="12" fill="white" font-weight="bold">沙漠暴雨</text>
+
+            </svg>
+        </div>
+        <div class="note">
+            <strong>圖解關鍵：</strong><br>
+            正常年就像把一桶熱水推到左邊（亞洲），所以左邊水位高、水熱。聖嬰年時，推的那隻手（東風）沒力氣了，熱水就嘩啦啦地倒回右邊（南美洲），造成全球氣候大亂。
+        </div>
+    </div>
+
+</div>
+
+</body>
 </html>
