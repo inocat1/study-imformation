@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>地科複習：大氣與海洋</title>
+    <style>
+        :root {
+            --bg-color: #f3f4f6; /* 配合你原本的灰色背景 */
+            --card-bg: #ffffff;
+            --text-main: #1f2937;
+            --text-sub: #4b5563;
+            --primary-blue: #3b82f6; /* 大氣藍 */
+            --primary-teal: #14b8a6; /* 風綠 */
+            --primary-indigo: #6366f1; /* 海洋深藍 */
+            --primary-red: #ef4444; /* 聖嬰紅 */
+            --warning: #f59e0b;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 800px; /* 閱讀舒適寬度 */
+            margin: 0 auto;
+        }
+
+        /* 頂部導航模擬 */
+        .header {
+            margin-bottom: 30px;
+            text-align: center;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            text-decoration: none;
+            color: var(--text-sub);
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: 0.2s;
+        }
+        
+        .back-btn:hover { background: #e5e7eb; }
+
+        h1 {
+            font-size: 1.5rem;
+            color: #111827;
+            margin: 0;
+        }
+
+        /* 卡片設計 - 模仿你的網站風格 */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px; /* 圓角 */
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            border-left: 6px solid #ccc; /* 預設邊框顏色 */
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-2px); /* 滑鼠移過去微微浮起 */
+        }
+
+        .card h2 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            color: #111827;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* 表格樣式 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+        
+        th { background: #f9fafb; color: var(--text-sub); font-weight: 600; text-align: left; }
+        th, td { padding: 12px; border-bottom: 1px solid #e5e7eb; }
+        tr:last-child td { border-bottom: none; }
+
+        /* 重點標記 */
+        .highlight {
+            background-color: #fffbeb;
+            color: #92400e;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-weight: bold;
+        }
+
+        /* 不同模組的顏色定義 */
+        .mod-atmos { border-left-color: var(--primary-blue); }
+        .mod-atmos h2 { color: var(--primary-blue); }
+
+        .mod-wind { border-left-color: var(--primary-teal); }
+        .mod-wind h2 { color: var(--primary-teal); }
+
+        .mod-ocean { border-left-color: var(--primary-indigo); }
+        .mod-ocean h2 { color: var(--primary-indigo); }
+
+        .mod-enso { border-left-color: var(--primary-red); }
+        .mod-enso h2 { color: var(--primary-red); }
+
+        .mod-trap { border-left-color: var(--warning); background-color: #fffaf0; }
+        .mod-trap h2 { color: var(--warning); }
+
+        /* 手機版優化 */
+        @media (max-width: 600px) {
+            .back-btn { position: static; display: inline-block; margin-bottom: 10px; }
+            .header { text-align: left; }
+            th, td { padding: 8px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    
+    <!-- 頂部導航 -->
+    <div class="header">
+        <a href="index.html" class="back-btn">← 回總部</a>
+        <h1>☁️ 大氣與海洋重點整理</h1>
+        <p style="color: #6b7280; font-size: 0.9rem; margin-top: 5px;">學測地科關鍵筆記：垂直分層、洋流與聖嬰現象</p>
+    </div>
+
+    <!-- 模組一：大氣結構 -->
+    <div class="card mod-atmos">
+        <h2>模組一：大氣結構與組成</h2>
+        <p>口訣：<strong>對、平、中、增</strong> (溫度變化：降、升、降、升)</p>
+        
+        <table>
+            <thead>
+                <tr>
+                    <th width="25%">分層</th>
+                    <th>關鍵特徵</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>對流層</strong></td>
+                    <td>溫度隨高度<span class="highlight">下降</span>。天氣現象發生處。赤道厚、兩極薄。</td>
+                </tr>
+                <tr>
+                    <td><strong>平流層</strong></td>
+                    <td>溫度隨高度<span class="highlight">上升</span>。含<strong>臭氧層</strong> (吸紫外線)。飛機飛行處。</td>
+                </tr>
+                <tr>
+                    <td><strong>中氣層</strong></td>
+                    <td>大氣中<strong>最冷</strong>的地方 (-90°C)。</td>
+                </tr>
+                <tr>
+                    <td><strong>增溫層</strong></td>
+                    <td>直接吸太陽輻射，溫度極高。<strong>極光</strong>發生處。</td>
+                </tr>
+            </tbody>
+        </table>
+        <div style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+            🧪 <strong>變動氣體考點</strong>：水氣 (天氣主角)、CO₂ (溫室氣體)、O₃ (平流層好/對流層壞)。
+        </div>
+    </div>
+
+    <!-- 模組二：大氣運動 -->
+    <div class="card mod-wind">
+        <h2>模組二：大氣運動 (風)</h2>
+        <ul>
+            <li><strong>氣壓梯度力</strong>：風的動力來源，由高壓推向低壓。</li>
+            <li><strong>科氏力</strong>：地球自轉造成。<strong>北半球向右偏</strong>，不改變風速。</li>
+            <li><strong>摩擦力</strong>：近地面才有，會讓風<strong>斜穿</strong>等壓線。</li>
+        </ul>
+        <div style="background: #f0fdf4; padding: 10px; border-radius: 6px; margin-top: 10px;">
+            🌀 <strong>氣旋與反氣旋 (北半球)</strong><br>
+            • <strong>低氣壓 (L)</strong>：逆時針、向內輻合 ⮕ 上升 ⮕ 下雨<br>
+            • <strong>高氣壓 (H)</strong>：順時針、向外輻散 ⮕ 下沉 ⮕ 晴朗
+        </div>
+    </div>
+
+    <!-- 模組三：海洋與洋流 -->
+    <div class="card mod-ocean">
+        <h2>模組三：海洋結構與洋流</h2>
+        
+        <h3>1. 鹽度 (Salinity)</h3>
+        <p>公式：<span class="highlight">鹽度 ∝ (蒸發量 E - 降水量 P)</span></p>
+        <ul>
+            <li><strong>最高</strong>：副熱帶海域 (20°~30°)，因為蒸發強、降雨少。</li>
+            <li><strong>較低</strong>：赤道 (雨太多)、高緯度 (融冰)。</li>
+        </ul>
+
+        <h3>2. 邊界流比較 (必考)</h3>
+        <table>
+            <thead>
+                <tr>
+                    <th>項目</th>
+                    <th>西邊界流 (如：黑潮)</th>
+                    <th>東邊界流 (如：加利福尼亞)</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>位置</td>
+                    <td>大洋西側 (台灣旁)</td>
+                    <td>大洋東側 (美國旁)</td>
+                </tr>
+                <tr>
+                    <td>性質</td>
+                    <td><strong>暖流</strong> (流速快、深、窄)</td>
+                    <td><strong>寒流</strong> (流速慢、淺、寬)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <!-- 模組四：聖嬰現象 -->
+    <div class="card mod-enso">
+        <h2>模組四：海氣交互作用 (ENSO)</h2>
+        <p>想像太平洋是一個翹翹板，風是推手。</p>
+        
+        <table style="border: 1px solid #fee2e2;">
+            <tr style="background: #fef2f2;">
+                <td><strong>正常年</strong></td>
+                <td>東風吹拂 ⮕ 西邊水熱 (印尼雨多)、東邊水冷 (秘魯湧升流)。</td>
+            </tr>
+            <tr style="background: #fee2e2;">
+                <td><strong>聖嬰年</strong><br>(El Niño)</td>
+                <td><strong>東風減弱</strong> ⮕ 熱水倒流回東邊。<br>
+                • <strong>東太平洋</strong>：水變暖、湧升流消失、沙漠暴雨。<br>
+                • <strong>西太平洋</strong>：水變冷、乾旱、森林大火。<br>
+                • <strong>台灣</strong>：暖冬、春雨增多、颱風生成位置偏東。</td>
+            </tr>
+            <tr style="background: #fef2f2;">
+                <td><strong>反聖嬰</strong><br>(La Niña)</td>
+                <td><strong>東風爆強</strong> ⮕ 正常狀況的加強版 (西邊更濕、東邊更乾)。</td>
+            </tr>
+        </table>
+    </div>
+
+    <!-- 模組五：陷阱區 -->
+    <div class="card mod-trap">
+        <h2>⚠️ 考試陷阱區</h2>
+        <ol>
+            <li><strong>湧升流是冷的！</strong> 不要看到"流"就以為是熱的，它是深海冷水上來，營養鹽多，漁獲好。</li>
+            <li><strong>波浪水分子不前進</strong>：水分子做「圓周運動」，只有能量在前進。</li>
+            <li><strong>氣壓修正</strong>：地面天氣圖的氣壓都經過「海平面校正」，不然高山永遠是低壓中心。</li>
+        </ol>
+    </div>
+
+</div>
+
+</body>
+</html>
