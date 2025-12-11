@@ -3,19 +3,20 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>高中國文：核心古文總整理</title>
+    <title>高中國文：筆記全詳解</title>
     <style>
         :root {
-            --primary: #9f1239; /* 古典紅 */
-            --primary-light: #fda4af;
-            --text-main: #27272a;
-            --text-sec: #52525b;
-            --bg: #fff1f2; /* 淡淡的粉紅背景 */
+            --primary: #881337; /* 深紅 */
+            --secondary: #be123c; /* 亮紅 */
+            --accent: #f43f5e; /* 強調色 */
+            --bg: #fff1f2;
             --card-bg: #ffffff;
+            --text-main: #333;
+            --text-gray: #666;
         }
 
         body {
-            font-family: "Noto Serif TC", "Songti TC", serif; /* 使用襯線體，比較有文學氣息 */
+            font-family: "Noto Serif TC", "Songti TC", serif;
             background-color: var(--bg);
             color: var(--text-main);
             margin: 0;
@@ -23,128 +24,96 @@
             line-height: 1.8;
         }
 
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
+        .container { max-width: 900px; margin: 0 auto; }
 
-        /* --- Header --- */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            border-bottom: 3px double var(--primary);
-            padding-bottom: 20px;
-        }
+        .header { text-align: center; margin-bottom: 30px; border-bottom: 2px solid var(--primary); padding-bottom: 15px; }
+        .back-btn { text-decoration: none; color: var(--text-gray); font-size: 0.9rem; font-family: sans-serif; }
+        h1 { color: var(--primary); letter-spacing: 2px; margin: 5px 0; }
 
-        .back-btn {
-            display: inline-block;
-            margin-bottom: 10px;
-            text-decoration: none;
-            color: var(--text-sec);
-            font-size: 0.9rem;
-            font-family: sans-serif;
-        }
-        .back-btn:hover { color: var(--primary); }
-
-        h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            color: var(--primary);
-            letter-spacing: 5px;
-        }
-
-        .subtitle {
-            color: var(--text-sec);
-            margin-top: 10px;
-            font-size: 1rem;
-            font-family: sans-serif;
-        }
-
-        /* --- 時代標籤 --- */
-        .era-title {
-            text-align: center;
-            margin: 40px 0 20px;
-            font-size: 1.5rem;
-            color: #881337;
-            position: relative;
-        }
-        .era-title::before, .era-title::after {
-            content: "✦";
-            margin: 0 10px;
-            color: var(--primary-light);
-        }
-
-        /* --- 卡片樣式 --- */
+        /* 卡片設計 */
         .card {
             background: var(--card-bg);
-            border-radius: 8px;
+            border-radius: 10px;
             padding: 25px;
-            margin-bottom: 20px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            border-left: 6px solid var(--primary);
-            position: relative;
+            margin-bottom: 25px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-left: 8px solid var(--primary);
         }
 
-        .card-header {
+        .card-title-row {
             display: flex;
             justify-content: space-between;
             align-items: baseline;
-            border-bottom: 1px dashed #e5e7eb;
+            border-bottom: 1px solid #eee;
             padding-bottom: 10px;
             margin-bottom: 15px;
         }
 
-        .title {
-            font-size: 1.6rem;
-            font-weight: bold;
-            color: #be123c;
-        }
+        .title { font-size: 1.8rem; font-weight: bold; color: var(--primary); }
+        .author { font-size: 1.1rem; color: var(--text-gray); }
 
-        .author {
-            font-size: 1.1rem;
-            color: #4b5563;
-            font-style: italic;
-        }
-
-        /* --- 內容樣式 --- */
-        h3 {
-            color: #9f1239;
-            font-size: 1.1rem;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            font-family: sans-serif;
-            background-color: #fff1f2;
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-        }
-
-        ul {
-            padding-left: 20px;
-            margin-top: 5px;
-            font-family: sans-serif; /* 內文用黑體比較好讀 */
-            font-size: 0.95rem;
-        }
-
-        li { margin-bottom: 5px; }
-
-        /* --- 重點標記 --- */
+        /* 標籤群 */
+        .tags { margin-bottom: 15px; }
         .tag {
             display: inline-block;
-            font-size: 0.8rem;
-            padding: 2px 6px;
-            border: 1px solid var(--primary);
+            background: #ffe4e6;
             color: var(--primary);
-            border-radius: 12px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.85rem;
             margin-right: 5px;
             font-family: sans-serif;
         }
 
-        .highlight {
-            background: linear-gradient(120deg, #fecdd3 0%, #fecdd3 100%);
-            background-repeat: no-repeat;
-            background-size: 100% 40%;
-            background-position: 0 88%;
+        /* 區塊標題 */
+        h3 {
+            color: var(--secondary);
+            font-size: 1.2rem;
+            margin: 20px 0 10px;
+            display: flex;
+            align-items: center;
+        }
+        h3::before {
+            content: '';
+            display: inline-block;
+            width: 6px;
+            height: 20px;
+            background: var(--secondary);
+            margin-right: 8px;
+            border-radius: 3px;
+        }
+
+        /* 列表與重點 */
+        ul { padding-left: 20px; margin: 0; }
+        li { margin-bottom: 8px; }
+        .highlight { background: #fef08a; padding: 0 4px; border-radius: 2px; } /* 黃色螢光筆 */
+        .grammar { color: #059669; font-weight: bold; font-family: sans-serif; } /* 文法綠色 */
+        .idiom { color: #d97706; font-weight: bold; } /* 成語橘色 */
+
+        /* 摺疊區塊 (收納細節) */
+        details {
+            background-color: #f9fafb;
+            padding: 10px;
+            border-radius: 6px;
+            margin-top: 10px;
+            border: 1px solid #e5e7eb;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: bold;
+            color: var(--text-gray);
+            font-family: sans-serif;
+        }
+        details[open] summary { margin-bottom: 10px; color: var(--primary); }
+
+        .era-divider {
+            text-align: center;
+            margin: 40px 0;
+            font-size: 1.4rem;
+            color: var(--primary);
+            font-weight: bold;
+            border-top: 1px dashed #ccc;
+            padding-top: 20px;
         }
 
     </style>
@@ -152,438 +121,337 @@
 <body>
 
 <div class="container">
-    
     <div class="header">
         <a href="index.html" class="back-btn">← 回總部</a>
-        <h1>古文觀止精華</h1>
-        <div class="subtitle">心智圖筆記數位化・考前速讀版</div>
+        <h1>古文筆記全詳解</h1>
+        <p style="color:#666; font-size:0.9rem;">收錄修辭、詞性活用、成語與詳細結構</p>
     </div>
 
-    <!-- ================= 先秦時期 ================= -->
-    <div class="era-title">先秦時期 (諸子百家/史傳)</div>
+    <!-- ==================== 唐宋八大家系列 ==================== -->
+    <div class="era-divider">唐宋八大家與古文運動</div>
 
+    <!-- 1. 師說 -->
     <div class="card">
-        <div class="card-header">
+        <div class="card-title-row">
+            <span class="title">師說</span>
+            <span class="author">韓愈 (文起八代之衰)</span>
+        </div>
+        <div class="tags">
+            <span class="tag">論說文</span>
+            <span class="tag">古文運動</span>
+            <span class="tag">贈序</span>
+        </div>
+
+        <h3>核心結構</h3>
+        <ul>
+            <li><strong>破題</strong>：古之學者必有師。師者，所以<span class="highlight">傳道、授業、解惑</span>也。</li>
+            <li><strong>標準</strong>：無貴無賤，無長無少，道之所存，師之所存。</li>
+            <li><strong>三組對比 (論證手法)</strong>：
+                <ol>
+                    <li>古之聖人 (從師) vs 今之眾人 (恥學於師) → 聖益聖，愚益愚。</li>
+                    <li>愛其子 (擇師教之) vs 於其身 (則恥師焉) → 小學而大遺。</li>
+                    <li>百工之人 (不恥相師) vs 士大夫 (群聚而笑) → 師道之不復。</li>
+                </ol>
+            </li>
+        </ul>
+
+        <details>
+            <summary>🔍 詞性活用與修辭 (筆記細節)</summary>
+            <ul>
+                <li><span class="grammar">小</span>學而<span class="grammar">大</span>遺：adj. → n. (小的方面/大的方面)。</li>
+                <li><span class="grammar">師</span>道之不傳：n. (老師) / <span class="grammar">師</span>道之不復：v. (從師學習)。</li>
+                <li>吾<span class="grammar">師</span>道也：v. (學習)。</li>
+                <li><strong>頂真</strong>：古之學者必有師。師者...</li>
+                <li><strong>錯綜</strong>：句讀(ㄉㄡˋ)之不知，惑之不解，或師焉，或不焉。(應為：句讀不知師焉，惑之不解不焉)</li>
+            </ul>
+        </details>
+        <details>
+            <summary>📚 相關成語</summary>
+            <ul>
+                <li><span class="idiom">不恥下問</span>：不以向身分較低的人請教為恥。</li>
+                <li><span class="idiom">抗顏為師</span>：不顧他人譏笑，態度嚴正地當老師。</li>
+            </ul>
+        </details>
+    </div>
+
+    <!-- 2. 始得西山宴遊記 -->
+    <div class="card">
+        <div class="card-title-row">
+            <span class="title">始得西山宴遊記</span>
+            <span class="author">柳宗元 (柳河東)</span>
+        </div>
+        <div class="tags">
+            <span class="tag">遊記</span>
+            <span class="tag">永州八記之首</span>
+            <span class="tag">山水寓言</span>
+        </div>
+
+        <h3>文章脈絡</h3>
+        <ul>
+            <li><strong>未始</strong>：以為凡是州之山水有異態者，皆我有也 (自以為玩遍了)。
+                <br><em>描寫：施施而行，漫漫而遊 (無目的的樣子)。</em>
+            </li>
+            <li><strong>發現</strong>：望西山，始指異之。
+                <br><em>動作：過湘江，緣染溪，斫榛莽，焚茅茷 (開路艱辛)。</em>
+            </li>
+            <li><strong>始得 (高潮)</strong>：
+                <br>1. <strong>視覺</strong>：尺寸千里，攢蹙累積，外與天際 (視野遼闊)。
+                <br>2. <strong>心覺</strong>：心凝形釋，與萬化冥合 (物我兩忘，解脫貶謫痛苦)。
+            </li>
+        </ul>
+
+        <details>
+            <summary>🔍 字義與修辭</summary>
+            <ul>
+                <li><strong>文眼</strong>：<span class="highlight">始</span> (貫串全文)。未始→始指→始得。</li>
+                <li><strong>借代</strong>：縈青繚白 (青=山，白=水)。</li>
+                <li><strong>轉品</strong>：<span class="grammar">箕</span>踞而遨 (n.→adv. 像畚箕一樣坐著)。</li>
+                <li><strong>頂真</strong>：...而後知吾嚮之未始遊，遊於是乎始。</li>
+            </ul>
+        </details>
+    </div>
+
+    <!-- 3. 岳陽樓記 -->
+    <div class="card">
+        <div class="card-title-row">
+            <span class="title">岳陽樓記</span>
+            <span class="author">范仲淹 (天下第一流人物)</span>
+        </div>
+        <div class="tags">
+            <span class="tag">臺閣名勝</span>
+            <span class="tag">藉事抒情</span>
+            <span class="tag">貶謫文學</span>
+        </div>
+
+        <h3>結構分析 (筆記樹狀圖還原)</h3>
+        <ul>
+            <li><strong>緣起</strong>：滕子京謫守巴陵郡，重修岳陽樓 (屬予作文以記之)。</li>
+            <li><strong>寫景 (洞庭湖)</strong>：銜遠山，吞長江，浩浩湯湯，橫無際涯。</li>
+            <li><strong>寫情 (遷客騷人)</strong>：
+                <ul>
+                    <li><strong>雨悲</strong> (陰風怒號)：去國懷鄉，憂讒畏譏 → 感極而悲者矣。</li>
+                    <li><strong>晴喜</strong> (春和景明)：心曠神怡，寵辱偕忘 → 其喜洋洋者矣。</li>
+                </ul>
+            </li>
+            <li><strong>言志 (古仁人)</strong>：
+                <br><span class="highlight">不以物喜，不以己悲</span> (超越環境與個人榮辱)。
+                <br>居廟堂之高則憂其民；處江湖之遠則憂其君 (進亦憂，退亦憂)。
+                <br>結論：<strong>先天下之憂而憂，後天下之樂而樂</strong>。
+            </li>
+        </ul>
+    </div>
+
+    <!-- 4. 醉翁亭記 -->
+    <div class="card">
+        <div class="card-title-row">
+            <span class="title">醉翁亭記</span>
+            <span class="author">歐陽脩 (六一居士)</span>
+        </div>
+        <div class="tags">
+            <span class="tag">遊記</span>
+            <span class="tag">與民同樂</span>
+            <span class="tag">剝筍法</span>
+        </div>
+
+        <h3>寫作手法：剝筍法 (層層遞進)</h3>
+        <ul>
+            <li><strong>地理</strong>：環滁皆山 → 西南諸峰 → 琅琊山 → 釀泉 → 醉翁亭。</li>
+            <li><strong>寫景</strong>：
+                <br>朝暮：日出而林大開 (朝)，雲歸而巖穴暝 (暮)。
+                <br>四時：野芳發而幽香 (春)，佳木秀而繁陰 (夏)，風霜高潔 (秋)，水落石出 (冬)。
+            </li>
+            <li><strong>寫樂 (層次)</strong>：
+                <br>禽鳥之樂 (不知人) < 遊人之樂 < 賓客之樂 < <span class="highlight">太守之樂 (樂其樂)</span>。
+            </li>
+        </ul>
+
+        <details>
+            <summary>🔍 關鍵字句與成語</summary>
+            <ul>
+                <li><strong>醉翁之意不在酒</strong>：本意不在此，另有所圖。</li>
+                <li><strong>水落石出</strong>：真相大白。</li>
+                <li><strong>峰迴路轉</strong>：事情出現轉機。</li>
+                <li><span class="grammar">名</span>之者誰：n.→v. 命名。</li>
+                <li>虛字應用：全文用21個「也」字，創造語氣的舒緩與詠嘆。</li>
+            </ul>
+        </details>
+    </div>
+
+    <!-- 5. 赤壁賦 -->
+    <div class="card">
+        <div class="card-title-row">
+            <span class="title">赤壁賦</span>
+            <span class="author">蘇軾 (東坡居士)</span>
+        </div>
+        <div class="tags">
+            <span class="tag">賦</span>
+            <span class="tag">主客問答</span>
+            <span class="tag">三教合一</span>
+        </div>
+
+        <h3>哲理思辨 (水月之喻)</h3>
+        <ul>
+            <li><strong>客 (悲)</strong>：
+                <br>歷史虛無：曹操一世之雄，而今安在哉？
+                <br>生命短暫：寄蜉蝣於天地，渺滄海之一粟。
+            </li>
+            <li><strong>蘇子 (達)</strong>：
+                <br><strong>變</strong> (現象)：天地曾不能以一瞬。
+                <br><strong>不變</strong> (本體)：物與我皆無盡也 (何必羨慕長江？)。
+                <br><strong>取捨</strong>：造物者之無盡藏 (清風明月)，取之無禁。
+            </li>
+        </ul>
+
+        <details>
+            <summary>🔍 詞性與修辭</summary>
+            <ul>
+                <li><span class="grammar">舞</span>幽壑之潛蛟，<span class="grammar">泣</span>孤舟之嫠婦：使動用法 (使...起舞，使...哭泣)。</li>
+                <li><span class="grammar">侶</span>魚蝦而<span class="grammar">友</span>麋鹿：n.→v. (以...為伴，以...為友)。</li>
+                <li><strong>譬喻</strong>：寄蜉蝣於天地 (喻生命短暫)。</li>
+                <li><strong>錯綜</strong>：西望夏口，東望武昌 (實為互文)。</li>
+            </ul>
+        </details>
+        <details>
+            <summary>📚 相關成語</summary>
+            <ul>
+                <li><span class="idiom">滄海一粟</span>：極其渺小。</li>
+                <li><span class="idiom">杯盤狼籍</span>：形容酒席完畢，雜亂的樣子。</li>
+                <li><span class="idiom">正襟危坐</span>：整理服裝，端正坐好 (嚴肅敬重)。</li>
+            </ul>
+        </details>
+    </div>
+
+    <!-- ==================== 先秦與史傳 ==================== -->
+    <div class="era-divider">先秦諸子與史傳</div>
+
+    <!-- 6. 燭之武退秦師 -->
+    <div class="card">
+        <div class="card-title-row">
             <span class="title">燭之武退秦師</span>
             <span class="author">左丘明 (左傳)</span>
         </div>
-        <div><span class="tag">外交辭令</span> <span class="tag">史書</span></div>
-        <h3>核心主旨</h3>
-        <ul>
-            <li>以「利害關係」說服秦君，挑撥秦晉同盟。</li>
-            <li>強調「亡鄭陪鄰」對秦國無益，反而增強晉國實力。</li>
-        </ul>
-        <h3>寫作特色</h3>
-        <ul>
-            <li><strong>迂迴戰術</strong>：先示弱（臣之壯也猶不如人），再分析利弊。</li>
-            <li><strong>層次分明</strong>：害（亡鄭）→ 利（捨鄭以為東道主）→ 害（晉國貪得無厭）。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">大同與小康</span>
-            <span class="author">禮記</span>
+        <div class="tags">
+            <span class="tag">外交辭令</span>
+            <span class="tag">以退為進</span>
         </div>
-        <div><span class="tag">儒家政治</span> <span class="tag">理想世界</span></div>
-        <h3>比較重點</h3>
+
+        <h3>說服技巧 (層次分明)</h3>
         <ul>
-            <li><strong>大同</strong>：天下為公，選賢與能，講信修睦。（理想世界）</li>
-            <li><strong>小康</strong>：天下為家，各親其親，禮義以為紀。（夏商周三代英主）</li>
+            <li><strong>省話 (示弱)</strong>：臣之壯也猶不如人，今老矣，無能為也已。(消除戒心)</li>
+            <li><strong>害 (亡鄭)</strong>：越國以鄙遠，君知其難也。亡鄭陪鄰，鄰厚君薄。(點出地理劣勢)</li>
+            <li><strong>利 (存鄭)</strong>：若捨鄭以為東道主，行李之往來，共其乏困。</li>
+            <li><strong>離間 (談歷史)</strong>：夫晉，何厭之有？(提醒秦穆公，晉國曾經背信忘義)。</li>
         </ul>
+
+        <details>
+            <summary>🔍 重點字義</summary>
+            <ul>
+                <li>越國以<span class="grammar">鄙</span>遠：n.→v. 把...當作邊邑。</li>
+                <li>行李：外交使節 (非現代的行李)。</li>
+                <li>東道主：主人 (接待使節的人)。</li>
+            </ul>
+        </details>
     </div>
 
+    <!-- 7. 馮諼客孟嘗君 -->
     <div class="card">
-        <div class="card-header">
-            <span class="title">勸學</span>
-            <span class="author">荀子</span>
-        </div>
-        <div><span class="tag">論說文</span> <span class="tag">性惡論</span></div>
-        <h3>名句與觀念</h3>
-        <ul>
-            <li>「青，取之於藍，而青於藍」：譬喻學習可以改變本性，後來居上。</li>
-            <li>強調<strong>環境</strong>（蓬生麻中）、<strong>累積</strong>（積土成山）、<strong>恆心</strong>（鍥而不捨）。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">諫逐客書</span>
-            <span class="author">李斯</span>
-        </div>
-        <div><span class="tag">奏議類</span> <span class="tag">駢散並用</span></div>
-        <h3>論證結構</h3>
-        <ul>
-            <li><strong>史實</strong>：列舉秦國四位君主（穆公、孝公、惠王、昭王）皆重用客卿而強大。</li>
-            <li><strong>反諷</strong>：秦王喜愛外國珍寶（色樂珠玉），卻排斥外國人才，非跨海內、制諸侯之術。</li>
-            <li><strong>結論</strong>：泰山不讓土壤，河海不擇細流（有容乃大）。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">漁父</span>
-            <span class="author">屈原</span>
-        </div>
-        <div><span class="tag">辭賦</span> <span class="tag">寓言</span></div>
-        <h3>對比觀點</h3>
-        <ul>
-            <li><strong>屈原 (儒家堅持)</strong>：眾人皆醉我獨醒。寧赴湘流，不願蒙世俗之塵埃。（有所不為）</li>
-            <li><strong>漁父 (道家超脫)</strong>：聖人不凝滯於物。滄浪之水清兮，可以濯吾纓。（與世推移）</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
+        <div class="card-title-row">
             <span class="title">馮諼客孟嘗君</span>
             <span class="author">戰國策</span>
         </div>
-        <div><span class="tag">策士</span> <span class="tag">狡兔三窟</span></div>
-        <h3>情節轉折</h3>
+        <div class="tags">
+            <span class="tag">戰國策士</span>
+            <span class="tag">狡兔三窟</span>
+        </div>
+
+        <h3>情節安排 (先抑後揚)</h3>
         <ul>
-            <li><strong>先抑</strong>：彈鋏而歌（食無魚、出無車），讓人以為他貪得無厭。</li>
-            <li><strong>後揚</strong>：
-                <br>1. <strong>市義</strong>：燒券書，為孟嘗君買得民心（最重要的一窟）。
-                <br>2. <strong>挾外自重</strong>：遊說梁惠王，提高孟嘗君身價。
-                <br>3. <strong>立宗廟</strong>：鞏固政治地位。
+            <li><strong>試探 (先抑)</strong>：食無魚、出無車、無以為家 (彈鋏而歌，看似貪得無厭)。</li>
+            <li><strong>表現 (後揚)</strong>：
+                <br>1. <strong>市義</strong> (薛地燒券)：這最重要！建立民心根基。
+                <br>2. <strong>挾外自重</strong> (遊說梁王)：讓齊王覺得孟嘗君很重要。
+                <br>3. <strong>立宗廟</strong> (請神)：利用宗廟確保政治安全。
             </li>
         </ul>
+        
+        <details>
+            <summary>📚 相關成語</summary>
+            <ul>
+                <li><span class="idiom">狡兔三窟</span>：比喻有多處藏身以保安全。</li>
+                <li><span class="idiom">高枕無憂</span>：墊高枕頭睡覺，無憂無慮。</li>
+                <li><span class="idiom">雞鳴狗盜</span>：微不足道的技能 (形容孟嘗君門客雜亂)。</li>
+            </ul>
+        </details>
     </div>
 
-    <!-- ================= 漢魏六朝 ================= -->
-    <div class="era-title">漢魏六朝 (史書/駢文/筆記)</div>
-
+    <!-- 8. 諫逐客書 -->
     <div class="card">
-        <div class="card-header">
-            <span class="title">鴻門宴</span>
-            <span class="author">司馬遷 (史記)</span>
+        <div class="card-title-row">
+            <span class="title">諫逐客書</span>
+            <span class="author">李斯</span>
         </div>
-        <div><span class="tag">紀傳體</span> <span class="tag">人物刻畫</span></div>
-        <h3>人物性格</h3>
+        <div class="tags">
+            <span class="tag">秦文</span>
+            <span class="tag">駢散並用</span>
+            <span class="tag">實用主義</span>
+        </div>
+
+        <h3>論證邏輯</h3>
         <ul>
-            <li><strong>項羽</strong>：剛愎自用，婦人之仁，沽名釣譽（放走劉邦）。</li>
-            <li><strong>劉邦</strong>：能屈能伸，善用人才（拉攏項伯、尿遁）。</li>
-            <li><strong>范增</strong>：高瞻遠矚，但焦躁易怒（摔玉斗）。</li>
+            <li><strong>史證 (正面)</strong>：穆公求士、孝公用商鞅、惠王用張儀、昭王得范雎。(證明客卿有功)</li>
+            <li><strong>物證 (反面)</strong>：色樂珠玉 (泰山之霤、和氏之璧...) 秦國都愛，為什麼只排斥人才？(邏輯矛盾)</li>
+            <li><strong>理論 (結論)</strong>：泰山不讓土壤，故能成其大；河海不擇細流，故能就其深。<span class="highlight">(有容乃大)</span></li>
         </ul>
     </div>
 
+    <!-- ==================== 明清與台灣 ==================== -->
+    <div class="era-divider">明清散文與台灣古典</div>
+
+    <!-- 9. 項脊軒志 -->
     <div class="card">
-        <div class="card-header">
-            <span class="title">出師表</span>
-            <span class="author">諸葛亮</span>
-        </div>
-        <div><span class="tag">奏議</span> <span class="tag">抒情</span></div>
-        <h3>主旨</h3>
-        <ul>
-            <li>勸後主（劉禪）：<strong>開張聖聽</strong>（聽取意見）、<strong>賞罰分明</strong>（宮中府中俱為一體）、<strong>親賢遠佞</strong>。</li>
-            <li>情感：表達「鞠躬盡瘁，死而後已」的忠誠，報答先帝知遇之恩。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">典論論文</span>
-            <span class="author">曹丕</span>
-        </div>
-        <div><span class="tag">文學批評</span> <span class="tag">建安七子</span></div>
-        <h3>文學觀點</h3>
-        <ul>
-            <li><strong>文人相輕</strong>：自古而然，各以所長，相輕所短。</li>
-            <li><strong>文氣說</strong>：文以氣為主，氣之清濁有體，不可力強而致。</li>
-            <li><strong>價值</strong>：文章經國之大業，不朽之盛事（強調文學的獨立價值）。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">蘭亭集序</span>
-            <span class="author">王羲之</span>
-        </div>
-        <div><span class="tag">序跋類</span> <span class="tag">書法行書第一</span></div>
-        <h3>情感轉折</h3>
-        <ul>
-            <li><strong>樂</strong>：群賢畢至，天朗氣清，遊目騁懷。</li>
-            <li><strong>痛</strong>：感嘆人生短暫，死生亦大矣。</li>
-            <li><strong>悲</strong>：批判莊子「一死生、齊彭殤」是虛妄的（肯定生命存在的獨特價值）。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">桃花源記</span>
-            <span class="author">陶淵明</span>
-        </div>
-        <div><span class="tag">記敘</span> <span class="tag">烏托邦</span></div>
-        <h3>象徵意義</h3>
-        <ul>
-            <li><strong>桃花源</strong>：理想世界，無君無臣，自給自足，避秦時亂。</li>
-            <li><strong>漁人</strong>：開啟連結的媒介，但一旦離開且帶有心機（處處誌之），就再也回不去了。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">世說新語選</span>
-            <span class="author">劉義慶</span>
-        </div>
-        <div><span class="tag">筆記小說</span> <span class="tag">魏晉風度</span></div>
-        <h3>經典篇章</h3>
-        <ul>
-            <li><strong>詠絮之才</strong>：謝道韞「未若柳絮因風起」勝過「撒鹽空中」。</li>
-            <li><strong>坦腹東床</strong>：王羲之灑脫自然的性格。</li>
-            <li><strong>絕妙好辭</strong>：曹操與楊修的智力較量（析字格）。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">與陳伯之書</span>
-            <span class="author">丘遲</span>
-        </div>
-        <div><span class="tag">書信</span> <span class="tag">駢文</span></div>
-        <h3>勸降技巧</h3>
-        <ul>
-            <li><strong>動之以情</strong>：暮春三月，江南草長，雜花生樹，群鶯亂飛（鄉愁）。</li>
-            <li><strong>曉之以理</strong>：強調梁朝寬大，不咎既往。</li>
-            <li><strong>威之以勢</strong>：說明北魏內部混亂，陳伯之處境危險。</li>
-        </ul>
-    </div>
-
-    <!-- ================= 唐宋時期 ================= -->
-    <div class="era-title">唐宋古文 (八大家/貶謫文學)</div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">師說</span>
-            <span class="author">韓愈</span>
-        </div>
-        <div><span class="tag">論說文</span> <span class="tag">古文運動</span></div>
-        <h3>核心論點</h3>
-        <ul>
-            <li><strong>定義</strong>：師者，所以傳道、授業、解惑也。</li>
-            <li><strong>擇師標準</strong>：無貴無賤，無長無少，道之所存，師之所存。</li>
-            <li><strong>批判</strong>：士大夫之族恥於相師（小學而大遺）。</li>
-            <li><strong>對比</strong>：古之聖人 vs 今之眾人；士大夫 vs 百工之人。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">始得西山宴遊記</span>
-            <span class="author">柳宗元</span>
-        </div>
-        <div><span class="tag">遊記</span> <span class="tag">永州八記</span></div>
-        <h3>心境轉折</h3>
-        <ul>
-            <li><strong>未得</strong>：原本以為遊遍永州，其實只是「施施而行，漫漫而遊」。</li>
-            <li><strong>始得</strong>：發現西山，特立獨行（象徵自己的人格）。</li>
-            <li><strong>境界</strong>：心凝形釋，與萬化冥合（物我合一，解脫貶謫的痛苦）。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">虯髯客傳</span>
-            <span class="author">杜光庭</span>
-        </div>
-        <div><span class="tag">唐傳奇</span> <span class="tag">豪俠小說</span></div>
-        <h3>風塵三俠</h3>
-        <ul>
-            <li><strong>紅拂女</strong>：慧眼識英雄，串聯李靖與虯髯客的關鍵。</li>
-            <li><strong>李靖</strong>：有才幹，輔佐明主。</li>
-            <li><strong>虯髯客</strong>：有野心但識時務，見李世民（真命天子）後，大方讓出家產，轉往海外創業。</li>
-            <li><strong>主旨</strong>：暗示唐朝統治是天命所歸。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">岳陽樓記</span>
-            <span class="author">范仲淹</span>
-        </div>
-        <div><span class="tag">記敘+議論</span> <span class="tag">藉事抒情</span></div>
-        <h3>結構分析</h3>
-        <ul>
-            <li><strong>寫景</strong>：洞庭湖的勝狀（銜遠山，吞長江）。</li>
-            <li><strong>覽物之情</strong>：
-                <br>雨悲（去國懷鄉，憂讒畏譏）；
-                <br>晴喜（心曠神怡，寵辱偕忘）。
-            </li>
-            <li><strong>古仁人之心</strong>：<span class="highlight">不以物喜，不以己悲</span>。</li>
-            <li><strong>抱負</strong>：先天下之憂而憂，後天下之樂而樂。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">醉翁亭記</span>
-            <span class="author">歐陽脩</span>
-        </div>
-        <div><span class="tag">遊記</span> <span class="tag">剝筍法</span></div>
-        <h3>「樂」的層次</h3>
-        <ul>
-            <li><strong>山水之樂</strong>：醉翁之意不在酒，在乎山水之間也。</li>
-            <li><strong>宴酣之樂</strong>：太守宴客，眾賓歡。</li>
-            <li><strong>禽鳥之樂</strong>：鳥不知人之樂。</li>
-            <li><strong>太守之樂</strong>：<span class="highlight">與民同樂</span>（最高境界）。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">赤壁賦</span>
-            <span class="author">蘇軾</span>
-        </div>
-        <div><span class="tag">賦</span> <span class="tag">主客問答</span></div>
-        <h3>哲理思辯</h3>
-        <ul>
-            <li><strong>客之悲</strong>：羨長江之無窮，哀吾生之須臾（感嘆生命短暫）。</li>
-            <li><strong>蘇子之達</strong>：
-                <br>1. <strong>變與不變</strong>：自其變者而觀之，天地曾不能以一瞬；自其不變者而觀之，物與我皆無盡也。
-                <br>2. <strong>取與不取</strong>：造物者之無盡藏（清風明月），取之無禁，用之不竭。
-            </li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">諫太宗十思疏</span>
-            <span class="author">魏徵</span>
-        </div>
-        <div><span class="tag">奏議</span> <span class="tag">居安思危</span></div>
-        <h3>核心比喻</h3>
-        <ul>
-            <li><strong>積德</strong>：求木之長者，必固其根本；欲流之遠者，必浚其泉源。</li>
-            <li><strong>載舟覆舟</strong>：怨不在大，可畏惟人；載舟覆舟，所宜深慎。</li>
-            <li><strong>十思</strong>：針對唐太宗的奢侈、傲慢、享樂提出具體建議（如：見可欲，則思知足以自戒）。</li>
-        </ul>
-    </div>
-
-    <!-- ================= 明清/台灣 ================= -->
-    <div class="era-title">明清 / 台灣古典文學</div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">郁離子選</span>
-            <span class="author">劉基 (劉伯溫)</span>
-        </div>
-        <div><span class="tag">政治寓言</span> <span class="tag">諷刺</span></div>
-        <h3>篇章：賣柑者言</h3>
-        <ul>
-            <li><strong>金玉其外，敗絮其中</strong>：諷刺朝廷官員外表光鮮，內在腐敗無能。</li>
-            <li>藉賣柑者之口，抨擊當權者「坐糜廩粟而不知恥」。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
+        <div class="card-title-row">
             <span class="title">項脊軒志</span>
-            <span class="author">歸有光</span>
+            <span class="author">歸有光 (震川先生)</span>
         </div>
-        <div><span class="tag">抒情文</span> <span class="tag">日常瑣事</span></div>
-        <h3>情感寄託</h3>
+        <div class="tags">
+            <span class="tag">明代散文</span>
+            <span class="tag">以小見大</span>
+            <span class="tag">人事興廢</span>
+        </div>
+
+        <h3>情感寄託 (物是人非)</h3>
         <ul>
-            <li><strong>物是人非</strong>：借老屋（項脊軒）的興廢，回憶祖母、母親、妻子。</li>
-            <li><strong>細節動人</strong>：
-                <br>母親：兒寒乎？欲食乎？（敲門聲）
-                <br>祖母：此吾祖太常公宣德間執此以朝（象笏）。
-                <br>妻子：庭有枇杷樹，吾妻死之年所手植也，今已亭亭如蓋矣。
+            <li><strong>書房 (項脊軒)</strong>：見證家族分崩離析 (東犬西吠，客踰庖而宴)。</li>
+            <li><strong>懷人</strong>：
+                <ul>
+                    <li><strong>先妣 (母)</strong>：兒寒乎？欲食乎？(母愛細膩)。</li>
+                    <li><strong>大母 (祖母)</strong>：此吾祖太常公宣德間執此以朝 (象笏)，期許功名。</li>
+                    <li><strong>亡妻</strong>：庭有枇杷樹，吾妻死之年所手植也，今已亭亭如蓋矣 (睹物思人，餘韻無窮)。</li>
+                </ul>
             </li>
         </ul>
     </div>
 
+    <!-- 10. 北投硫穴記 -->
     <div class="card">
-        <div class="card-header">
-            <span class="title">晚遊六橋待月記</span>
-            <span class="author">袁宏道</span>
-        </div>
-        <div><span class="tag">遊記</span> <span class="tag">獨抒性靈</span></div>
-        <h3>審美觀點</h3>
-        <ul>
-            <li><strong>獨特眼光</strong>：眾人遊西湖在午未申三時（中午），作者獨愛「朝煙」與「夕嵐」。</li>
-            <li><strong>極致之美</strong>：月景尤不可言，花態柳情，山容水意，別有一種趣味。</li>
-            <li><strong>金粉氣</strong>：認為杭人遊湖是湊熱鬧，非真懂賞景。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">原君</span>
-            <span class="author">黃宗羲</span>
-        </div>
-        <div><span class="tag">政治議論文</span> <span class="tag">民主啟蒙</span></div>
-        <h3>批判君權</h3>
-        <ul>
-            <li><strong>古之君</strong>：受勞而不享樂，為天下興利除害。</li>
-            <li><strong>今之君</strong>：以天下之利盡歸於己，以天下之害盡歸於人（敲剝天下之骨髓）。</li>
-            <li><strong>結論</strong>：君主是大害。主張「天下為主，君為客」。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">廉恥</span>
-            <span class="author">顧炎武</span>
-        </div>
-        <div><span class="tag">論說文</span> <span class="tag">士大夫氣節</span></div>
-        <h3>論點</h3>
-        <ul>
-            <li><strong>四維</strong>：禮義廉恥，其中「恥」最重要（恥，人之大端）。</li>
-            <li><strong>無恥之恥</strong>：引用《孟子》，人若能以「無恥」為恥，則終身不恥。</li>
-            <li><strong>批判</strong>：痛斥明末清初士大夫變節、閹然媚世的風氣。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">左忠毅公逸事</span>
-            <span class="author">方苞</span>
-        </div>
-        <div><span class="tag">桐城派</span> <span class="tag">師生情誼</span></div>
-        <h3>寫作手法</h3>
-        <ul>
-            <li><strong>側面烘托</strong>：不直接寫左光斗（左忠毅）有多偉大，而是透過史可法的成就來襯托老師的教誨。</li>
-            <li><strong>關鍵場景</strong>：獄中探視，左光斗怒斥史可法「國家之事，糜爛至此，老夫已矣，汝復輕身而昧大義...」，展現國事重於私情的剛毅。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
-            <span class="title">勞山道士</span>
-            <span class="author">蒲松齡 (聊齋)</span>
-        </div>
-        <div><span class="tag">神怪小說</span> <span class="tag">諷刺</span></div>
-        <h3>寓意</h3>
-        <ul>
-            <li><strong>王生</strong>：吃不了苦，想求速成（穿牆術），最後撞牆起大包。</li>
-            <li><strong>諷刺</strong>：諷刺世人不想努力、心術不正（想用穿牆術偷東西/炫耀），最後終將失敗。</li>
-        </ul>
-    </div>
-
-    <div class="card">
-        <div class="card-header">
+        <div class="card-title-row">
             <span class="title">北投硫穴記</span>
-            <span class="author">郁永河</span>
+            <span class="author">郁永河 (裨海紀遊)</span>
         </div>
-        <div><span class="tag">台灣遊記</span> <span class="tag">寫實</span></div>
-        <h3>描寫特色</h3>
-        <ul>
-            <li><strong>探險精神</strong>：深入蠻荒，紀錄台灣西部的地理與原住民風俗。</li>
-            <li><strong>硫穴景觀</strong>：毒氣逼人，草木不生，沸泉怒吼（地獄般的景象）。</li>
-        </ul>
-    </div>
+        <div class="tags">
+            <span class="tag">台灣遊記</span>
+            <span class="tag">地理實察</span>
+        </div>
 
-    <div class="card">
-        <div class="card-header">
-            <span class="title">台灣通史序</span>
-            <span class="author">連橫</span>
-        </div>
-        <div><span class="tag">序跋</span> <span class="tag">民族精神</span></div>
-        <h3>核心精神</h3>
+        <h3>寫景特色</h3>
         <ul>
-            <li><strong>國可滅，而史不可滅</strong>：強調保存歷史文化的重要性。</li>
-            <li><strong>婆娑之洋，美麗之島</strong>：讚嘆台灣地理，激發愛鄉情懷。</li>
-            <li><strong>篳路藍縷，以啟山林</strong>：感念先民開拓的艱辛。</li>
+            <li><strong>路途</strong>：乘獨木舟，緣溪入，穿過森林 (林木蓊翳)，像進入蠻荒世界。</li>
+            <li><strong>硫穴</strong>：
+                <br>聽覺：如雷、如波濤。
+                <br>嗅覺：觸鼻、腐氣。
+                <br>視覺：白氣縷縷、草木不生、沸珠噴濺 (形容像地獄)。
+            </li>
+            <li><strong>顧君在旁</strong>：透過對話 (君敢入乎？)，側面烘托作者的探險勇氣。</li>
         </ul>
     </div>
 
