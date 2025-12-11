@@ -1,73 +1,193 @@
-<!-- 這是 index.html (總目錄) -->
 <!DOCTYPE html>
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>學測複習總站</title>
+    <title>學測複習總部</title>
     <style>
+        /* --- 基礎設定 --- */
         body {
-            font-family: system-ui, -apple-system, sans-serif;
-            background-color: #f0f2f5;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: #f3f4f6; /* 你原本的淺灰色背景 */
+            color: #1f2937;
+            margin: 0;
+            padding: 20px;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
             min-height: 100vh;
-            margin: 0;
-            padding: 20px;
         }
-        h1 { color: #2c3e50; margin-bottom: 30px; }
-        .menu-container {
-            width: 100%;
-            max-width: 400px;
+
+        h1 {
+            color: #1f2937; /* 深灰黑標題 */
+            margin-bottom: 30px;
+            font-size: 2rem;
+            text-align: center;
+        }
+
+        /* --- 分頁切換按鈕 (Tabs) --- */
+        .tab-container {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            background: #e5e7eb;
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 30px;
         }
-        .link-btn {
-            display: block;
+
+        .tab-btn {
+            padding: 10px 30px;
+            border: none;
+            background: transparent;
+            cursor: pointer;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #6b7280;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+
+        /* 被選中時的樣子 */
+        .tab-btn.active {
+            background-color: #ffffff;
+            color: #3b82f6; /* 亮藍色 */
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        /* --- 卡片容器 --- */
+        .content-section {
+            width: 100%;
+            max-width: 600px;
+            display: none; /* 預設隱藏，靠 JS 打開 */
+            animation: fadeIn 0.5s ease;
+        }
+
+        .content-section.show {
+            display: block; /* 顯示 */
+        }
+
+        /* --- 卡片設計 (保留你原本的風格) --- */
+        .card {
+            display: flex;
+            align-items: center;
+            background: #ffffff;
             padding: 20px;
-            background: white;
+            border-radius: 12px;
             text-decoration: none;
             color: #333;
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-            font-size: 1.2rem;
-            font-weight: bold;
-            text-align: center;
-            transition: transform 0.2s;
-            border-left: 8px solid #3498db; /* 裝飾線 */
+            margin-bottom: 20px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            transition: transform 0.2s, box-shadow 0.2s;
+            border-left: 8px solid #ccc; /* 左側色條 */
         }
-        .link-btn:hover {
+
+        .card:hover {
             transform: translateY(-3px);
-            background-color: #fff;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
-        .desc { font-size: 0.9rem; color: #666; font-weight: normal; display: block; margin-top: 5px;}
+
+        .icon {
+            font-size: 2rem;
+            margin-right: 20px;
+            width: 50px;
+            text-align: center;
+        }
+
+        .text-area h2 { margin: 0; font-size: 1.25rem; color: #111827; }
+        .text-area p { margin: 5px 0 0; color: #6b7280; font-size: 0.9rem; }
+
+        /* --- 各科目的色條顏色 --- */
+        .border-blue { border-left-color: #3b82f6; }   /* 英文 */
+        .border-green { border-left-color: #10b981; }  /* 生物 */
+        .border-yellow { border-left-color: #f59e0b; } /* 地科 */
+        .border-purple { border-left-color: #8b5cf6; } /* 國中英文 */
+
+        /* --- 動畫 --- */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
     </style>
 </head>
 <body>
 
-    <h1>學測複習總部</h1>
+    <h1>📚 複習資源總部</h1>
 
-    <div class="menu-container">
-        <!-- 這裡連向英文檔案 -->
-        <a href="eng_vo.html" class="link-btn">
-            🔤 英文單字特訓
-            <span class="desc">一些精煉後的單字測驗</span>
-        </a>
-
-        <!-- 之後你有生物代碼，存成 bio.html 上傳後，這個按鈕就會生效 -->
-        <a href="biology.html" class="link-btn" style="border-left-color: #2ecc71;">
-            🧬 生物重點整理
-            <span class="desc">整理好的一些資料</span>
-        </a>
-
-        <a href="earth_science_review.html" class="link-btn" style="border-left-color: #f1c40f;">
-            🌍 地科總複習
-            <span class="desc">目前只整理了大氣和海洋</span>
-        </a>
+    <!-- 1. 切換開關 -->
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="switchTab('senior')">高中學測</button>
+        <button class="tab-btn" onclick="switchTab('junior')">國中會考</button>
     </div>
+
+    <!-- 2. 高中內容區塊 (預設顯示) -->
+    <div id="senior-section" class="content-section show">
+        
+        <!-- 英文 -->
+        <a href="eng_vo.html" class="card border-blue">
+            <div class="icon">🔤</div>
+            <div class="text-area">
+                <h2>英文單字特訓</h2>
+                <p>一些精煉後的單字測驗</p>
+            </div>
+        </a>
+
+        <!-- 生物 -->
+        <a href="biology.html" class="card border-green">
+            <div class="icon">🧬</div>
+            <div class="text-area">
+                <h2>生物重點整理</h2>
+                <p>整理好的一些資料</p>
+            </div>
+        </a>
+
+        <!-- 地科 -->
+        <a href="earth_science_review.html" class="card border-yellow">
+            <div class="icon">🌍</div>
+            <div class="text-area">
+                <h2>地科總複習</h2>
+                <p>目前整理了大氣和海洋</p>
+            </div>
+        </a>
+
+    </div>
+
+    <!-- 3. 國中內容區塊 (預設隱藏) -->
+    <div id="junior-section" class="content-section">
+        
+        <!-- 國中英文 (連結到新檔案) -->
+        <a href="junior_english.html" class="card border-purple">
+            <div class="icon">🧸</div>
+            <div class="text-area">
+                <h2>國中英語 B5 單字</h2>
+                <p>翰林版 L5 ~ L6 單字特訓</p>
+            </div>
+        </a>
+
+        <!-- 這裡以後可以加更多國中科目 -->
+
+    </div>
+
+    <!-- 4. JavaScript 控制切換邏輯 -->
+    <script>
+        function switchTab(type) {
+            // 1. 把所有內容藏起來
+            document.getElementById('senior-section').classList.remove('show');
+            document.getElementById('junior-section').classList.remove('show');
+
+            // 2. 把按鈕的亮燈關掉
+            const buttons = document.querySelectorAll('.tab-btn');
+            buttons.forEach(btn => btn.classList.remove('active'));
+
+            // 3. 判斷要開哪一個
+            if (type === 'senior') {
+                document.getElementById('senior-section').classList.add('show');
+                buttons[0].classList.add('active'); // 第一個按鈕亮燈
+            } else {
+                document.getElementById('junior-section').classList.add('show');
+                buttons[1].classList.add('active'); // 第二個按鈕亮燈
+            }
+        }
+    </script>
 
 </body>
 </html>
