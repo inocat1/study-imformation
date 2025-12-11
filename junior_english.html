@@ -434,7 +434,7 @@
         });
         
         // 自動發音
-        speakText(q.en);
+        //speakText(q.en);
     }
 
     function checkAnswer(selected, correct, btn) {
@@ -500,7 +500,7 @@
         speakText(word);
     }
 
-    //function speakText(text) {
+    function speakText(text) {
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'en-US';
         window.speechSynthesis.speak(utterance);
