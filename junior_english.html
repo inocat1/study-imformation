@@ -501,6 +501,8 @@
     }
 
     function speakText(text) {
+        window.speechSynthesis.cancel();
+        
         const utterance = new SpeechSynthesisUtterance(text);
         utterance.lang = 'en-US';
         utterance.volume = 0.5;  
