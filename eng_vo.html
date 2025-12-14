@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Vocabulary Archive</title>
     <style>
-        /* # 設定全域變數，方便統一管理顏色 (像是在挑選檔案櫃的油漆顏色) */
+        /* # 設定全域變數 */
         :root {
             --bg-color: #2c3e50;        /* 背景深藍灰色 */
             --cabinet-color: #34495e;   /* 檔案櫃本體顏色 */
@@ -16,7 +16,7 @@
             --accent-color: #e74c3c;    /* 強調色 (紅色) */
         }
 
-        /* # 基礎網頁設定，去除預設邊距 */
+        /* # 基礎網頁設定 */
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background-color: var(--bg-color);
@@ -32,7 +32,7 @@
         /* # 檔案櫃的主容器 */
         .cabinet-container {
             width: 100%;
-            max-width: 1000px;
+            max-width: 1200px;
             height: 90vh;
             background-color: var(--cabinet-color);
             border-radius: 10px;
@@ -48,46 +48,43 @@
             display: flex;
             background-color: #2c3e50;
             padding: 10px 10px 0 10px;
-            overflow-x: auto; /* 如果標籤太多，允許左右滑動 */
+            overflow-x: auto;
+            white-space: nowrap;
         }
 
-        /* # 每一個標籤的按鈕設計 */
+        /* # 標籤按鈕 */
         .tab-btn {
             padding: 10px 20px;
             margin-right: 5px;
             border: none;
-            border-radius: 10px 10px 0 0; /* 只有上方圓角 */
+            border-radius: 10px 10px 0 0;
             background-color: var(--tab-inactive);
             color: white;
             cursor: pointer;
             font-weight: bold;
             transition: all 0.3s ease;
-            white-space: nowrap;
+            font-size: 14px;
         }
 
-        /* # 當標籤被選中時的樣式 */
         .tab-btn.active {
             background-color: var(--tab-active);
             color: var(--text-color);
-            transform: translateY(0px);
             box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
         }
 
-        /* # 當滑鼠移過去時的微互動 */
         .tab-btn:hover:not(.active) {
             background-color: #bdc3c7;
         }
 
-        /* # 檔案內容顯示區 (看起來像一張紙) */
+        /* # 內容顯示區 */
         .file-content {
             flex: 1;
             background-color: var(--paper-color);
             padding: 40px;
-            overflow-y: auto; /* 內容太多時出現卷軸 */
+            overflow-y: auto;
             position: relative;
         }
 
-        /* # 紙張上方的裝飾線條，增加質感 */
         .file-content::before {
             content: "";
             position: absolute;
@@ -95,10 +92,9 @@
             left: 40px;
             bottom: 0;
             width: 2px;
-            background-color: rgba(255, 0, 0, 0.1); /* 紅色格線 */
+            background-color: rgba(255, 0, 0, 0.1);
         }
 
-        /* # 標題樣式 */
         h2 {
             margin-top: 0;
             color: var(--cabinet-color);
@@ -107,30 +103,31 @@
             padding-bottom: 5px;
         }
 
-        /* # 單字列表的容器 (Grid 佈局) */
+        /* # 單字列表容器 */
         .word-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); /* 自動排版，每格至少300px */
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 15px;
             margin-top: 20px;
         }
 
-        /* # 單個單字卡片的設計 */
+        /* # 單字卡片 */
         .word-card {
             background: white;
             padding: 15px;
             border-left: 5px solid var(--cabinet-color);
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             transition: transform 0.2s;
+            position: relative;
         }
 
         .word-card:hover {
-            transform: translateX(5px); /* 滑鼠移過去稍微向右動 */
+            transform: translateX(5px);
             border-left-color: var(--accent-color);
         }
 
         .word-en {
-            font-size: 1.1em;
+            font-size: 1.2em;
             font-weight: bold;
             color: #2c3e50;
         }
@@ -146,9 +143,10 @@
             display: block;
             margin-top: 5px;
             color: #555;
+            line-height: 1.4;
         }
 
-        /* # 卷軸美化 (Webkit瀏覽器專用) */
+        /* # 卷軸美化 */
         .file-content::-webkit-scrollbar {
             width: 8px;
         }
@@ -156,29 +154,29 @@
             background-color: #bdc3c7;
             border-radius: 4px;
         }
+        .tabs-header::-webkit-scrollbar {
+            height: 6px;
+        }
+        .tabs-header::-webkit-scrollbar-thumb {
+            background-color: #7f8c8d;
+            border-radius: 3px;
+        }
     </style>
 </head>
 <body>
 
-    <!-- # HTML 結構：這是一個檔案櫃容器 -->
     <div class="cabinet-container">
-        <!-- # 上方的標籤列 -->
-        <nav class="tabs-header" id="tabsHeader">
-            <!-- JavaScript 會自動在這裡產生按鈕 -->
-        </nav>
-
-        <!-- # 內容顯示區 -->
+        <nav class="tabs-header" id="tabsHeader"></nav>
         <section class="file-content" id="fileContent">
-            <h2>Select a File</h2>
-            <p>請點擊上方的標籤來查看單字筆記。</p>
+            <h2>Loading...</h2>
         </section>
     </div>
 
     <script>
-        // # 1. 資料準備區：將你的筆記文字以字串形式存入物件中
-        // # 這裡使用 const 宣告一個常數變數 rawData
+        // # 1. 資料庫：已將原本的文字依據「回數」整理至此
+        // # 物件鍵名(Key)決定了標籤顯示的名稱，我已幫你重新排序 (1 -> 9)
         const rawData = {
-            "Round 1": `
+            "第一回 (1-5 冊)": `
 1. sentence (n.) 句子; 判刑
 4. dispense (v.) 分配；發放
 5. context (n.) 語境；背景
@@ -428,7 +426,7 @@
 292. encyclopedia (n.) 百科全書
 293. current (adj./n.) 目前的；水流
             `,
-            "Round 2": `
+            "第二回 (1-5 冊)": `
 1. warf (wharf) 碼頭 (n.)
 2. quality 品質；特質 (n.)
 3. prolong 延長 (v.)
@@ -628,7 +626,7 @@
 197. moderate 適度的；調節 (adj./v.)
 198. intense 強烈的；緊張的 (adj.)
             `,
-            "Round 3": `
+            "第三回 (1-5 冊)": `
 1. implement 實施；執行 (v.)
 2. expansion 擴張；膨脹 (n.)
 3. reluctant 不情願的；勉強的 (adj.)
@@ -801,7 +799,7 @@
 170. previous 先前的；以前的 (adj.)
 171. prove 證明；驗證 (v.)
             `,
-            "Round 4": `
+            "第四回 (1-5冊)": `
 1. ancient (adj.) 古老的
 2. democratic (adj.) 民主的
 3. target (n./v.) 目標；以…為目標
@@ -1065,7 +1063,7 @@
 261. independence (n.) 獨立
 262. beneficial (adj.) 有益的
             `,
-            "Round 5": `
+            "第五回 (1-5 冊)": `
 1. ignore (v.) 忽略
 2. whistle (v./n.) 口哨；吹口哨
 3. whisper (v./n.) 低語；耳語
@@ -1268,7 +1266,7 @@
 200. otherwise (adv.) 否則
 201. patience (n.) 耐心
             `,
-            "Round 6": `
+            "第六回 (1-5 冊 111 全模)": `
 1. label (v./n.) 貼標籤；標籤
 2. behavior (n.) 行為
 3. attitude (n.) 態度
@@ -1438,7 +1436,7 @@
 167. necessity (n.) 必需品；必要
 168. failure (n.) 失敗
             `,
-            "Round 7": `
+            "第七回 (1-5 冊 113 北北基)": `
 1. strict (adj.) 嚴格的
 2. misbehave (v.) 行為不端
 3. intimidate (v.) 威嚇；恐嚇
@@ -1557,7 +1555,7 @@
 122. innovation (n.) 創新
 126. controversial (adj.) 有爭議的
             `,
-            "Round 8": `
+            "第八回 (1-5冊 111 北模)": `
 1. frequently (adv.) 頻繁地
 2. obesity (n.) 肥胖
 3. disease (n.) 疾病
@@ -1843,7 +1841,7 @@
 283. bronze (n.) 青銅
 284. carve (v.) 雕刻
             `,
-            "Round 9": `
+            "第九回 (1-5 冊)": `
 2. sufficiently (adv.) 充足地
 4. slightly (adv.) 稍微
 6. jade (n.) 玉
@@ -1979,34 +1977,30 @@
                 line = line.trim();
                 if (!line) return;
 
-                // # 這裡使用正規表達式 (Regex) 來抓取單字結構
-                // # 格式分析：數字. 英文 (詞性) 中文
-                // # 例如：2. sufficiently (adv.) 充足地
-                let match = line.match(/^(\d+)\.\s+(.+?)\s+(\([a-z\.\/\s]+\))\s+(.+)$/);
+                // # 格式分析：
+                // # 1. 標準格式: 數字. 英文 (詞性) 中文
+                // # 2. 第二回格式: 數字. 英文 中文 (詞性)
+                
+                let matchStandard = line.match(/^(\d+)\.\s+(.+?)\s+(\([a-z\.\/\s]+\))\s+(.+)$/);
+                let matchSpecial = line.match(/^(\d+)\.\s+(.+?)\s+(.+?)\s+(\([a-z\.\/\s]+\))$/);
                 
                 let word, pos, meaning;
 
-                if (match) {
-                    // # 標準格式處理 (Round 1, 3-9)
-                    word = match[2].trim();
-                    pos = match[3].trim();
-                    meaning = match[4].trim();
+                if (matchStandard) {
+                    word = matchStandard[2].trim();
+                    pos = matchStandard[3].trim();
+                    meaning = matchStandard[4].trim();
+                } else if (matchSpecial) {
+                    word = matchSpecial[2].trim();
+                    meaning = matchSpecial[3].trim();
+                    pos = matchSpecial[4].trim();
                 } else {
-                    // # 特殊格式處理 (Round 2)：數字. 英文 中文 (詞性)
-                    // # 例如：2. quality 品質；特質 (n.)
-                    let matchRound2 = line.match(/^(\d+)\.\s+(.+?)\s+(.+?)\s+(\([a-z\.\/\s]+\))$/);
-                    if (matchRound2) {
-                        word = matchRound2[2].trim();
-                        meaning = matchRound2[3].trim();
-                        pos = matchRound2[4].trim();
-                    } else {
-                        // # 萬一有格式跑掉的，做個簡易備援
-                        let simpleParts = line.split('.');
-                        if(simpleParts.length > 1) {
-                            word = simpleParts[1].trim(); 
-                            pos = "";
-                            meaning = "";
-                        }
+                    // # 萬一有格式跑掉的，做個簡易備援
+                    let simpleParts = line.split('.');
+                    if(simpleParts.length > 1) {
+                        word = simpleParts[1].trim(); 
+                        pos = "";
+                        meaning = "";
                     }
                 }
 
@@ -2028,7 +2022,7 @@
             const tabsContainer = document.getElementById('tabsHeader');
             const contentContainer = document.getElementById('fileContent');
             
-            // # 取得所有的回數名稱 (Round 1, Round 2...)
+            // # 取得所有的回數名稱
             const rounds = Object.keys(rawData);
 
             // # 預設顯示第一回
@@ -2039,7 +2033,7 @@
                 // # 清空內容區
                 contentContainer.innerHTML = '';
                 
-                // # 更新標籤的選取狀態 (Active class)
+                // # 更新標籤的選取狀態
                 document.querySelectorAll('.tab-btn').forEach(btn => {
                     btn.classList.remove('active');
                     if (btn.innerText === roundKey) {
