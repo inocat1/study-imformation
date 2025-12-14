@@ -355,7 +355,7 @@
         </div>
 
         <div style="text-align:center; margin-top:30px;">
-            <button class="back-btn" onclick="if(confirm('確定退出？')) showMenu()">退出測驗</button>
+            <button class="back-btn" onclick="showMenu()">退出測驗</button>
         </div>
     </div>
 
@@ -2247,8 +2247,6 @@
             `;
             grid.appendChild(card);
         });
-
-        document.getElementById('total-words').innerText = totalWords;
     }
 
     // 選擇章節
@@ -2264,9 +2262,18 @@
     }
 
     // 更新數據顯示
+    // 更新數據顯示
     function updateStats() {
         document.getElementById('selected-count').innerText = selectedChapters.size;
         
+        // --- 新增這段：計算已選章節的總字數 ---
+        let currentTotal = 0;
+        selectedChapters.forEach(cat => {
+            currentTotal += categories[cat].length;
+        });
+        document.getElementById('total-words').innerText = currentTotal;
+        // ------------------------------------
+
         // 更新按鈕狀態
         const btnQuiz = document.getElementById('btn-start-quiz');
         const hasSelection = selectedChapters.size > 0;
