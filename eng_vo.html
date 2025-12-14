@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Vocabulary Archive</title>
     <style>
-        /* # 設定全域變數 */
+        /* # 設定全域變數：統一管理顏色 */
         :root {
             --bg-color: #2c3e50;        /* 背景深藍灰色 */
             --cabinet-color: #34495e;   /* 檔案櫃本體顏色 */
@@ -49,34 +49,36 @@
             background-color: #2c3e50;
             padding: 10px 10px 0 10px;
             overflow-x: auto;
-            white-space: nowrap;
+            white-space: nowrap; /* 確保標籤不換行 */
         }
 
-        /* # 標籤按鈕 */
+        /* # 標籤按鈕樣式 */
         .tab-btn {
-            padding: 10px 20px;
-            margin-right: 5px;
+            padding: 12px 20px;
+            margin-right: 4px;
             border: none;
-            border-radius: 10px 10px 0 0;
+            border-radius: 8px 8px 0 0;
             background-color: var(--tab-inactive);
             color: white;
             cursor: pointer;
             font-weight: bold;
-            transition: all 0.3s ease;
             font-size: 14px;
+            transition: all 0.3s ease;
         }
 
+        /* # 標籤被選中時的樣式 */
         .tab-btn.active {
             background-color: var(--tab-active);
             color: var(--text-color);
             box-shadow: 0 -2px 10px rgba(0,0,0,0.2);
+            transform: translateY(0);
         }
 
         .tab-btn:hover:not(.active) {
             background-color: #bdc3c7;
         }
 
-        /* # 內容顯示區 */
+        /* # 內容顯示區 (紙張質感) */
         .file-content {
             flex: 1;
             background-color: var(--paper-color);
@@ -85,6 +87,7 @@
             position: relative;
         }
 
+        /* # 紙張左側的裝飾紅線 */
         .file-content::before {
             content: "";
             position: absolute;
@@ -101,34 +104,38 @@
             border-bottom: 3px solid var(--tab-active);
             display: inline-block;
             padding-bottom: 5px;
+            margin-bottom: 20px;
         }
 
-        /* # 單字列表容器 */
+        /* # 單字網格系統 */
         .word-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 15px;
-            margin-top: 20px;
+            padding-bottom: 20px;
         }
 
-        /* # 單字卡片 */
+        /* # 單字卡片設計 */
         .word-card {
             background: white;
             padding: 15px;
             border-left: 5px solid var(--cabinet-color);
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-            transition: transform 0.2s;
-            position: relative;
+            transition: transform 0.2s, box-shadow 0.2s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
 
         .word-card:hover {
             transform: translateX(5px);
             border-left-color: var(--accent-color);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
         }
 
         .word-en {
             font-size: 1.2em;
-            font-weight: bold;
+            font-weight: 700;
             color: #2c3e50;
         }
 
@@ -136,14 +143,23 @@
             font-style: italic;
             color: #7f8c8d;
             font-size: 0.9em;
-            margin-left: 5px;
+            margin-left: 8px;
         }
 
         .word-zh {
             display: block;
             margin-top: 5px;
             color: #555;
+            font-size: 1em;
             line-height: 1.4;
+        }
+
+        /* # 統計資訊 (顯示該回有幾個字) */
+        .count-info {
+            font-size: 0.9em;
+            color: #7f8c8d;
+            margin-left: 10px;
+            font-weight: normal;
         }
 
         /* # 卷軸美化 */
@@ -155,28 +171,30 @@
             border-radius: 4px;
         }
         .tabs-header::-webkit-scrollbar {
-            height: 6px;
+            height: 4px;
         }
         .tabs-header::-webkit-scrollbar-thumb {
             background-color: #7f8c8d;
-            border-radius: 3px;
         }
     </style>
 </head>
 <body>
 
     <div class="cabinet-container">
+        <!-- 標籤列 -->
         <nav class="tabs-header" id="tabsHeader"></nav>
+        
+        <!-- 內容區 -->
         <section class="file-content" id="fileContent">
             <h2>Loading...</h2>
         </section>
     </div>
 
     <script>
-        // # 1. 資料庫：已將原本的文字依據「回數」整理至此
-        // # 物件鍵名(Key)決定了標籤顯示的名稱，我已幫你重新排序 (1 -> 9)
+        // # 1. 資料庫
+        // # 這裡將所有回數的資料整理進去，鍵名(Key) 已經依照順序排列
         const rawData = {
-            "第一回 (1-5 冊)": `
+            "第一回": `
 1. sentence (n.) 句子; 判刑
 4. dispense (v.) 分配；發放
 5. context (n.) 語境；背景
@@ -426,7 +444,7 @@
 292. encyclopedia (n.) 百科全書
 293. current (adj./n.) 目前的；水流
             `,
-            "第二回 (1-5 冊)": `
+            "第二回": `
 1. warf (wharf) 碼頭 (n.)
 2. quality 品質；特質 (n.)
 3. prolong 延長 (v.)
@@ -626,7 +644,7 @@
 197. moderate 適度的；調節 (adj./v.)
 198. intense 強烈的；緊張的 (adj.)
             `,
-            "第三回 (1-5 冊)": `
+            "第三回": `
 1. implement 實施；執行 (v.)
 2. expansion 擴張；膨脹 (n.)
 3. reluctant 不情願的；勉強的 (adj.)
@@ -799,7 +817,7 @@
 170. previous 先前的；以前的 (adj.)
 171. prove 證明；驗證 (v.)
             `,
-            "第四回 (1-5冊)": `
+            "第四回": `
 1. ancient (adj.) 古老的
 2. democratic (adj.) 民主的
 3. target (n./v.) 目標；以…為目標
@@ -1063,7 +1081,7 @@
 261. independence (n.) 獨立
 262. beneficial (adj.) 有益的
             `,
-            "第五回 (1-5 冊)": `
+            "第五回": `
 1. ignore (v.) 忽略
 2. whistle (v./n.) 口哨；吹口哨
 3. whisper (v./n.) 低語；耳語
@@ -1266,7 +1284,7 @@
 200. otherwise (adv.) 否則
 201. patience (n.) 耐心
             `,
-            "第六回 (1-5 冊 111 全模)": `
+            "第六回": `
 1. label (v./n.) 貼標籤；標籤
 2. behavior (n.) 行為
 3. attitude (n.) 態度
@@ -1436,7 +1454,7 @@
 167. necessity (n.) 必需品；必要
 168. failure (n.) 失敗
             `,
-            "第七回 (1-5 冊 113 北北基)": `
+            "第七回": `
 1. strict (adj.) 嚴格的
 2. misbehave (v.) 行為不端
 3. intimidate (v.) 威嚇；恐嚇
@@ -1555,7 +1573,7 @@
 122. innovation (n.) 創新
 126. controversial (adj.) 有爭議的
             `,
-            "第八回 (1-5冊 111 北模)": `
+            "第八回": `
 1. frequently (adv.) 頻繁地
 2. obesity (n.) 肥胖
 3. disease (n.) 疾病
@@ -1841,7 +1859,7 @@
 283. bronze (n.) 青銅
 284. carve (v.) 雕刻
             `,
-            "第九回 (1-5 冊)": `
+            "第九回": `
 2. sufficiently (adv.) 充足地
 4. slightly (adv.) 稍微
 6. jade (n.) 玉
@@ -1967,20 +1985,17 @@
             `
         };
 
-        // # 2. 解析資料的函數：把文字變成程式看得懂的結構
+        // # 2. 解析資料的函數
         function parseVocabulary(roundName, text) {
             const lines = text.trim().split('\n');
             const vocabList = [];
-            const seenWords = new Set(); // # 用來檢查是否有重複的單字
+            const seenWords = new Set(); // # 用來檢查該回中是否有重複的單字
 
             lines.forEach(line => {
                 line = line.trim();
                 if (!line) return;
 
-                // # 格式分析：
-                // # 1. 標準格式: 數字. 英文 (詞性) 中文
-                // # 2. 第二回格式: 數字. 英文 中文 (詞性)
-                
+                // # 格式分析正則表達式
                 let matchStandard = line.match(/^(\d+)\.\s+(.+?)\s+(\([a-z\.\/\s]+\))\s+(.+)$/);
                 let matchSpecial = line.match(/^(\d+)\.\s+(.+?)\s+(.+?)\s+(\([a-z\.\/\s]+\))$/);
                 
@@ -1995,7 +2010,6 @@
                     meaning = matchSpecial[3].trim();
                     pos = matchSpecial[4].trim();
                 } else {
-                    // # 萬一有格式跑掉的，做個簡易備援
                     let simpleParts = line.split('.');
                     if(simpleParts.length > 1) {
                         word = simpleParts[1].trim(); 
@@ -2005,7 +2019,7 @@
                 }
 
                 if (word) {
-                    // # 檢查重複：如果這個單字還沒出現過，才加入列表
+                    // # 檢查重複：如果這個單字還沒在這一回出現過，才加入
                     if (!seenWords.has(word)) {
                         seenWords.add(word);
                         vocabList.push({ word, pos, meaning });
@@ -2017,7 +2031,7 @@
             return vocabList.sort((a, b) => a.word.localeCompare(b.word));
         }
 
-        // # 3. 渲染畫面的函數：把資料顯示到網頁上
+        // # 3. 渲染畫面的函數
         function renderApp() {
             const tabsContainer = document.getElementById('tabsHeader');
             const contentContainer = document.getElementById('fileContent');
@@ -2028,12 +2042,12 @@
             // # 預設顯示第一回
             let currentRound = rounds[0];
 
-            // # 定義切換標籤的動作
+            // # 切換標籤
             function switchTab(roundKey) {
-                // # 清空內容區
+                // # 清空內容
                 contentContainer.innerHTML = '';
                 
-                // # 更新標籤的選取狀態
+                // # 更新標籤狀態
                 document.querySelectorAll('.tab-btn').forEach(btn => {
                     btn.classList.remove('active');
                     if (btn.innerText === roundKey) {
@@ -2041,19 +2055,28 @@
                     }
                 });
 
-                // # 建立標題
+                // # 解析資料
+                const vocabData = parseVocabulary(roundKey, rawData[roundKey]);
+
+                // # 建立標題與統計
+                const titleWrapper = document.createElement('div');
+                
                 const title = document.createElement('h2');
                 title.innerText = roundKey;
-                contentContainer.appendChild(title);
-
-                // # 解析並排序該回的單字
-                const vocabData = parseVocabulary(roundKey, rawData[roundKey]);
+                
+                const countInfo = document.createElement('span');
+                countInfo.className = 'count-info';
+                countInfo.innerText = `(${vocabData.length} words)`;
+                
+                titleWrapper.appendChild(title);
+                titleWrapper.appendChild(countInfo);
+                contentContainer.appendChild(titleWrapper);
 
                 // # 建立網格容器
                 const grid = document.createElement('div');
                 grid.className = 'word-grid';
 
-                // # 逐一建立單字卡片
+                // # 產生卡片
                 vocabData.forEach(item => {
                     const card = document.createElement('div');
                     card.className = 'word-card';
@@ -2079,11 +2102,10 @@
                 tabsContainer.appendChild(btn);
             });
 
-            // # 初始執行一次，載入第一頁
+            // # 初始化
             switchTab(currentRound);
         }
 
-        // # 啟動程式
         renderApp();
 
     </script>
