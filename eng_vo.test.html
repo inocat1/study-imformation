@@ -379,9 +379,9 @@
 
 <script>
     // ================= 1. 資料處理核心 =================
-    // 這裡放你提供的超長字串
+    // 這裡放你提供的超長字串，我已經幫你加上 ### 標題，以配合下方的解析邏輯
     const rawData = `
-"第一回 (1-5 冊)": 
+### 第一回 (1-5 冊)
 1. sentence (n.) 句子; 判刑
 4. dispense (v.) 分配；發放
 5. context (n.) 語境；背景
@@ -630,8 +630,8 @@
 291. brochure (n.) 小冊子
 292. encyclopedia (n.) 百科全書
 293. current (adj./n.) 目前的；水流
-            `,
-            "第二回 (1-5 冊)": `
+
+### 第二回 (1-5 冊)
 1. warf (wharf) 碼頭 (n.)
 2. quality 品質；特質 (n.)
 3. prolong 延長 (v.)
@@ -830,8 +830,8 @@
 196. engage in 從事；參與 (phr.)
 197. moderate 適度的；調節 (adj./v.)
 198. intense 強烈的；緊張的 (adj.)
-            `,
-            "第三回 (1-5 冊)": `
+
+### 第三回 (1-5 冊)
 1. implement 實施；執行 (v.)
 2. expansion 擴張；膨脹 (n.)
 3. reluctant 不情願的；勉強的 (adj.)
@@ -1003,8 +1003,8 @@
 169. unrest 動亂；不安 (n.)
 170. previous 先前的；以前的 (adj.)
 171. prove 證明；驗證 (v.)
-            `,
-            "第四回 (1-5冊)": `
+
+### 第四回 (1-5冊)
 1. ancient (adj.) 古老的
 2. democratic (adj.) 民主的
 3. target (n./v.) 目標；以…為目標
@@ -1267,8 +1267,8 @@
 260. schedule (n./v.) 時程；安排
 261. independence (n.) 獨立
 262. beneficial (adj.) 有益的
-            `,
-            "第五回 (1-5 冊)": `
+
+### 第五回 (1-5 冊)
 1. ignore (v.) 忽略
 2. whistle (v./n.) 口哨；吹口哨
 3. whisper (v./n.) 低語；耳語
@@ -1470,8 +1470,8 @@
 199. waterproof (adj.) 防水的
 200. otherwise (adv.) 否則
 201. patience (n.) 耐心
-            `,
-            "第六回 (1-5 冊 111 全模)": `
+
+### 第六回 (1-5 冊 111 全模)
 1. label (v./n.) 貼標籤；標籤
 2. behavior (n.) 行為
 3. attitude (n.) 態度
@@ -1640,8 +1640,8 @@
 166. fail to (phr.) 未能；沒做到
 167. necessity (n.) 必需品；必要
 168. failure (n.) 失敗
-            `,
-            "第七回 (1-5 冊 113 北北基)": `
+
+### 第七回 (1-5 冊 113 北北基)
 1. strict (adj.) 嚴格的
 2. misbehave (v.) 行為不端
 3. intimidate (v.) 威嚇；恐嚇
@@ -1759,8 +1759,8 @@
 118. utilize (v.) 利用
 122. innovation (n.) 創新
 126. controversial (adj.) 有爭議的
-            `,
-            "第八回 (1-5冊 111 北模)": `
+
+### 第八回 (1-5冊 111 北模)
 1. frequently (adv.) 頻繁地
 2. obesity (n.) 肥胖
 3. disease (n.) 疾病
@@ -2045,8 +2045,8 @@
 282. remain (v.) 保持；留下
 283. bronze (n.) 青銅
 284. carve (v.) 雕刻
-            `,
-            "第九回 (1-5 冊)": `
+
+### 第九回 (1-5 冊)
 2. sufficiently (adv.) 充足地
 4. slightly (adv.) 稍微
 6. jade (n.) 玉
@@ -2169,8 +2169,7 @@
 243. hormone (n.) 荷爾蒙
 245. intelligent (adj.) 智能的；聰明的
 246. simultaneously (adv.) 同時地
-`
-;
+`;
 
     // 1.2 LINE 偵測模組 (放在最前面執行)
     function isLineApp() {
