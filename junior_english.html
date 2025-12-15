@@ -756,9 +756,9 @@
             if (quizType === 'sentence') {
                 document.querySelector('.q-sentence').innerHTML = 
                     document.querySelector('.q-sentence').innerHTML.replace('_____', `<span style="color:var(--success); border-bottom:2px solid var(--success);">${correctVal}</span>`);
-                speakText(document.querySelector('.q-sentence').innerText); 
+                //speakText(document.querySelector('.q-sentence').innerText); 
             } else {
-                speakText(correctVal); 
+                //speakText(correctVal); 
             }
         } else {
             btn.classList.add('wrong');
