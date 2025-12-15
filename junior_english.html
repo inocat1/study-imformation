@@ -3,10 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>國中英語 B5 單字特訓</title>
+    <title>英語單字綜合特訓基地</title>
     <style>
         :root {
-            --primary: #3b82f6;
+            --primary: #3b82f6;       /* 國中區塊藍色 */
+            --hs-color: #8b5cf6;      /* 高中區塊紫色 */
+            --sentence-color: #f59e0b; /* 例句挑戰黃色 */
             --success: #10b981;
             --error: #ef4444;
             --bg: #f3f4f6;
@@ -34,6 +36,7 @@
             padding: 20px;
             position: relative;
             overflow: hidden;
+            padding-bottom: 50px;
         }
 
         /* 標題與導航 */
@@ -44,19 +47,26 @@
             padding-bottom: 10px;
         }
 
-        h1 { margin: 0; font-size: 1.5rem; color: var(--primary); }
+        h1 { margin: 0; font-size: 1.5rem; color: #1f2937; }
         .subtitle { color: #6b7280; font-size: 0.9rem; margin-top: 5px; }
 
-        /* 視圖切換 (隱藏/顯示) */
-        .view { display: none; }
+        /* 視圖切換 */
+        .view { display: none; animation: fadeIn 0.3s; }
         .view.active { display: block; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
 
-        /* 首頁選單按鈕 */
-        .menu-grid {
-            display: grid;
-            grid-template-columns: 1fr;
-            gap: 15px;
+        /* --- 首頁選單佈局 --- */
+        .section-header {
+            font-size: 1.1rem;
+            font-weight: bold;
+            margin: 20px 0 10px 0;
+            padding-left: 10px;
+            border-left: 5px solid #ccc;
+            display: flex;
+            align-items: center;
         }
+
+        .menu-grid { display: grid; gap: 10px; }
         
         .mode-section {
             background: #f9fafb;
@@ -65,32 +75,44 @@
             border: 1px solid #e5e7eb;
         }
 
-        .mode-title { font-weight: bold; margin-bottom: 10px; color: #4b5563; }
+        .mode-title { font-weight: bold; margin-bottom: 10px; color: #4b5563; font-size: 0.95rem; }
+
+        /* 按鈕樣式 */
+        .btn-group {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+        }
 
         button {
             width: 100%;
             padding: 12px;
             border: none;
             border-radius: 8px;
-            font-size: 1rem;
+            font-size: 0.95rem;
             cursor: pointer;
             transition: 0.2s;
-            background-color: var(--primary);
+            background-color: #6b7280;
             color: white;
             font-weight: bold;
-            margin-bottom: 8px;
         }
 
         button:hover { opacity: 0.9; transform: translateY(-1px); }
-        button.secondary { background-color: #6b7280; }
-        button.outline { background: transparent; border: 2px solid var(--primary); color: var(--primary); }
+        
+        /* 顏色主題 */
+        .btn-blue { background-color: var(--primary); }
+        .btn-purple { background-color: var(--hs-color); }
+        .btn-orange { background-color: var(--sentence-color); }
+        .btn-full { grid-column: span 2; }
+        
+        button.outline { background: transparent; border: 2px solid #6b7280; color: #6b7280; margin-top: 10px; }
 
-        /* 單字卡列表樣式 */
+        /* 單字卡列表 */
         .word-list {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
-            max-height: 60vh;
+            max-height: 65vh;
             overflow-y: auto;
         }
         .word-card {
@@ -101,11 +123,11 @@
             border: 1px solid #bfdbfe;
             cursor: pointer;
         }
-        .wc-en { font-weight: bold; font-size: 1.1rem; }
+        .wc-tag { font-size: 0.7rem; color: #666; background: #eee; border-radius: 4px; padding: 2px 6px; display: inline-block; margin-bottom: 4px;}
+        .wc-en { font-weight: bold; font-size: 1.1rem; color: #1f2937; }
         .wc-zh { font-size: 0.9rem; color: #555; }
-        .wc-tag { font-size: 0.7rem; color: var(--primary); margin-bottom: 2px;}
 
-        /* 測驗模式樣式 */
+        /* 測驗模式 */
         .quiz-header {
             display: flex;
             justify-content: space-between;
@@ -131,26 +153,51 @@
 
         .question-card {
             background: #f8fafc;
-            padding: 30px;
+            padding: 30px 20px;
             border-radius: 12px;
             text-align: center;
             margin-bottom: 20px;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             position: relative;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
 
-        .q-word { font-size: 2rem; font-weight: bold; color: var(--text); margin-bottom: 5px; }
-        .q-part { font-size: 0.9rem; color: #9ca3af; font-style: italic; }
+        /* 單字題顯示 */
+        .q-word { font-size: 2rem; font-weight: bold; color: var(--text); }
+        
+        /* 例句題顯示 */
+        .q-sentence { 
+            font-size: 1.15rem; 
+            font-weight: 500; 
+            color: #374151; 
+            text-align: left; 
+            line-height: 1.5;
+        }
+        .q-sentence-zh {
+            font-size: 0.9rem;
+            color: #6b7280;
+            margin-top: 12px;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 8px;
+            width: 100%;
+            text-align: left;
+        }
 
         .speak-btn {
             background: none;
             border: none;
-            color: var(--primary);
+            color: #666;
             font-size: 1.5rem;
             cursor: pointer;
-            padding: 5px;
+            padding: 0;
+            margin-top: 10px;
             width: auto;
-            display: inline-block;
         }
+        .speak-btn:hover { color: var(--primary); }
 
         .options-grid { display: grid; gap: 10px; }
         
@@ -160,51 +207,89 @@
             color: var(--text);
             text-align: left;
             padding: 15px;
+            font-size: 1rem;
         }
 
         .option-btn:hover { background: #f9fafb; border-color: #d1d5db; }
-        
         .option-btn.correct { background: #d1fae5; border-color: var(--success); color: #065f46; }
         .option-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
 
         /* 結果頁面 */
-        .result-score { font-size: 3rem; font-weight: bold; color: var(--primary); text-align: center; }
+        .result-score { font-size: 3.5rem; font-weight: bold; color: #1f2937; text-align: center; }
         .result-msg { text-align: center; margin-bottom: 20px; color: #6b7280; }
-
-        .back-home { margin-top: 20px; }
-
+        
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>國中英語 B5 單字特訓</h1>
-        <div class="subtitle">翰林版 L5 ~ L6 總複習</div>
+        <h1>單字特訓基地</h1>
+        <div class="subtitle">國中 B5 & 高中 Units 37-39</div>
     </header>
 
     <!-- 1. 首頁選單 View -->
     <div id="menu-view" class="view active">
+        
+        <!-- 區塊一：國中 B5 -->
+        <div class="section-header" style="border-color: var(--primary); color: var(--primary);">
+            🔵 國中英語 B5 (L5 ~ L6)
+        </div>
         <div class="menu-grid">
             <div class="mode-section">
-                <div class="mode-title">📖 單字卡模式 (只看不考)</div>
-                <button onclick="startStudy('B5-L5')">第五課單字 (L5)</button>
-                <button onclick="startStudy('B5-L6')">第六課單字 (L6)</button>
-                <button onclick="startStudy('ALL')" class="secondary">全部單字</button>
+                <div class="mode-title">📖 單字卡模式</div>
+                <div class="btn-group">
+                    <button class="btn-blue" onclick="startStudy('B5-L5')">L5 單字</button>
+                    <button class="btn-blue" onclick="startStudy('B5-L6')">L6 單字</button>
+                    <button class="btn-blue btn-full" onclick="startStudy('B5_ALL')" style="background-color: #2563eb;">全部 B5 單字</button>
+                </div>
             </div>
-
             <div class="mode-section">
                 <div class="mode-title">📝 測驗模式 (四選一)</div>
-                <button onclick="startQuiz('B5-L5')">測驗：第五課</button>
-                <button onclick="startQuiz('B5-L6')">測驗：第六課</button>
-                <button onclick="startQuiz('ALL')" class="secondary">測驗：全部混和</button>
+                <div class="btn-group">
+                    <button class="btn-blue" onclick="startWordQuiz('B5-L5')">測驗 L5</button>
+                    <button class="btn-blue" onclick="startWordQuiz('B5-L6')">測驗 L6</button>
+                    <button class="btn-blue btn-full" onclick="startWordQuiz('B5_ALL')" style="background-color: #2563eb;">測驗 B5 全部</button>
+                </div>
             </div>
         </div>
+
+        <!-- 區塊二：高中 Units 37-39 -->
+        <div class="section-header" style="border-color: var(--hs-color); color: var(--hs-color); margin-top: 30px;">
+            🟣 高中英語 (Units 37 ~ 39)
+        </div>
+        <div class="menu-grid">
+            <div class="mode-section">
+                <div class="mode-title">📖 單字卡模式</div>
+                <div class="btn-group">
+                    <button class="btn-purple" onclick="startStudy('Unit 37')">Unit 37</button>
+                    <button class="btn-purple" onclick="startStudy('Unit 38')">Unit 38</button>
+                    <button class="btn-purple" onclick="startStudy('Unit 39')">Unit 39</button>
+                    <button class="btn-purple" onclick="startStudy('HS_ALL')">全部高中</button>
+                </div>
+            </div>
+            <div class="mode-section">
+                <div class="mode-title">📝 測驗模式 (四選一)</div>
+                <div class="btn-group">
+                    <button class="btn-purple" onclick="startWordQuiz('Unit 37')">測驗 U37</button>
+                    <button class="btn-purple" onclick="startWordQuiz('Unit 38')">測驗 U38</button>
+                    <button class="btn-purple" onclick="startWordQuiz('Unit 39')">測驗 U39</button>
+                    <button class="btn-purple" onclick="startWordQuiz('HS_ALL')">測驗高中混和</button>
+                </div>
+            </div>
+            
+            <!-- 特別挑戰：例句填空 -->
+            <div class="mode-section" style="background: #fffbeb; border-color: var(--sentence-color);">
+                <div class="mode-title" style="color: #b45309;">🎯 進階挑戰</div>
+                <button class="btn-orange" onclick="startSentenceQuiz()">Unit 37 例句填空測驗</button>
+            </div>
+        </div>
+
     </div>
 
     <!-- 2. 單字卡列表 View -->
     <div id="study-view" class="view">
-        <button onclick="showMenu()" class="outline" style="margin-bottom:15px;">← 回選單</button>
+        <button onclick="showMenu()" class="outline" style="margin-bottom:15px;">← 回主選單</button>
         <div id="study-list" class="word-list">
             <!-- JS 會塞入單字卡 -->
         </div>
@@ -218,13 +303,13 @@
         </div>
         <div class="progress-bar"><div id="progress-fill" class="progress-fill"></div></div>
 
-        <div class="question-card">
-            <div id="q-word" class="q-word">Word</div>
-            <button class="speak-btn" onclick="speakCurrent()">🔊</button>
+        <!-- 題目卡片區域 (單字或句子) -->
+        <div id="question-card" class="question-card">
+            <!-- 內容由 JS 動態生成 -->
         </div>
 
         <div id="options-container" class="options-grid">
-            <!-- JS 會塞入選項 -->
+            <!-- 選項按鈕 -->
         </div>
 
         <button onclick="showMenu()" class="outline" style="margin-top:20px;">退出測驗</button>
@@ -235,34 +320,25 @@
         <div class="result-score" id="final-score">100</div>
         <div class="result-msg">測驗結束！</div>
         <div id="wrong-list" class="word-list" style="margin-bottom:20px;"></div>
-        <button onclick="showMenu()" class="back-home">回首頁</button>
+        <button onclick="showMenu()" class="btn-blue">回主選單</button>
     </div>
 
 </div>
 
-
-    
 <script>
-
-        // ================= LINE 偵測與引導 =================
-    function isLineApp() {
-        const ua = navigator.userAgent || navigator.vendor || window.opera;
-        return (ua.indexOf("Line") > -1);
-    }
-
-    if (isLineApp()) {
-        // 如果是用 LINE 開啟，插入一個巨大的提示條
+    // ================= LINE 偵測 =================
+    if (navigator.userAgent.indexOf("Line") > -1) {
         const warningDiv = document.createElement('div');
         warningDiv.style.cssText = "position:fixed; top:0; left:0; width:100%; background:#ff9800; color:white; z-index:9999; padding:15px; text-align:center; font-weight:bold; box-shadow:0 2px 10px rgba(0,0,0,0.2);";
-        warningDiv.innerHTML = "⚠️ 偵測到您使用 LINE 開啟<br>語音功能可能會失效！<br>請點選右下（上）角 ⋮ 並選擇「用瀏覽器開啟」以獲得最佳體驗。";
+        warningDiv.innerHTML = "⚠️ 偵測到您使用 LINE 開啟<br>語音可能失效，建議使用瀏覽器開啟。";
         document.body.prepend(warningDiv);
     }
-    // =================================================
-        
+
+    // ================= 資料庫 =================
     
-    // ================= 資料庫 (JSON) =================
+    // 1. 綜合單字資料庫 (包含原本的 B5 和新的 High School)
     const wordData = [
-        // B5-L5
+        // --- 國中 B5 L5 ---
         { t: "B5-L5", en: "arrive", zh: "抵達" },
         { t: "B5-L5", en: "planet", zh: "行星" },
         { t: "B5-L5", en: "appear", zh: "出現" },
@@ -307,7 +383,7 @@
         { t: "B5-L5", en: "pearl", zh: "珍珠" },
         { t: "B5-L5", en: "cosplayer", zh: "角色扮演者" },
 
-        // B5-L6
+        // --- 國中 B5 L6 ---
         { t: "B5-L6", en: "apartment", zh: "公寓" },
         { t: "B5-L6", en: "glad", zh: "高興的" },
         { t: "B5-L6", en: "town", zh: "小鎮" },
@@ -349,32 +425,193 @@
         { t: "B5-L6", en: "the Louvre", zh: "羅浮宮" },
         { t: "B5-L6", en: "complain", zh: "抱怨" },
         { t: "B5-L6", en: "fairy", zh: "精靈; 仙子" },
-        { t: "B5-L6", en: "jewel", zh: "寶石" }
+        { t: "B5-L6", en: "jewel", zh: "寶石" },
+
+        // --- 高中 Unit 37 ---
+        { t: "Unit 37", en: "equipment", zh: "設備; 裝備" },
+        { t: "Unit 37", en: "facility", zh: "設施；設備" },
+        { t: "Unit 37", en: "device", zh: "裝置；設備" },
+        { t: "Unit 37", en: "identical", zh: "相同的；一模一樣的" },
+        { t: "Unit 37", en: "confess", zh: "坦承；告白" },
+        { t: "Unit 37", en: "tremendous", zh: "巨大的；驚人的" },
+        { t: "Unit 37", en: "massive", zh: "大量的；巨大的" },
+        { t: "Unit 37", en: "extensive", zh: "廣泛的；大量的" },
+        { t: "Unit 37", en: "expend", zh: "花費; 消耗" },
+        { t: "Unit 37", en: "expand", zh: "擴張；擴大" },
+        { t: "Unit 37", en: "inflation", zh: "通貨膨脹" },
+        { t: "Unit 37", en: "recession", zh: "經濟衰退" },
+        { t: "Unit 37", en: "generation", zh: "世代" },
+        { t: "Unit 37", en: "gap", zh: "差距；缺口" },
+        { t: "Unit 37", en: "tremble", zh: "顫抖" },
+        { t: "Unit 37", en: "vibrate", zh: "震動" },
+        { t: "Unit 37", en: "quote", zh: "引述；引用；報價" },
+        { t: "Unit 37", en: "ornament", zh: "裝飾品" },
+        { t: "Unit 37", en: "decorate", zh: "裝飾；布置" },
+        { t: "Unit 37", en: "accessory", zh: "配件；飾品" },
+        { t: "Unit 37", en: "atmosphere", zh: "氣氛；大氣層" },
+        { t: "Unit 37", en: "astronaut", zh: "太空人" },
+        { t: "Unit 37", en: "satellite", zh: "衛星" },
+        { t: "Unit 37", en: "complicate", zh: "使複雜" },
+        { t: "Unit 37", en: "ridiculous", zh: "荒謬的；可笑的" },
+        { t: "Unit 37", en: "glacier", zh: "冰河" },
+        { t: "Unit 37", en: "adolescent", zh: "青少年；青春期的" },
+        { t: "Unit 37", en: "sacrifice", zh: "犧牲" },
+        { t: "Unit 37", en: "immune", zh: "免疫的；不受影響的" },
+        { t: "Unit 37", en: "vague", zh: "模糊的" },
+        { t: "Unit 37", en: "instead of", zh: "而不是" },
+        { t: "Unit 37", en: "be opposed to", zh: "反對" },
+        { t: "Unit 37", en: "suffer from", zh: "受…之苦；患有" },
+        { t: "Unit 37", en: "in vain", zh: "徒然；白費" },
+        { t: "Unit 37", en: "let alone", zh: "更不用說" },
+        { t: "Unit 37", en: "fool around", zh: "鬼混；虛度光陰" },
+
+        // --- 高中 Unit 38 ---
+        { t: "Unit 38", en: "instinct", zh: "本能" },
+        { t: "Unit 38", en: "instruction", zh: "教導；命令" },
+        { t: "Unit 38", en: "institute", zh: "訂立；協會" },
+        { t: "Unit 38", en: "instrument", zh: "儀器；樂器" },
+        { t: "Unit 38", en: "associate", zh: "與..有關聯" },
+        { t: "Unit 38", en: "organization", zh: "組織" },
+        { t: "Unit 38", en: "recognition", zh: "認可；辨識" },
+        { t: "Unit 38", en: "foundation", zh: "基礎；基金會" },
+        { t: "Unit 38", en: "extinguish", zh: "平息；熄滅" },
+        { t: "Unit 38", en: "distinguished", zh: "傑出的；卓越的" },
+        { t: "Unit 38", en: "gradually", zh: "逐漸地" },
+        { t: "Unit 38", en: "superstition", zh: "迷信" },
+        { t: "Unit 38", en: "supervise", zh: "監督" },
+        { t: "Unit 38", en: "resemble", zh: "相像" },
+        { t: "Unit 38", en: "assembly", zh: "集會；組合" },
+        { t: "Unit 38", en: "appetite", zh: "食慾" },
+        { t: "Unit 38", en: "prohibition", zh: "禁止；禁令" },
+        { t: "Unit 38", en: "forbid", zh: "禁止" },
+        { t: "Unit 38", en: "confine", zh: "限制；禁閉" },
+        { t: "Unit 38", en: "definitely", zh: "必定地；肯定地" },
+        { t: "Unit 38", en: "magnificent", zh: "壯麗的；宏偉的" },
+        { t: "Unit 38", en: "significant", zh: "重要的；有意義的" },
+        { t: "Unit 38", en: "illuminate", zh: "照亮；闡明" },
+        { t: "Unit 38", en: "illustrate", zh: "舉例說明" },
+        { t: "Unit 38", en: "frustrate", zh: "挫敗；使沮喪" },
+        { t: "Unit 38", en: "gender", zh: "性別" },
+        { t: "Unit 38", en: "penalty", zh: "處罰；刑罰" },
+        { t: "Unit 38", en: "abandon", zh: "放棄；拋棄" },
+        { t: "Unit 38", en: "lotion", zh: "乳液" },
+        { t: "Unit 38", en: "pirate", zh: "海盜; 盜印者" },
+        { t: "Unit 38", en: "make up", zh: "和好; 化妝" },
+        { t: "Unit 38", en: "tell apart", zh: "分辨" },
+        { t: "Unit 38", en: "separate from", zh: "與……分開" },
+        { t: "Unit 38", en: "on the other hand", zh: "另一方面" },
+        { t: "Unit 38", en: "make ends meet", zh: "收支平衡" },
+        { t: "Unit 38", en: "be associated with", zh: "與……有關聯" },
+
+        // --- 高中 Unit 39 ---
+        { t: "Unit 39", en: "appreciate", zh: "感激；欣賞" },
+        { t: "Unit 39", en: "appropriate", zh: "適當的" },
+        { t: "Unit 39", en: "adequate", zh: "足夠的" },
+        { t: "Unit 39", en: "position", zh: "位置；職位" },
+        { t: "Unit 39", en: "positive", zh: "正面的；積極的" },
+        { t: "Unit 39", en: "negative", zh: "負面的；消極的" },
+        { t: "Unit 39", en: "pessimistic", zh: "悲觀的" },
+        { t: "Unit 39", en: "negotiate", zh: "談判；協商" },
+        { t: "Unit 39", en: "elementary", zh: "初步的；初級的" },
+        { t: "Unit 39", en: "essential", zh: "必要的；不可或缺的" },
+        { t: "Unit 39", en: "fundamental", zh: "基礎的；根本的" },
+        { t: "Unit 39", en: "primarily", zh: "主要地" },
+        { t: "Unit 39", en: "anniversary", zh: "週年紀念" },
+        { t: "Unit 39", en: "hesitate", zh: "猶豫" },
+        { t: "Unit 39", en: "estimate", zh: "估計" },
+        { t: "Unit 39", en: "intimate", zh: "親密的" },
+        { t: "Unit 39", en: "imitation", zh: "模仿；仿製品" },
+        { t: "Unit 39", en: "irritate", zh: "激怒；刺激" },
+        { t: "Unit 39", en: "corporation", zh: "公司；法人" },
+        { t: "Unit 39", en: "abundant", zh: "豐富的" },
+        { t: "Unit 39", en: "resort", zh: "求助; 度假勝地" },
+        { t: "Unit 39", en: "souvenir", zh: "紀念品" },
+        { t: "Unit 39", en: "harmony", zh: "和諧" },
+        { t: "Unit 39", en: "stationary", zh: "不動的" },
+        { t: "Unit 39", en: "inspiration", zh: "激勵; 靈感" },
+        { t: "Unit 39", en: "comprehend", zh: "領會; 了解" },
+        { t: "Unit 39", en: "thermometer", zh: "溫度計" },
+        { t: "Unit 39", en: "famine", zh: "饑荒" },
+        { t: "Unit 39", en: "reckless", zh: "魯莽的" },
+        { t: "Unit 39", en: "terminal", zh: "終點站；末期的" },
+        { t: "Unit 39", en: "take advantage of", zh: "利用" },
+        { t: "Unit 39", en: "get one's own way", zh: "為所欲為" },
+        { t: "Unit 39", en: "uncondition that", zh: "假使; 以..為條件" },
+        { t: "Unit 39", en: "be qualified for", zh: "有…資格" },
+        { t: "Unit 39", en: "keep in shape", zh: "保持身材" },
+        { t: "Unit 39", en: "in perspective", zh: "正確地" }
     ];
 
-    // ================= 程式邏輯 (JavaScript) =================
+    // 2. 例句填空資料庫 (Unit 37)
+    const sentenceData = [
+        { q: "You can buy sports _____ at the store.", a: "equipment", zh: "你可以在那家商店買到體育用品。" },
+        { q: "Una purchased second-hand _____ in order to lower the cost of starting a business.", a: "facilities", zh: "優娜為了要降低創業的成本,購買了二手的設備。" },
+        { q: "We hope the scientists can invent a _____ to predict coming earthquakes.", a: "device", zh: "我們希望科學家們能發明可以預測地震即將來臨的裝置。" },
+        { q: "Our points of view about the plan are _____.", a: "identical", zh: "我們對那個計畫的觀點是相同的。" },
+        { q: "I must _____ to you that I didn't tell the truth yesterday.", a: "confess", zh: "我必須向你坦白我昨天沒說實話。" },
+        { q: "Panda babies are weak and need _____ care.", a: "tremendous", zh: "熊貓寶寶很虛弱並且需要大量的照護。" },
+        { q: "There were _____ landslides in the mountains during the storm.", a: "massive", zh: "暴風雨期間山中有大量的土石流。" },
+        { q: "We can get _____ knowledge by exploring the Internet.", a: "extensive", zh: "我們可以藉由搜尋網路來得到廣泛的知識。" },
+        { q: "Don't _____ your energy on such a mere trifle.", a: "expend", zh: "別耗費精力在這樣的小事。專注於你的工作吧。" },
+        { q: "The longest escalator in the world _____ from the foot of the hill to the hillside.", a: "expands", zh: "世界上最長的手扶梯,是從山腳延伸到山坡。" },
+        { q: "Our expense on daily necessities increases because of _____.", a: "inflation", zh: "因為通貨膨脹,我們日常必需品的花費增加了" },
+        { q: "Many factories closed down... during the period of economic _____.", a: "recession", zh: "在經濟衰退時期,許多工廠倒閉且許多人失業。" },
+        { q: "The heirlooms are handed down from _____ to generation.", a: "generation", zh: "那個傳家寶被一代一代地傳下去。" },
+        { q: "There is always some generation _____ between parents and children.", a: "gap", zh: "父母和小孩之間總是有代溝。" },
+        { q: "His lips _____ with fear when seeing a big cockroach in front of him.", a: "trembled", zh: "當看到一隻大蟑螂出現在他面前時,他的嘴唇因害怕而顫抖著。" },
+        { q: "The house _____ a little when strong winds struck.", a: "vibrated", zh: "當強風來襲時,屋子微微晃動。" },
+        { q: "The price they _____ is higher than that of another company.", a: "quoted", zh: "他們報的價格比另一家公司高。" },
+        { q: "The bathroom was _____ with pictures of landscape.", a: "ornamented", zh: "廁所裝飾著風景畫。" },
+        { q: "When we _____ our homes, we choose colors that welcome us...", a: "decorate", zh: "當我們裝飾我們的房子時,我們選擇會歡迎我們的顏色..." },
+        { q: "After Daniel bought a mountain bike, he also had to get many _____ for it.", a: "accessories", zh: "在丹尼爾買了一台登山車之後,他也必須為這台車買許多配件。" },
+        { q: "We like to have dinner in that restaurant because it has a romantic _____.", a: "atmosphere", zh: "我們喜歡在那家餐廳吃晚餐,因為它有浪漫的氣氛。" },
+        { q: "It is great progress for human civilization to send the _____ to the moon safely.", a: "astronauts", zh: "安全地將太空人送抵月球是人類文明的一大進步。" },
+        { q: "They launched an artificial _____ for lunar probes.", a: "satellite", zh: "他們發射一顆人造衛星來做月球探測。" },
+        { q: "The coming of a heavy typhoon _____ the arrangement of the wedding ceremony.", a: "complicates", zh: "強颱的來臨使得婚禮的安排更複雜了。" },
+        { q: "It is _____ of you to ask me such a private question...", a: "ridiculous", zh: "既然我們認識彼此不深,你問我這樣隱私的問題真是蠻荒謬的。" },
+        { q: "The _____ are melting and cause the sea level to rise.", a: "glaciers", zh: "冰河正融化,並且導致海平面上升" },
+        { q: "Many _____ like to wear either tight or baggy clothes.", a: "adolescents", zh: "現今許多青少年不是喜歡穿緊身的,就是寬垮的衣服。" },
+        { q: "Some people _____ health for wealth in their youth.", a: "sacrifice", zh: "有些人在年輕時犧牲健康以換取財富。" },
+        { q: "The Congressmen are _____ from arrest during the session of Congress.", a: "immune", zh: "國會議員在開會期間免受拘捕。" },
+        { q: "The Witness was _____ about what happened on the spot.", a: "vague", zh: "證人對於當場發生了什麼事,說得很含糊。" },
+        { q: "Can you pick up my grandmother... _____ of me?", a: "instead", zh: "你可不可以代替我去公車站接我的奶奶呢?" },
+        { q: "Many people are _____ to euthanasia.", a: "opposed", zh: "許多人反對安樂死。" },
+        { q: "He _____ from lovesickness after his girlfriend had left him.", a: "suffered", zh: "女友離開他之後,他遭受相思之苦。" },
+        { q: "We tried to cheer him up but it was in _____.", a: "vain", zh: "我們試著讓他開心起來,但卻徒勞無功" },
+        { q: "I didn't go out on that day, _____ alone shopped at that store.", a: "let", zh: "我那天並沒有出門,更不用說在那家商店購物了。" },
+        { q: "Jamin has _____ around in his youth. Now he regrets it very much.", a: "fooled", zh: "傑明虛度了他的少年時期。現在他很後悔。" }
+    ];
 
-    // 變數
+    // ================= 程式邏輯 =================
+
     let currentQuizList = [];
     let currentIndex = 0;
     let score = 0;
     let wrongAnswers = [];
     let isAnswered = false;
+    let quizType = 'word'; // 'word' (中選英/英選中) 或 'sentence' (填空)
 
     // 1. 切換畫面
     function switchView(viewId) {
         document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
         document.getElementById(viewId).classList.add('active');
+        window.scrollTo(0, 0);
     }
 
     function showMenu() {
         switchView('menu-view');
+        window.speechSynthesis.cancel();
     }
 
     // 2. 單字卡模式
     function startStudy(tag) {
-        let list = wordData;
-        if (tag !== 'ALL') {
+        let list = [];
+        
+        if (tag === 'B5_ALL') {
+            list = wordData.filter(item => item.t.startsWith("B5"));
+        } else if (tag === 'HS_ALL') {
+            list = wordData.filter(item => item.t.startsWith("Unit"));
+        } else {
             list = wordData.filter(item => item.t === tag);
         }
 
@@ -382,9 +619,10 @@
         container.innerHTML = "";
         
         list.forEach(item => {
+            let colorStyle = item.t.startsWith("Unit") ? "background:#f3e8ff; border-color:#d8b4fe; color:#6b21a8;" : "";
             container.innerHTML += `
                 <div class="word-card" onclick="speakText('${item.en}')">
-                    <div class="wc-tag">${item.t}</div>
+                    <div class="wc-tag" style="${colorStyle}">${item.t}</div>
                     <div class="wc-en">${item.en}</div>
                     <div class="wc-zh">${item.zh}</div>
                 </div>
@@ -393,24 +631,45 @@
         switchView('study-view');
     }
 
-    // 3. 測驗模式
-    function startQuiz(tag) {
+    // 3. 單字測驗模式
+    function startWordQuiz(tag) {
+        quizType = 'word';
         // 篩選題目
-        if (tag === 'ALL') {
-            currentQuizList = [...wordData];
+        if (tag === 'B5_ALL') {
+            currentQuizList = wordData.filter(item => item.t.startsWith("B5"));
+        } else if (tag === 'HS_ALL') {
+            currentQuizList = wordData.filter(item => item.t.startsWith("Unit"));
         } else {
             currentQuizList = wordData.filter(item => item.t === tag);
         }
         
-        // 洗牌
-        shuffle(currentQuizList);
+        initQuiz();
+    }
 
-        // 初始化
+    // 4. 例句測驗模式
+    function startSentenceQuiz() {
+        quizType = 'sentence';
+        currentQuizList = JSON.parse(JSON.stringify(sentenceData)); // 深拷貝
+        initQuiz();
+    }
+
+    function initQuiz() {
+        shuffle(currentQuizList);
         currentIndex = 0;
         score = 0;
         wrongAnswers = [];
         isAnswered = false;
         
+        // 設定進度條顏色
+        const fill = document.getElementById('progress-fill');
+        if (quizType === 'sentence') {
+            fill.style.background = 'var(--sentence-color)';
+        } else if (currentQuizList[0] && currentQuizList[0].t && currentQuizList[0].t.startsWith("Unit")) {
+            fill.style.background = 'var(--hs-color)';
+        } else {
+            fill.style.background = 'var(--primary)';
+        }
+
         loadQuestion();
         switchView('quiz-view');
     }
@@ -424,79 +683,130 @@
         isAnswered = false;
         const q = currentQuizList[currentIndex];
         
-        // 更新進度與分數
+        // 更新 UI
         document.getElementById('quiz-progress').innerText = `${currentIndex + 1} / ${currentQuizList.length}`;
         document.getElementById('quiz-score').innerText = `Score: ${score}`;
-        const pct = ((currentIndex) / currentQuizList.length) * 100;
-        document.getElementById('progress-fill').style.width = `${pct}%`;
+        document.getElementById('progress-fill').style.width = `${((currentIndex) / currentQuizList.length) * 100}%`;
 
-        // 顯示題目
-        document.getElementById('q-word').innerText = q.en;
-
-        // 產生選項 (1正解 + 3錯誤)
-        let options = [q];
-        let distractors = wordData.filter(x => x.en !== q.en); // 取得所有非正確答案
-        shuffle(distractors);
-        options.push(...distractors.slice(0, 3)); // 抓3個
-        shuffle(options); // 選項再洗牌
-
-        // 渲染按鈕
+        const questionCard = document.getElementById('question-card');
         const optContainer = document.getElementById('options-container');
         optContainer.innerHTML = "";
-        
-        options.forEach(opt => {
-            const btn = document.createElement('button');
-            btn.className = 'option-btn';
-            btn.innerText = opt.zh;
-            btn.onclick = () => checkAnswer(opt, q, btn);
-            optContainer.appendChild(btn);
-        });
-        
-        // 自動發音
-        //speakText(q.en);
+
+        if (quizType === 'word') {
+            // 單字題
+            questionCard.innerHTML = `
+                <div class="q-word">${q.en}</div>
+                <button class="speak-btn" onclick="speakText('${q.en}')">🔊</button>
+            `;
+            
+            // 選項產生 (中文)
+            let options = [q];
+            let distractors = wordData.filter(x => x.en !== q.en);
+            shuffle(distractors);
+            options.push(...distractors.slice(0, 3));
+            shuffle(options);
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt.zh;
+                btn.onclick = () => checkAnswer(opt.en, q.en, btn); 
+                optContainer.appendChild(btn);
+            });
+
+        } else {
+            // 例句題
+            questionCard.innerHTML = `
+                <div class="q-sentence">${q.q}</div>
+                <div class="q-sentence-zh">${q.zh}</div>
+            `;
+
+            // 選項產生 (英文單字)
+            let correctAns = q.a;
+            let options = [correctAns];
+            
+            // 從 Unit 37 單字庫找干擾項 (排除答案本身)
+            let unit37Words = wordData.filter(item => item.t === "Unit 37").map(item => item.en);
+            let distractors = unit37Words.filter(w => !correctAns.includes(w) && w !== correctAns);
+            
+            shuffle(distractors);
+            options.push(...distractors.slice(0, 3));
+            shuffle(options);
+
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'option-btn';
+                btn.innerText = opt;
+                btn.onclick = () => checkAnswer(opt, correctAns, btn);
+                optContainer.appendChild(btn);
+            });
+        }
     }
 
-    function checkAnswer(selected, correct, btn) {
-        if (isAnswered) return; // 防止連點
+    function checkAnswer(selectedVal, correctVal, btn) {
+        if (isAnswered) return;
         isAnswered = true;
 
         const allBtns = document.querySelectorAll('.option-btn');
         
-        if (selected.en === correct.en) {
-            // 答對
+        if (selectedVal === correctVal) {
             score++;
             btn.classList.add('correct');
+            // 如果是例句題，填空並朗讀
+            if (quizType === 'sentence') {
+                document.querySelector('.q-sentence').innerHTML = 
+                    document.querySelector('.q-sentence').innerHTML.replace('_____', `<span style="color:var(--success); border-bottom:2px solid var(--success);">${correctVal}</span>`);
+                speakText(document.querySelector('.q-sentence').innerText); 
+            } else {
+                speakText(correctVal); 
+            }
         } else {
-            // 答錯
             btn.classList.add('wrong');
-            wrongAnswers.push(correct);
+            wrongAnswers.push(currentQuizList[currentIndex]);
+            
             // 標示正確答案
             allBtns.forEach(b => {
-                if (b.innerText === correct.zh) b.classList.add('correct');
+                if (quizType === 'word') {
+                    // 反查中文來標示
+                    let correctItem = wordData.find(i => i.en === correctVal);
+                    if (correctItem && b.innerText === correctItem.zh) b.classList.add('correct');
+                } else {
+                    if (b.innerText === correctVal) b.classList.add('correct');
+                }
             });
         }
 
-        // 延遲跳下一題
         setTimeout(() => {
             currentIndex++;
             loadQuestion();
-        }, 1200);
+        }, 1500);
     }
 
     function showResult() {
-        document.getElementById('final-score').innerText = score;
+        document.getElementById('final-score').innerText = Math.round((score / currentQuizList.length) * 100);
         const wrongList = document.getElementById('wrong-list');
         wrongList.innerHTML = "";
         
         if (wrongAnswers.length > 0) {
-            wrongList.innerHTML = "<h3>💡 需複習的單字：</h3>";
+            wrongList.innerHTML = "<h3>💡 需複習：</h3>";
             wrongAnswers.forEach(item => {
-                wrongList.innerHTML += `
-                    <div class="word-card" style="border-color:#fca5a5; background:#fef2f2;">
-                        <div class="wc-en">${item.en}</div>
-                        <div class="wc-zh">${item.zh}</div>
-                    </div>
-                `;
+                if(item.en) {
+                    // 單字題
+                    wrongList.innerHTML += `
+                        <div class="word-card" style="border-color:#fca5a5; background:#fef2f2;" onclick="speakText('${item.en}')">
+                            <div class="wc-en">${item.en}</div>
+                            <div class="wc-zh">${item.zh}</div>
+                        </div>
+                    `;
+                } else {
+                    // 例句題
+                    wrongList.innerHTML += `
+                        <div class="word-card" style="border-color:#fca5a5; background:#fef2f2; text-align:left;">
+                            <div class="wc-en" style="font-size:1rem; margin-bottom:5px;">${item.q.replace('_____', `<u>${item.a}</u>`)}</div>
+                            <div class="wc-zh">${item.zh}</div>
+                        </div>
+                    `;
+                }
             });
         } else {
             wrongList.innerHTML = "<h3>🎉 太強了！全部答對！</h3>";
@@ -505,7 +815,6 @@
         switchView('result-view');
     }
 
-    // 工具函式：洗牌 (Fisher-Yates)
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
@@ -513,48 +822,17 @@
         }
     }
 
-    // 工具函式：發音
-    function speakCurrent() {
-        const word = document.getElementById('q-word').innerText;
-        speakText(word);
-    }
-
     function speakText(text) {
-        // 1. 停止之前的聲音
         window.speechSynthesis.cancel();
-
-        // 2. 按鈕變色效果
-        const btn = document.getElementById('tts-btn');
-        if(btn) btn.classList.add('playing');
-
         const utterance = new SpeechSynthesisUtterance(text);
         
-        // ================= 重點修改開始 =================
-        // LINE 瀏覽器有時候看不懂 .lang = 'en-US'
-        // 我們要手動去系統裡面把「英文語音包」抓出來塞給它
-        
         let voices = window.speechSynthesis.getVoices();
-        
-        // 嘗試找到第一個是英文的聲音
         let enVoice = voices.find(v => v.lang.includes('en'));
+        if (enVoice) utterance.voice = enVoice;
         
-        // 如果有找到，就強制指定用這個聲音
-        if (enVoice) {
-            utterance.voice = enVoice;
-        }
-        
-        utterance.lang = 'en-US'; // 保險起見還是留著
-        // ================= 重點修改結束 =================
-
+        utterance.lang = 'en-US';
         utterance.volume = 1;
-        utterance.rate = 0.8;
-
-        utterance.onend = function() {
-            if(btn) btn.classList.remove('playing');
-        };
-        utterance.onerror = function() {
-            if(btn) btn.classList.remove('playing');
-        };
+        utterance.rate = 0.85;
 
         window.speechSynthesis.speak(utterance);
     }
