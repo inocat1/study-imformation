@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>高中英單特訓基地</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,80 +13,77 @@
             --primary-light: #dbeafe;
             --success: #059669;
             --error: #dc2626;
-            --bg: #f1f5f9;
+            --bg: #f8fafc;
             --card: #ffffff;
             --text: #1e293b;
             --gray: #64748b;
+            --player-bg: #1e293b;
         }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Noto Sans TC', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: var(--text);
             margin: 0;
-            padding: 20px;
-            /* 預留底部空間給播放器，避免擋住內容 */
-            padding-bottom: 120px;
+            padding: 0;
             display: flex;
             justify-content: center;
             min-height: 100vh;
-            box-sizing: border-box;
         }
 
-        /* 背景裝飾 */
-        body::before {
-            content: ''; position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw;
-            background: rgba(255, 255, 255, 0.1); filter: blur(80px); border-radius: 50%; z-index: -1;
-        }
-        body::after {
-            content: ''; position: fixed; bottom: -10%; right: -10%; width: 50vw; height: 50vw;
-            background: rgba(255, 255, 255, 0.1); filter: blur(80px); border-radius: 50%; z-index: -1;
-        }
-
+        /* 滿版容器設計，更像 App */
         .container {
             width: 100%;
             max-width: 600px;
+            background: rgba(255, 255, 255, 0.98);
+            min-height: 100vh;
             position: relative;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 24px;
-            padding: 20px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-            height: fit-content;
-            min-height: 80vh;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
         }
 
         /* --- Header --- */
-        header { text-align: center; margin-bottom: 25px; }
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            border-bottom: 1px solid #e2e8f0;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+        }
         .back-btn {
-            display: inline-block; background: white; padding: 8px 16px; border-radius: 20px;
-            text-decoration: none; color: var(--gray); font-size: 0.9rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 15px; transition: 0.2s; border: none; cursor: pointer;
+            position: absolute; left: 15px; top: 20px;
+            background: #f1f5f9; border: none; padding: 5px 12px; border-radius: 15px;
+            font-size: 0.9rem; color: var(--gray); text-decoration: none; cursor: pointer;
         }
-        .back-btn:hover { background: var(--primary); color: white; }
-        h1 { margin: 0; font-size: 1.8rem; color: var(--primary); letter-spacing: 1px; }
-        .subtitle { color: var(--gray); font-size: 0.95rem; margin-top: 5px; }
+        h1 { margin: 0; font-size: 1.4rem; color: var(--primary); letter-spacing: 1px; }
+        .subtitle { color: var(--gray); font-size: 0.85rem; margin-top: 4px; }
 
-        /* --- View 切換 --- */
-        .view { display: none; animation: fadeIn 0.3s ease; }
-        .view.active { display: block; }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* --- View --- */
+        .view { display: none; padding: 20px; flex: 1; overflow-y: auto; }
+        .view.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Menu: 章節選擇 --- */
+        /* --- Menu List --- */
         .stats-panel {
-            background: var(--primary); color: white; padding: 15px 20px; border-radius: 12px;
+            background: var(--primary); color: white; padding: 15px 20px; border-radius: 16px;
             margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
-        .stats-num { font-size: 1.4rem; font-weight: bold; }
         .chapter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .chapter-card {
-            background: var(--card); border: 2px solid transparent; border-radius: 12px; padding: 15px;
-            cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; overflow: hidden;
+            background: #f8fafc; border: 2px solid transparent; border-radius: 12px; padding: 15px;
+            cursor: pointer; transition: 0.2s; position: relative; overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
         }
-        .chapter-card.selected { border-color: var(--primary); background-color: var(--primary-light); }
+        .chapter-card.selected { border-color: var(--primary); background-color: #eff6ff; }
         .chapter-card::after {
-            content: '✓'; position: absolute; top: 5px; right: 5px; background: var(--primary); color: white;
+            content: '✓'; position: absolute; top: 8px; right: 8px; background: var(--primary); color: white;
             border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; align-items: center;
             justify-content: center; opacity: 0; transform: scale(0); transition: 0.2s;
         }
@@ -94,86 +91,118 @@
         .ch-title { font-weight: bold; font-size: 1rem; margin-bottom: 5px; }
         .ch-count { font-size: 0.85rem; color: var(--gray); }
 
-        /* --- 底部懸浮操作列 (Menu用) --- */
-        .bottom-action-bar {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 580px;
-            background: white; padding: 10px; border-radius: 50px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-            display: flex; gap: 10px; z-index: 100;
+        /* --- 底部固定操作列 (Menu) --- */
+        .bottom-dock {
+            position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 600px;
+            background: white; padding: 15px 20px;
+            border-top: 1px solid #e2e8f0;
+            display: flex; gap: 12px; z-index: 100;
+            box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
         }
-        .action-btn { flex: 1; border: none; padding: 12px; border-radius: 30px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
-        .btn-study { background: #e2e8f0; color: var(--text); }
+        .action-btn {
+            flex: 1; border: none; padding: 14px; border-radius: 12px;
+            font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+        }
+        .btn-study { background: #f1f5f9; color: var(--text); }
         .btn-quiz { background: var(--primary); color: white; }
         .btn-quiz:disabled { background: #cbd5e1; cursor: not-allowed; }
-        .action-btn:active { transform: scale(0.95); }
+        .action-btn:active { transform: scale(0.96); }
 
-        /* --- 單字列表 & 連續播放 --- */
-        .word-list { display: flex; flex-direction: column; gap: 10px; padding-bottom: 20px; }
-        
+        /* 墊高底部，避免內容被按鈕遮住 */
+        .spacer { height: 100px; width: 100%; }
+
+        /* --- 單字列表 (Study) --- */
+        .word-list { display: flex; flex-direction: column; gap: 12px; }
         .vocab-card {
-            background: var(--card); padding: 15px 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--gray);
-            transition: all 0.3s ease; cursor: pointer;
+            background: white; padding: 16px; border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04); border: 1px solid #f1f5f9;
+            display: flex; justify-content: space-between; align-items: center;
+            border-left: 4px solid var(--gray); transition: all 0.3s ease;
         }
+        /* 播放時的高亮樣式 */
         .vocab-card.playing {
-            border-left-color: var(--primary); background-color: #eff6ff; transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+            border-left-color: var(--primary); background-color: #eff6ff;
+            transform: scale(1.02); box-shadow: 0 8px 20px rgba(37, 99, 235, 0.15);
+            z-index: 10;
         }
-        
-        .vocab-content { flex: 1; }
-        .v-word { font-size: 1.2rem; font-weight: bold; color: var(--text); }
-        .v-pos { font-size: 0.9rem; color: var(--gray); font-style: italic; margin-left: 5px; }
-        .v-def { margin-top: 4px; color: #475569; }
-        
-        .v-play {
-            background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 10px; color: var(--primary); opacity: 0.7;
-        }
+        .vocab-content { flex: 1; cursor: pointer; }
+        .v-word { font-size: 1.15rem; font-weight: 700; color: var(--text); }
+        .v-pos { font-size: 0.85rem; color: var(--gray); font-style: italic; margin-left: 6px; }
+        .v-def { margin-top: 4px; color: #475569; font-size: 0.95rem; line-height: 1.4; }
+        .v-play-icon { font-size: 1.2rem; color: var(--primary); opacity: 0.8; padding: 10px; cursor: pointer; }
 
-        /* --- 播放控制器 (Study Mode) --- */
+        /* --- 播放控制器 (置底設計) --- */
         .player-bar {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 580px;
-            background: #1e293b; color: white; padding: 10px 20px; border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); display: none;
-            align-items: center; justify-content: space-between; z-index: 101;
+            position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
+            width: 100%; max-width: 600px;
+            background: var(--player-bg); color: white;
+            padding: 15px 25px; 
+            display: none; /* 預設隱藏 */
+            align-items: center; justify-content: space-between;
+            z-index: 200;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.2);
+            border-radius: 16px 16px 0 0; /* 上方圓角 */
         }
-        .player-controls { display: flex; align-items: center; gap: 15px; }
-        .player-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 5px; }
-        .player-settings { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
-        .repeat-select { background: #334155; color: white; border: none; padding: 5px; border-radius: 5px; font-size: 0.9rem; }
+        .player-left { display: flex; align-items: center; gap: 15px; }
+        .play-btn-main {
+            background: var(--primary); border: none; width: 45px; height: 45px;
+            border-radius: 50%; color: white; font-size: 1.2rem; cursor: pointer;
+            display: flex; align-items: center; justify-content: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+        }
+        .play-info { font-size: 0.9rem; color: #cbd5e1; }
+        .play-info span { color: white; font-weight: bold; font-size: 1.1rem; }
+        
+        .player-right { display: flex; align-items: center; gap: 8px; font-size: 0.85rem; color: #cbd5e1; }
+        .repeat-select {
+            background: #334155; color: white; border: 1px solid #475569;
+            padding: 4px 8px; border-radius: 6px; font-size: 0.9rem; outline: none;
+        }
 
-        /* --- 測驗模式 --- */
-        .quiz-status { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; color: var(--gray); }
-        .progress-track { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 25px; overflow: hidden; }
+        /* --- 測驗 --- */
+        .quiz-status { display: flex; justify-content: space-between; margin-bottom: 15px; font-weight: bold; color: var(--gray); font-size: 0.9rem; }
+        .progress-track { width: 100%; height: 6px; background: #e2e8f0; border-radius: 3px; margin-bottom: 25px; overflow: hidden; }
         .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
         .quiz-card {
             background: white; padding: 40px 20px; border-radius: 16px; text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; position: relative;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; position: relative; border: 1px solid #f1f5f9;
         }
-        .q-text { font-size: 2.2rem; font-weight: bold; color: var(--primary); margin-bottom: 5px; }
-        .q-hint { color: var(--gray); font-style: italic; }
+        .q-text { font-size: 2.2rem; font-weight: 800; color: var(--primary); margin-bottom: 8px; }
+        .q-hint { color: var(--gray); font-style: italic; font-size: 1rem; }
+        
         .options-container { display: grid; gap: 12px; }
         .opt-btn {
-            background: white; border: 2px solid #e2e8f0; padding: 16px; border-radius: 12px;
-            font-size: 1.1rem; text-align: left; cursor: pointer; transition: 0.2s; color: var(--text);
+            background: white; border: 2px solid #e2e8f0; padding: 18px; border-radius: 12px;
+            font-size: 1.05rem; text-align: left; cursor: pointer; transition: 0.2s; color: var(--text);
+            position: relative; overflow: hidden;
         }
-        .opt-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
-        .opt-btn.correct { background: #d1fae5; border-color: var(--success); color: #065f46; }
+        .opt-btn:active { transform: scale(0.98); background: #f8fafc; }
+        .opt-btn.correct { background: #dcfce7; border-color: var(--success); color: #166534; font-weight: bold; }
         .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
 
-        /* --- 彈窗 (題數設定) --- */
+        /* --- 彈窗 --- */
         .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
-            display: none; justify-content: center; align-items: center; z-index: 200;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);
+            display: none; justify-content: center; align-items: center; z-index: 300; backdrop-filter: blur(3px);
         }
-        .modal { background: white; padding: 25px; border-radius: 16px; width: 85%; max-width: 350px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
-        .num-input { font-size: 1.5rem; padding: 5px; width: 80px; text-align: center; border: 2px solid #e2e8f0; border-radius: 8px; margin: 15px 0; }
-        .modal-btns { display: flex; gap: 10px; margin-top: 15px; }
+        .modal {
+            background: white; padding: 30px; border-radius: 20px; width: 85%; max-width: 340px;
+            text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .num-input {
+            font-size: 2rem; padding: 10px; width: 100px; text-align: center;
+            border: 2px solid #cbd5e1; border-radius: 12px; margin: 20px 0; color: var(--primary); font-weight: bold;
+        }
+        .num-input:focus { border-color: var(--primary); outline: none; }
+        .modal-btns { display: flex; gap: 12px; margin-top: 10px; }
 
-        /* --- 結果頁面 --- */
-        .result-box { text-align: center; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px; }
-        .final-score { font-size: 4rem; font-weight: bold; color: var(--primary); line-height: 1; }
-        .final-label { color: var(--gray); font-size: 1rem; margin-top: 10px; }
-        .mistake-section { margin-top: 20px; }
-        .mistake-title { font-weight: bold; color: var(--error); margin-bottom: 10px; text-align: center; }
+        /* --- 結果頁 --- */
+        .result-box { text-align: center; background: white; padding: 40px; border-radius: 20px; margin-bottom: 20px; }
+        .final-score { font-size: 4.5rem; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 10px; }
+        .final-label { color: var(--gray); font-size: 1rem; }
+        .mistake-title { font-weight: bold; color: var(--error); margin: 30px 0 15px 0; text-align: center; }
 
     </style>
 </head>
@@ -181,59 +210,65 @@
 
 <div class="container">
     
-    <!-- 1. 選單頁面 (Menu View) -->
+    <!-- 1. 選單頁面 -->
     <div id="menu-view" class="view active">
         <header>
-            <a href="index.html" class="back-btn">← 回總部</a>
+            <a href="index.html" class="back-btn">← 總部</a>
             <h1>高中英單特訓</h1>
-            <div class="subtitle">請選擇要複習的範圍</div>
+            <div class="subtitle">單字量：<span id="total-db-words">0</span></div>
         </header>
 
         <div class="stats-panel">
             <div class="stats-info">已選 <span id="selected-count" style="font-weight:bold; color:#fbbf24;">0</span> 個章節</div>
-            <div class="stats-info">共 <span id="total-words" class="stats-num">0</span> 字</div>
+            <div class="stats-info">共 <span id="total-words" style="font-weight:bold;">0</span> 字</div>
         </div>
 
         <div class="chapter-grid" id="chapter-list">
-            <!-- JS 生成章節 -->
+            <!-- JS 生成 -->
         </div>
 
-        <div class="bottom-action-bar">
+        <div class="spacer"></div> <!-- 防遮擋墊片 -->
+
+        <div class="bottom-dock">
             <button class="action-btn btn-study" onclick="startMode('study')">📖 背單字</button>
             <button class="action-btn btn-quiz" id="btn-start-quiz" onclick="prepareQuiz()" disabled>📝 開始測驗</button>
         </div>
     </div>
 
-    <!-- 2. 單字列表模式 (Study View) -->
+    <!-- 2. 背單字模式 -->
     <div id="study-view" class="view">
         <header>
-            <button class="back-btn" onclick="stopPlayerAndReturn()">← 回選單</button>
-            <h1 id="study-title">單字列表</h1>
+            <button class="back-btn" onclick="stopPlayerAndReturn()">← 返回</button>
+            <h1>單字列表</h1>
         </header>
+        
         <div id="study-container" class="word-list">
             <!-- 單字卡 -->
         </div>
+        
+        <div class="spacer" style="height: 120px;"></div> <!-- 給播放器留空間 -->
 
-        <!-- 連續播放控制條 -->
+        <!-- 連續播放器 (置底) -->
         <div class="player-bar" id="player-bar">
-            <div class="player-controls">
-                <button class="player-btn" id="play-pause-btn" onclick="toggleAutoPlay()">▶</button>
-                <div style="font-size: 0.9rem;">
+            <div class="player-left">
+                <button class="play-btn-main" id="play-pause-btn" onclick="toggleAutoPlay()">▶</button>
+                <div class="play-info">
                     <span id="playing-word-index">0</span> / <span id="total-play-count">0</span>
                 </div>
             </div>
-            <div class="player-settings">
+            <div class="player-right">
                 <label>重複:</label>
                 <select id="repeat-count" class="repeat-select">
                     <option value="1">1次</option>
                     <option value="2">2次</option>
                     <option value="3" selected>3次</option>
+                    <option value="5">5次</option>
                 </select>
             </div>
         </div>
     </div>
 
-    <!-- 3. 測驗模式 (Quiz View) -->
+    <!-- 3. 測驗模式 -->
     <div id="quiz-view" class="view">
         <div class="quiz-status">
             <span id="quiz-progress">1 / 10</span>
@@ -242,7 +277,7 @@
         <div class="progress-track"><div id="progress-bar" class="progress-bar"></div></div>
 
         <div class="quiz-card">
-            <button id="tts-btn" class="v-play" onclick="speakCurrent()" style="position:absolute; right:10px; top:10px;">🔊</button>
+            <div id="tts-btn" class="v-play-icon" style="position:absolute; right:10px; top:10px;" onclick="speakCurrent()">🔊</div>
             <div class="q-text" id="q-word">Word</div>
             <div class="q-hint" id="q-pos">(n.)</div>
         </div>
@@ -251,34 +286,39 @@
             <!-- 選項 -->
         </div>
 
-        <div style="text-align:center; margin-top:30px;">
-            <button class="back-btn" onclick="showMenu()">退出測驗</button>
+        <div style="text-align:center; margin-top:40px;">
+            <button style="background:none; border:2px solid #e2e8f0; color:#64748b; padding:10px 20px; border-radius:20px; font-weight:bold; cursor:pointer;" onclick="showMenu()">
+                退出測驗
+            </button>
         </div>
     </div>
 
-    <!-- 4. 結果頁面 (Result View) -->
+    <!-- 4. 結果頁面 -->
     <div id="result-view" class="view">
         <div class="result-box">
             <div class="final-score" id="final-score">100</div>
-            <div class="final-label">本次測驗得分</div>
+            <div class="final-label">測驗得分</div>
         </div>
 
-        <button class="action-btn btn-quiz" onclick="retryQuiz()" style="width:100%; margin-bottom:10px;">再測一次</button>
-        <button class="action-btn btn-study" onclick="showMenu()" style="width:100%;">回主選單</button>
+        <div style="display:grid; gap:10px;">
+            <button class="action-btn btn-quiz" onclick="retryQuiz()">再測一次</button>
+            <button class="action-btn btn-study" onclick="showMenu()">回主選單</button>
+        </div>
 
         <div id="mistake-section" class="mistake-section" style="display:none;">
             <div class="mistake-title">⚠️ 需加強的單字</div>
             <div id="mistake-list" class="word-list"></div>
         </div>
+        
+        <div class="spacer"></div>
     </div>
 
     <!-- 5. 題數設定彈窗 -->
     <div id="quiz-settings-modal" class="modal-overlay">
         <div class="modal">
-            <h3 style="margin-top:0; color:var(--primary);">設定測驗題數</h3>
-            <p>本次範圍共有 <span id="modal-total-words" style="font-weight:bold;">0</span> 個單字</p>
-            <p>請問要考幾個？</p>
-            <input type="number" id="quiz-num-input" class="num-input" value="10" min="1">
+            <h3 style="margin-top:0; color:var(--primary); font-size:1.4rem;">設定測驗題數</h3>
+            <p style="color:#64748b; margin-bottom:0;">範圍總字數：<span id="modal-total-words" style="color:#1e293b; font-weight:bold;">0</span></p>
+            <input type="number" id="quiz-num-input" class="num-input" value="20" min="5">
             <div class="modal-btns">
                 <button class="action-btn btn-study" onclick="closeModal()">取消</button>
                 <button class="action-btn btn-quiz" onclick="confirmStartQuiz()">開始</button>
@@ -289,8 +329,10 @@
 </div>
 
 <script>
-    // ================= 1. 資料處理 (請在此貼上你的單字資料) =================
-    const rawData = `1. sentence (n.) 句子; 判刑
+    // ================= 1. 資料處理 (請在此貼上單字) =================
+    const rawData = `
+        ### 第一回 (1-5 冊)
+1. sentence (n.) 句子; 判刑
 4. dispense (v.) 分配；發放
 5. context (n.) 語境；背景
 6. refresh (v.) 使清新；更新
@@ -1988,8 +2030,7 @@
 243. hormone (n.) 荷爾蒙
 245. intelligent (adj.) 智能的；聰明的
 246. simultaneously (adv.) 同時地
-        
-    `; // 請將你的單字貼在反引號中間
+    `; // ★★★ 請將你的單字資料貼在這裡的反引號中間 ★★★
 
     // 1.2 LINE 偵測模組
     function isLineApp() {
@@ -1999,8 +2040,8 @@
 
     if (isLineApp()) {
         const warningDiv = document.createElement('div');
-        warningDiv.style.cssText = "position:fixed; top:0; left:0; width:100%; background:#ff9800; color:white; z-index:9999; padding:15px; text-align:center; font-weight:bold; box-shadow:0 2px 10px rgba(0,0,0,0.2);";
-        warningDiv.innerHTML = "⚠️ 偵測到您使用 LINE 開啟<br>語音功能可能會失效！<br>請點選右上角 ⋮ 並選擇「用瀏覽器開啟」以獲得最佳體驗。";
+        warningDiv.style.cssText = "position:fixed; top:0; left:0; width:100%; background:#f97316; color:white; z-index:9999; padding:15px; text-align:center; font-weight:bold; box-shadow:0 2px 10px rgba(0,0,0,0.2); font-size:0.9rem;";
+        warningDiv.innerHTML = "⚠️ 偵測到 LINE 瀏覽器<br>發音功能可能受限，建議使用 Chrome/Safari 開啟";
         document.body.prepend(warningDiv);
     }
 
@@ -2020,11 +2061,27 @@
     let repeatCount = 3;
     let currentRepeat = 0;
     let playTimeout = null;
+    let selectedVoice = null; // 儲存最佳發音人聲
+
+    // 2.1 聲音獵人：尋找最佳發音
+    function initVoices() {
+        const voices = window.speechSynthesis.getVoices();
+        if (voices.length > 0) {
+            // 優先順序：Google US -> Microsoft Zira -> 任何 US English -> 任何 English
+            selectedVoice = voices.find(v => v.name.includes("Google US English")) || 
+                            voices.find(v => v.name.includes("Microsoft Zira")) ||
+                            voices.find(v => v.lang === "en-US") || 
+                            voices.find(v => v.lang.includes("en"));
+        }
+    }
+    // 瀏覽器載入聲音是異步的，所以要監聽
+    window.speechSynthesis.onvoiceschanged = initVoices;
 
     // 解析資料
     function parseData() {
         const lines = rawData.split('\n');
         let currentCat = "";
+        let totalCount = 0;
 
         lines.forEach(line => {
             line = line.trim();
@@ -2037,19 +2094,26 @@
                 const match = line.match(/^\d+\.\s+(.+?)\s+(\([a-zA-Z./;]+\.?\))\s+(.+)$/);
                 const simpleMatch = line.match(/^\d+\.\s+(.+?)\s+(.+)$/);
 
+                let item = null;
                 if (match && currentCat) {
-                    categories[currentCat].push({ w: match[1].trim(), p: match[2].trim(), d: match[3].trim() });
+                    item = { w: match[1].trim(), p: match[2].trim(), d: match[3].trim() };
                 } else if (simpleMatch && currentCat) {
                     const part2 = simpleMatch[2];
                     const posMatch = part2.match(/^(\(.*\))\s*(.*)/);
                     if(posMatch) {
-                        categories[currentCat].push({ w: simpleMatch[1].trim(), p: posMatch[1].trim(), d: posMatch[2].trim() });
+                        item = { w: simpleMatch[1].trim(), p: posMatch[1].trim(), d: posMatch[2].trim() };
                     } else {
-                        categories[currentCat].push({ w: simpleMatch[1].trim(), p: '', d: part2.trim() });
+                        item = { w: simpleMatch[1].trim(), p: '', d: part2.trim() };
                     }
+                }
+                
+                if (item) {
+                    categories[currentCat].push(item);
+                    totalCount++;
                 }
             }
         });
+        document.getElementById('total-db-words').innerText = totalCount;
     }
 
     // 渲染選單
@@ -2082,23 +2146,15 @@
         updateStats();
     }
 
-    // 更新數據顯示
     function updateStats() {
         document.getElementById('selected-count').innerText = selectedChapters.size;
-        
         let currentTotal = 0;
-        selectedChapters.forEach(cat => {
-            currentTotal += categories[cat].length;
-        });
+        selectedChapters.forEach(cat => currentTotal += categories[cat].length);
         document.getElementById('total-words').innerText = currentTotal;
 
         const btnQuiz = document.getElementById('btn-start-quiz');
         const hasSelection = selectedChapters.size > 0;
         btnQuiz.disabled = !hasSelection;
-        if(hasSelection) {
-            btnQuiz.style.transform = "scale(1.05)";
-            setTimeout(() => btnQuiz.style.transform = "scale(1)", 150);
-        }
     }
 
     // 切換模式
@@ -2124,12 +2180,12 @@
     function setupStudy() {
         const container = document.getElementById('study-container');
         container.innerHTML = "";
-        document.getElementById('study-title').innerText = `單字列表 (${fullWordList.length}字)`;
-
+        
         fullWordList.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'vocab-card';
             card.id = `vocab-${index}`;
+            // 點擊卡片發音
             card.onclick = () => manualPlay(index);
             card.innerHTML = `
                 <div class="vocab-content">
@@ -2139,11 +2195,12 @@
                     </div>
                     <div class="v-def">${item.d}</div>
                 </div>
-                <button class="v-play">🔊</button>
+                <div class="v-play-icon">🔊</div>
             `;
             container.appendChild(card);
         });
 
+        // 重置播放器
         playIndex = 0;
         isPlaying = false;
         updatePlayBtn();
@@ -2152,6 +2209,7 @@
         document.getElementById('player-bar').style.display = 'flex'; 
 
         switchView('study-view');
+        initVoices(); // 確保聲音已載入
     }
 
     function stopPlayerAndReturn() {
@@ -2169,6 +2227,7 @@
     }
 
     function startAutoPlay() {
+        if (playIndex >= fullWordList.length) playIndex = 0; // 如果播到底了，從頭開始
         isPlaying = true;
         currentRepeat = 0;
         repeatCount = parseInt(document.getElementById('repeat-count').value);
@@ -2196,7 +2255,7 @@
         if (!isPlaying) return;
         if (playIndex >= fullWordList.length) {
             stopAutoPlay();
-            playIndex = 0; 
+            playIndex = 0;
             return;
         }
 
@@ -2210,11 +2269,13 @@
 
             currentRepeat++;
             if (currentRepeat < repeatCount) {
+                // 重複唸同一個字
                 playTimeout = setTimeout(playSequence, 800); 
             } else {
+                // 換下一個字
                 currentRepeat = 0;
                 playIndex++;
-                playTimeout = setTimeout(playSequence, 1200);
+                playTimeout = setTimeout(playSequence, 1000);
             }
         });
     }
@@ -2232,10 +2293,10 @@
 
     function updatePlayBtn() {
         const btn = document.getElementById('play-pause-btn');
-        btn.innerText = isPlaying ? "⏸" : "▶";
+        btn.innerHTML = isPlaying ? "⏸" : "▶";
     }
 
-    // ================= 測驗模式 (含題數設定 & 詞性篩選) =================
+    // ================= 測驗模式 (智慧選項) =================
 
     function prepareQuiz() {
         if (selectedChapters.size === 0) return;
@@ -2280,6 +2341,7 @@
         shuffle(currentQuizList); 
         loadQuestion();
         switchView('quiz-view');
+        // 預熱語音
         window.speechSynthesis.speak(new SpeechSynthesisUtterance('')); 
     }
 
@@ -2301,33 +2363,36 @@
         const container = document.getElementById('options-box');
         container.innerHTML = "";
 
-        // ★★★ 智慧選項生成邏輯 (同詞性優先) ★★★
+        // === 智慧選項生成 (Smart Distractors) ===
+        // 1. 建立干擾項候選池 (從所有選取章節的單字中找)
         let fullPool = []; 
         selectedChapters.forEach(cat => fullPool = fullPool.concat(categories[cat]));
         
-        // 1. 找出所有詞性相同的干擾項 (且不是正確答案)
+        // 2. 優先篩選「同詞性」的單字 (排除正確答案)
+        // 這裡的 p 是詞性字串，如 "(v.)"，我們做簡單比對
         let samePosDistractors = fullPool.filter(i => i.w !== q.w && i.p === q.p);
         
         let distractors = [];
         
-        // 2. 如果同詞性的字夠多(至少3個)，就全用同詞性
+        // 3. 如果同詞性單字足夠 (至少3個)，就全部用同詞性
         if (samePosDistractors.length >= 3) {
             shuffle(samePosDistractors);
             distractors = samePosDistractors.slice(0, 3);
         } else {
-            // 3. 不夠的話，就混著用 (同詞性優先 + 隨機補足)
+            // 4. 如果不夠，先用有的，剩下用隨機補
             let otherDistractors = fullPool.filter(i => i.w !== q.w && i.p !== q.p);
             shuffle(otherDistractors);
             
-            distractors = samePosDistractors; // 先把有的都放進去
+            distractors = samePosDistractors; // 先放入所有同詞性的
             let needed = 3 - distractors.length;
             distractors = distractors.concat(otherDistractors.slice(0, needed));
         }
         
-        // 4. 組合選項並洗牌
+        // 5. 組合選項並洗牌
         let options = [q, ...distractors];
         shuffle(options);
 
+        // 渲染按鈕
         options.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'opt-btn';
@@ -2338,20 +2403,22 @@
     }
 
     function checkAnswer(btn, selected, correct) {
+        // 鎖定所有按鈕
         const allBtns = document.querySelectorAll('.opt-btn');
         allBtns.forEach(b => b.disabled = true);
 
         if (selected.w === correct.w) {
             btn.classList.add('correct');
             score++;
-            setTimeout(nextQ, 600);
+            setTimeout(nextQ, 500); // 答對快一點
         } else {
             btn.classList.add('wrong');
             mistakes.push(correct);
+            // 標示正確答案
             allBtns.forEach(b => {
                 if (b.innerText === correct.d) b.classList.add('correct');
             });
-            setTimeout(nextQ, 1500);
+            setTimeout(nextQ, 1500); // 答錯慢一點
         }
     }
 
@@ -2361,7 +2428,7 @@
     }
 
     function showResult() {
-        document.getElementById('final-score').innerText = score;
+        document.getElementById('final-score').innerText = Math.round((score / currentQuizList.length) * 100);
         const section = document.getElementById('mistake-section');
         const list = document.getElementById('mistake-list');
         list.innerHTML = "";
@@ -2375,7 +2442,7 @@
                             <span class="v-word">${m.w}</span>
                             <span class="v-def">${m.d}</span>
                         </div>
-                        <button class="v-play" onclick="speakText('${m.w}')">🔊</button>
+                        <div class="v-play-icon" onclick="speakText('${m.w}')">🔊</div>
                     </div>
                 `;
             });
@@ -2386,6 +2453,7 @@
     }
 
     function retryQuiz() {
+        // 重新洗牌，保留相同題數設定
         shuffle(currentQuizList); 
         currentIndex = 0;
         score = 0;
@@ -2404,6 +2472,7 @@
 
     function showMenu() {
         stopAutoPlay();
+        document.getElementById('player-bar').style.display = 'none'; // 隱藏播放器
         switchView('menu-view');
     }
 
@@ -2419,32 +2488,41 @@
         speakText(word);
     }
 
+    // 發音核心函式
     function speakText(text, callback) {
-        window.speechSynthesis.cancel();
+        window.speechSynthesis.cancel(); // 停止目前發音
 
+        // 簡單動畫回饋
         const btn = document.getElementById('tts-btn');
-        if(btn) btn.style.transform = "scale(0.9)";
+        if(btn) { btn.style.opacity = "0.5"; setTimeout(()=>btn.style.opacity="1", 200); }
 
         const utterance = new SpeechSynthesisUtterance(text);
+        
+        // 使用最佳聲音
+        if (selectedVoice) {
+            utterance.voice = selectedVoice;
+        }
+        
         utterance.lang = 'en-US';
         utterance.volume = 1;
-        utterance.rate = 0.8;
-
-        let voices = window.speechSynthesis.getVoices();
-        let enVoice = voices.find(v => v.lang.includes('en'));
-        if (enVoice) utterance.voice = enVoice;
+        utterance.rate = 0.85; // 稍微放慢一點點比較清楚
 
         utterance.onend = () => { 
-            if(btn) btn.style.transform = "scale(1)"; 
             if(callback) callback();
         };
         
+        utterance.onerror = () => {
+            // 出錯也要執行 callback 避免卡住
+            if(callback) callback();
+        };
+
         window.speechSynthesis.speak(utterance);
     }
 
     // 初始化
     parseData();
     renderMenu();
+    initVoices(); // 嘗試載入聲音
 
 </script>
 </body>
