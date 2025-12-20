@@ -433,13 +433,71 @@
     <script>
     /* --- 新增：公告與彈窗邏輯 --- */
 
-    // 1. 設定更新日誌資料 (最新的放上面)
-    const updateLog = [
-        {
-            date: "2025/12/20",
-            content: "優化了高中英單的測驗功能，現在支援<b>連續播放</b>與<b>自訂題數</b>。"
-        },
-    ];
+   /* --- 新增：自動抓取 GitHub Issues 作為公告 --- */
+
+    // 設定你的 GitHub 帳號與倉庫名稱
+    const GITHUB_USERNAME = "inocat1"; 
+    const GITHUB_REPO = "study-imformation"; 
+
+    // 初始化：去 GitHub 抓資料
+    async function renderUpdates() {
+        const container = document.getElementById('updates-list');
+        container.innerHTML = '<p style="text-align:center;">載入中...</p>';
+
+        try {
+            // 呼叫 GitHub API (只抓有 "update" 標籤的議題，這樣你發其他議題不會顯示)
+            // 如果你不想用標籤過濾，可以把 `&labels=update` 拿掉
+            const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues?state=open&labels=update`);
+            
+            if (!response.ok) throw new Error("連線失敗");
+            
+            const issues = await response.json();
+            
+            if (issues.length === 0) {
+                container.innerHTML = '<p style="text-align:center;">目前沒有更新公告。</p>';
+                return;
+            }
+
+            let html = '';
+            issues.forEach(issue => {
+                // 處理日期 (格式化為 YYYY/MM/DD)
+                const date = new Date(issue.created_at).toLocaleDateString('zh-TW');
+                
+                // 處理內容 (將換行符號 \n 轉為 <br>)
+                // 這裡做簡單處理，直接顯示文字
+                const content = issue.body.replace(/\n/g, '<br>');
+
+                html += `
+                    <div class="update-item">
+                        <div class="update-date">${date} <span style="margin-left:10px; color:#333;">${issue.title}</span></div>
+                        <div class="update-content">${content}</div>
+                    </div>
+                `;
+            });
+            container.innerHTML = html;
+
+        } catch (error) {
+            console.error(error);
+            container.innerHTML = '<p style="text-align:center; color:red;">無法載入更新日誌，請稍後再試。</p>';
+        }
+    }
+
+    // 3. 開啟彈窗 (邏輯不變，只是呼叫上面的函式)
+    function openModal(type) {
+        if (type === 'updates') {
+            renderUpdates(); 
+            document.getElementById('modal-updates').style.display = 'flex';
+        } else if (type === 'feedback') {
+            document.getElementById('modal-feedback').style.display = 'flex';
+        }
+    }
+
+    // 4. 關閉彈窗 (維持原樣)
+    function closeModal(event, type) {
+        if (!event || event.target.id === `modal-${type}` || event.target.classList.contains('close-btn')) {
+            document.getElementById(`modal-${type}`).style.display = 'none';
+        }
+    }
 
     // 2. 初始化：將資料寫入彈窗
     function renderUpdates() {
