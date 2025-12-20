@@ -431,78 +431,53 @@
     
     <!-- 4. JavaScript 控制切換邏輯 -->
     <script>
-    /* --- 新增：公告與彈窗邏輯 --- */
+    // ================= 1. 公告與更新設定 (資料區) =================
+    // ★★★ 以後要新增公告，就在這裡往下加新的 { ... } 即可 ★★★
+    const updateLog = [
+        {
+            date: "2025/12/20",
+            content: "<b>v1.2 系統升級</b><ul><li>修正了手機版面顯示問題。</li><li>新增了錯誤回報功能。</li></ul>"
+        },
+        {
+            date: "2025/12/15",
+            content: "<b>v1.1 功能優化</b><ul><li>新增「連續播放」模式，搭公車也能背。</li><li>新增「自訂題數」，想考幾題自己定。</li></ul>"
+        },
+        {
+            date: "2025/12/01",
+            content: "<b>v1.0 正式上線</b><br>網站正式上線！收錄學測複習、國文古文筆記與自然科重點整理。"
+        }
+    ];
 
-   /* --- 新增：自動抓取 GitHub Issues 作為公告 --- */
+    // ================= 2. 頁面切換邏輯 =================
+    function switchTab(type) {
+        // 1. 把所有內容藏起來
+        document.getElementById('senior-section').classList.remove('show');
+        document.getElementById('junior-section').classList.remove('show');
 
-    // 設定你的 GitHub 帳號與倉庫名稱
-    const GITHUB_USERNAME = "inocat1"; 
-    const GITHUB_REPO = "study-imformation"; 
+        // 2. 把按鈕的亮燈關掉
+        const buttons = document.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
 
-    // 初始化：去 GitHub 抓資料
-    async function renderUpdates() {
-        const container = document.getElementById('updates-list');
-        container.innerHTML = '<p style="text-align:center;">載入中...</p>';
-
-        try {
-            // 呼叫 GitHub API (只抓有 "update" 標籤的議題，這樣你發其他議題不會顯示)
-            // 如果你不想用標籤過濾，可以把 `&labels=update` 拿掉
-            const response = await fetch(`https://api.github.com/repos/${GITHUB_USERNAME}/${GITHUB_REPO}/issues?state=open&labels=update`);
-            
-            if (!response.ok) throw new Error("連線失敗");
-            
-            const issues = await response.json();
-            
-            if (issues.length === 0) {
-                container.innerHTML = '<p style="text-align:center;">目前沒有更新公告。</p>';
-                return;
-            }
-
-            let html = '';
-            issues.forEach(issue => {
-                // 處理日期 (格式化為 YYYY/MM/DD)
-                const date = new Date(issue.created_at).toLocaleDateString('zh-TW');
-                
-                // 處理內容 (將換行符號 \n 轉為 <br>)
-                // 這裡做簡單處理，直接顯示文字
-                const content = issue.body.replace(/\n/g, '<br>');
-
-                html += `
-                    <div class="update-item">
-                        <div class="update-date">${date} <span style="margin-left:10px; color:#333;">${issue.title}</span></div>
-                        <div class="update-content">${content}</div>
-                    </div>
-                `;
-            });
-            container.innerHTML = html;
-
-        } catch (error) {
-            console.error(error);
-            container.innerHTML = '<p style="text-align:center; color:red;">無法載入更新日誌，請稍後再試。</p>';
+        // 3. 判斷要開哪一個
+        if (type === 'senior') {
+            document.getElementById('senior-section').classList.add('show');
+            buttons[0].classList.add('active'); 
+        } else {
+            document.getElementById('junior-section').classList.add('show');
+            buttons[1].classList.add('active'); 
         }
     }
 
-    // 3. 開啟彈窗 (邏輯不變，只是呼叫上面的函式)
-    function openModal(type) {
-        if (type === 'updates') {
-            renderUpdates(); 
-            document.getElementById('modal-updates').style.display = 'flex';
-        } else if (type === 'feedback') {
-            document.getElementById('modal-feedback').style.display = 'flex';
-        }
-    }
+    // ================= 3. 彈窗與公告邏輯 =================
 
-    // 4. 關閉彈窗 (維持原樣)
-    function closeModal(event, type) {
-        if (!event || event.target.id === `modal-${type}` || event.target.classList.contains('close-btn')) {
-            document.getElementById(`modal-${type}`).style.display = 'none';
-        }
-    }
-
-    // 2. 初始化：將資料寫入彈窗
+    // 渲染更新日誌 (把上面的 updateLog 資料畫到畫面上)
     function renderUpdates() {
         const container = document.getElementById('updates-list');
+        // 先清空，避免重複
+        container.innerHTML = '';
+        
         let html = '';
+        // 跑迴圈，把每一條公告變成 HTML
         updateLog.forEach(item => {
             html += `
                 <div class="update-item">
@@ -511,47 +486,30 @@
                 </div>
             `;
         });
+        
+        // 塞進去
         container.innerHTML = html;
     }
 
-    // 3. 開啟彈窗
+    // 開啟彈窗
     function openModal(type) {
         if (type === 'updates') {
-            renderUpdates(); // 每次打開都重新渲染，確保最新
+            // 如果是開公告，先執行渲染
+            renderUpdates(); 
             document.getElementById('modal-updates').style.display = 'flex';
         } else if (type === 'feedback') {
             document.getElementById('modal-feedback').style.display = 'flex';
         }
     }
 
-    // 4. 關閉彈窗
+    // 關閉彈窗
     function closeModal(event, type) {
         // 如果是點擊背景(overlay)或是點擊關閉按鈕，則關閉
-        // event 為 null 代表是直接呼叫關閉
         if (!event || event.target.id === `modal-${type}` || event.target.classList.contains('close-btn')) {
             document.getElementById(`modal-${type}`).style.display = 'none';
         }
     }
-        
-        function switchTab(type) {
-            // 1. 把所有內容藏起來
-            document.getElementById('senior-section').classList.remove('show');
-            document.getElementById('junior-section').classList.remove('show');
-
-            // 2. 把按鈕的亮燈關掉
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => btn.classList.remove('active'));
-
-            // 3. 判斷要開哪一個
-            if (type === 'senior') {
-                document.getElementById('senior-section').classList.add('show');
-                buttons[0].classList.add('active'); // 第一個按鈕亮燈
-            } else {
-                document.getElementById('junior-section').classList.add('show');
-                buttons[1].classList.add('active'); // 第二個按鈕亮燈
-            }
-        }
-    </script>
+</script>
 
 </body>
 </html>
