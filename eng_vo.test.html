@@ -9,7 +9,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #2563eb; /* 較深的高中藍 */
+            --primary: #2563eb;
             --primary-light: #dbeafe;
             --success: #059669;
             --error: #dc2626;
@@ -25,7 +25,8 @@
             color: var(--text);
             margin: 0;
             padding: 20px;
-            padding-bottom: 100px; /* 預留底部按鈕空間 */
+            /* 預留底部空間給播放器，避免擋住內容 */
+            padding-bottom: 120px;
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -34,29 +35,12 @@
 
         /* 背景裝飾 */
         body::before {
-            content: '';
-            position: fixed;
-            top: -10%;
-            left: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: rgba(255, 255, 255, 0.1);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: -1;
+            content: ''; position: fixed; top: -10%; left: -10%; width: 50vw; height: 50vw;
+            background: rgba(255, 255, 255, 0.1); filter: blur(80px); border-radius: 50%; z-index: -1;
         }
-
         body::after {
-            content: '';
-            position: fixed;
-            bottom: -10%;
-            right: -10%;
-            width: 50vw;
-            height: 50vw;
-            background: rgba(255, 255, 255, 0.1);
-            filter: blur(80px);
-            border-radius: 50%;
-            z-index: -1;
+            content: ''; position: fixed; bottom: -10%; right: -10%; width: 50vw; height: 50vw;
+            background: rgba(255, 255, 255, 0.1); filter: blur(80px); border-radius: 50%; z-index: -1;
         }
 
         .container {
@@ -73,25 +57,13 @@
         }
 
         /* --- Header --- */
-        header {
-            text-align: center;
-            margin-bottom: 25px;
-        }
-
+        header { text-align: center; margin-bottom: 25px; }
         .back-btn {
-            display: inline-block;
-            background: white;
-            padding: 8px 16px;
-            border-radius: 20px;
-            text-decoration: none;
-            color: var(--gray);
-            font-size: 0.9rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            margin-bottom: 15px;
-            transition: 0.2s;
+            display: inline-block; background: white; padding: 8px 16px; border-radius: 20px;
+            text-decoration: none; color: var(--gray); font-size: 0.9rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); margin-bottom: 15px; transition: 0.2s; border: none; cursor: pointer;
         }
         .back-btn:hover { background: var(--primary); color: white; }
-
         h1 { margin: 0; font-size: 1.8rem; color: var(--primary); letter-spacing: 1px; }
         .subtitle { color: var(--gray); font-size: 0.95rem; margin-top: 5px; }
 
@@ -100,114 +72,51 @@
         .view.active { display: block; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Menu: 章節選擇卡片 --- */
+        /* --- Menu: 章節選擇 --- */
         .stats-panel {
-            background: var(--primary);
-            color: white;
-            padding: 15px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            background: var(--primary); color: white; padding: 15px 20px; border-radius: 12px;
+            margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;
             box-shadow: 0 4px 10px rgba(37, 99, 235, 0.3);
         }
-        .stats-info { font-size: 0.9rem; }
         .stats-num { font-size: 1.4rem; font-weight: bold; }
-
-        .chapter-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
+        .chapter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .chapter-card {
-            background: var(--card);
-            border: 2px solid transparent;
-            border-radius: 12px;
-            padding: 15px;
-            cursor: pointer;
-            transition: 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            position: relative;
-            overflow: hidden;
+            background: var(--card); border: 2px solid transparent; border-radius: 12px; padding: 15px;
+            cursor: pointer; transition: 0.2s; box-shadow: 0 2px 4px rgba(0,0,0,0.05); position: relative; overflow: hidden;
         }
-
-        .chapter-card.selected {
-            border-color: var(--primary);
-            background-color: var(--primary-light);
-        }
-
+        .chapter-card.selected { border-color: var(--primary); background-color: var(--primary-light); }
         .chapter-card::after {
-            content: '✓';
-            position: absolute;
-            top: 5px;
-            right: 5px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            opacity: 0;
-            transform: scale(0);
-            transition: 0.2s;
+            content: '✓'; position: absolute; top: 5px; right: 5px; background: var(--primary); color: white;
+            border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; align-items: center;
+            justify-content: center; opacity: 0; transform: scale(0); transition: 0.2s;
         }
-
         .chapter-card.selected::after { opacity: 1; transform: scale(1); }
-
         .ch-title { font-weight: bold; font-size: 1rem; margin-bottom: 5px; }
         .ch-count { font-size: 0.85rem; color: var(--gray); }
 
-        /* --- 底部懸浮操作列 --- */
+        /* --- 底部懸浮操作列 (Menu用) --- */
         .bottom-action-bar {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 90%;
-            max-width: 580px;
-            background: white;
-            padding: 10px;
-            border-radius: 50px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
-            display: flex;
-            gap: 10px;
-            z-index: 100;
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 580px;
+            background: white; padding: 10px; border-radius: 50px; box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            display: flex; gap: 10px; z-index: 100;
         }
-
-        .action-btn {
-            flex: 1;
-            border: none;
-            padding: 12px;
-            border-radius: 30px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-
+        .action-btn { flex: 1; border: none; padding: 12px; border-radius: 30px; font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s; }
         .btn-study { background: #e2e8f0; color: var(--text); }
         .btn-quiz { background: var(--primary); color: white; }
         .btn-quiz:disabled { background: #cbd5e1; cursor: not-allowed; }
-        
         .action-btn:active { transform: scale(0.95); }
 
-        /* --- 單字卡模式 --- */
-        .word-list { display: flex; flex-direction: column; gap: 10px; }
+        /* --- 單字列表 & 連續播放 --- */
+        .word-list { display: flex; flex-direction: column; gap: 10px; padding-bottom: 20px; }
         
         .vocab-card {
-            background: var(--card);
-            padding: 15px 20px;
-            border-radius: 12px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-left: 5px solid var(--gray);
+            background: var(--card); padding: 15px 20px; border-radius: 12px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            display: flex; justify-content: space-between; align-items: center; border-left: 5px solid var(--gray);
+            transition: all 0.3s ease; cursor: pointer;
+        }
+        .vocab-card.playing {
+            border-left-color: var(--primary); background-color: #eff6ff; transform: scale(1.02);
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
         }
         
         .vocab-content { flex: 1; }
@@ -216,103 +125,41 @@
         .v-def { margin-top: 4px; color: #475569; }
         
         .v-play {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            cursor: pointer;
-            padding: 10px;
-            color: var(--primary);
-            opacity: 0.7;
+            background: none; border: none; font-size: 1.2rem; cursor: pointer; padding: 10px; color: var(--primary); opacity: 0.7;
         }
 
-        /* --- 測驗模式 --- */
-        .quiz-status {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 20px;
-            font-weight: bold;
-            color: var(--gray);
-        }
-
-        .progress-track {
-            width: 100%;
-            height: 8px;
-            background: #e2e8f0;
-            border-radius: 4px;
-            margin-bottom: 25px;
-            overflow: hidden;
-        }
-        .progress-bar {
-            height: 100%;
-            background: var(--primary);
-            width: 0%;
-            transition: 0.3s;
-        }
-
-        .quiz-card {
-            background: white;
-            padding: 40px 20px;
-            border-radius: 16px;
-            text-align: center;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .q-text { font-size: 2.2rem; font-weight: bold; color: var(--primary); margin-bottom: 5px; }
-        .q-hint { color: var(--gray); font-style: italic; }
-        
-        .options-container { display: grid; gap: 12px; }
-        
-        .opt-btn {
-            background: white;
-            border: 2px solid #e2e8f0;
-            padding: 16px;
-            border-radius: 12px;
-            font-size: 1.1rem;
-            text-align: left;
-            cursor: pointer;
-            transition: 0.2s;
-            color: var(--text);
-        }
-
-        .opt-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
-        .opt-btn.correct { background: #d1fae5; border-color: var(--success); color: #065f46; }
-        .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
-
-        /* --- 結果頁面 --- */
-        .result-box {
-            text-align: center;
-            background: white;
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            margin-bottom: 20px;
-        }
-        .final-score { font-size: 4rem; font-weight: bold; color: var(--primary); line-height: 1; }
-        .final-label { color: var(--gray); font-size: 1rem; margin-top: 10px; }
-
-        .mistake-section { margin-top: 20px; }
-        .mistake-title { font-weight: bold; color: var(--error); margin-bottom: 10px; text-align: center; }
-
-        /* --- [新增] 播放控制器樣式 --- */
+        /* --- 播放控制器 (Study Mode) --- */
         .player-bar {
             position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%); width: 90%; max-width: 580px;
             background: #1e293b; color: white; padding: 10px 20px; border-radius: 16px;
-            box-shadow: 0 5px 20px rgba(0,0,0,0.3); display: none; align-items: center; justify-content: space-between; z-index: 101;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3); display: none;
+            align-items: center; justify-content: space-between; z-index: 101;
         }
         .player-controls { display: flex; align-items: center; gap: 15px; }
         .player-btn { background: none; border: none; color: white; font-size: 1.5rem; cursor: pointer; padding: 5px; }
         .player-settings { display: flex; align-items: center; gap: 10px; font-size: 0.9rem; }
         .repeat-select { background: #334155; color: white; border: none; padding: 5px; border-radius: 5px; font-size: 0.9rem; }
-        
-        /* --- [新增] 正在播放的高亮樣式 --- */
-        .vocab-card.playing {
-            border-left-color: var(--primary); background-color: #eff6ff; transform: scale(1.02);
-            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2); transition: all 0.3s ease;
+
+        /* --- 測驗模式 --- */
+        .quiz-status { display: flex; justify-content: space-between; margin-bottom: 20px; font-weight: bold; color: var(--gray); }
+        .progress-track { width: 100%; height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 25px; overflow: hidden; }
+        .progress-bar { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
+        .quiz-card {
+            background: white; padding: 40px 20px; border-radius: 16px; text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 20px; position: relative;
         }
-        
-        /* --- [新增] 彈窗樣式 --- */
+        .q-text { font-size: 2.2rem; font-weight: bold; color: var(--primary); margin-bottom: 5px; }
+        .q-hint { color: var(--gray); font-style: italic; }
+        .options-container { display: grid; gap: 12px; }
+        .opt-btn {
+            background: white; border: 2px solid #e2e8f0; padding: 16px; border-radius: 12px;
+            font-size: 1.1rem; text-align: left; cursor: pointer; transition: 0.2s; color: var(--text);
+        }
+        .opt-btn:hover { background: #f8fafc; border-color: #cbd5e1; }
+        .opt-btn.correct { background: #d1fae5; border-color: var(--success); color: #065f46; }
+        .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
+
+        /* --- 彈窗 (題數設定) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
             display: none; justify-content: center; align-items: center; z-index: 200;
@@ -320,11 +167,14 @@
         .modal { background: white; padding: 25px; border-radius: 16px; width: 85%; max-width: 350px; text-align: center; box-shadow: 0 10px 25px rgba(0,0,0,0.2); }
         .num-input { font-size: 1.5rem; padding: 5px; width: 80px; text-align: center; border: 2px solid #e2e8f0; border-radius: 8px; margin: 15px 0; }
         .modal-btns { display: flex; gap: 10px; margin-top: 15px; }
-        
-        /* 避免播放器擋住內容 */
-        body { padding-bottom: 120px; }
-                
-                
+
+        /* --- 結果頁面 --- */
+        .result-box { text-align: center; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 25px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .final-score { font-size: 4rem; font-weight: bold; color: var(--primary); line-height: 1; }
+        .final-label { color: var(--gray); font-size: 1rem; margin-top: 10px; }
+        .mistake-section { margin-top: 20px; }
+        .mistake-title { font-weight: bold; color: var(--error); margin-bottom: 10px; text-align: center; }
+
     </style>
 </head>
 <body>
@@ -345,37 +195,41 @@
         </div>
 
         <div class="chapter-grid" id="chapter-list">
-            <!-- JS 自動生成章節卡片 -->
+            <!-- JS 生成章節 -->
         </div>
 
-        <!-- 懸浮按鈕列 -->
         <div class="bottom-action-bar">
             <button class="action-btn btn-study" onclick="startMode('study')">📖 背單字</button>
             <button class="action-btn btn-quiz" id="btn-start-quiz" onclick="prepareQuiz()" disabled>📝 開始測驗</button>
-        </div>
-        <!-- [新增] 題數設定彈窗 -->
-        <div id="quiz-settings-modal" class="modal-overlay">
-            <div class="modal">
-                <h3 style="margin-top:0; color:var(--primary);">設定測驗題數</h3>
-                <p>本次範圍共有 <span id="modal-total-words" style="font-weight:bold;">0</span> 個單字</p>
-                <p>請問要考幾個？</p>
-                <input type="number" id="quiz-num-input" class="num-input" value="10" min="1">
-                <div class="modal-btns">
-                    <button class="action-btn btn-study" onclick="closeModal()">取消</button>
-                    <button class="action-btn btn-quiz" onclick="confirmStartQuiz()">開始</button>
-                </div>
-            </div>
         </div>
     </div>
 
     <!-- 2. 單字列表模式 (Study View) -->
     <div id="study-view" class="view">
         <header>
-            <button class="back-btn" onclick="showMenu()">← 回選單</button>
+            <button class="back-btn" onclick="stopPlayerAndReturn()">← 回選單</button>
             <h1 id="study-title">單字列表</h1>
         </header>
         <div id="study-container" class="word-list">
             <!-- 單字卡 -->
+        </div>
+
+        <!-- 連續播放控制條 -->
+        <div class="player-bar" id="player-bar">
+            <div class="player-controls">
+                <button class="player-btn" id="play-pause-btn" onclick="toggleAutoPlay()">▶</button>
+                <div style="font-size: 0.9rem;">
+                    <span id="playing-word-index">0</span> / <span id="total-play-count">0</span>
+                </div>
+            </div>
+            <div class="player-settings">
+                <label>重複:</label>
+                <select id="repeat-count" class="repeat-select">
+                    <option value="1">1次</option>
+                    <option value="2">2次</option>
+                    <option value="3" selected>3次</option>
+                </select>
+            </div>
         </div>
     </div>
 
@@ -418,31 +272,25 @@
         </div>
     </div>
 
-    <!-- [新增] 連續播放控制條 -->
-    <div class="player-bar" id="player-bar">
-        <div class="player-controls">
-            <button class="player-btn" id="play-pause-btn" onclick="toggleAutoPlay()">▶</button>
-            <div style="font-size: 0.9rem;">
-                <span id="playing-word-index">0</span> / <span id="total-play-count">0</span>
+    <!-- 5. 題數設定彈窗 -->
+    <div id="quiz-settings-modal" class="modal-overlay">
+        <div class="modal">
+            <h3 style="margin-top:0; color:var(--primary);">設定測驗題數</h3>
+            <p>本次範圍共有 <span id="modal-total-words" style="font-weight:bold;">0</span> 個單字</p>
+            <p>請問要考幾個？</p>
+            <input type="number" id="quiz-num-input" class="num-input" value="10" min="1">
+            <div class="modal-btns">
+                <button class="action-btn btn-study" onclick="closeModal()">取消</button>
+                <button class="action-btn btn-quiz" onclick="confirmStartQuiz()">開始</button>
             </div>
         </div>
-        <div class="player-settings">
-            <label>重複:</label>
-            <select id="repeat-count" class="repeat-select">
-                <option value="1">1次</option>
-                <option value="2">2次</option>
-                <option value="3" selected>3次</option>
-            </select>
-        </div>
     </div>
+
 </div>
 
 <script>
-    // ================= 1. 資料處理核心 =================
-    // 這裡放你提供的超長字串，我已經幫你加上 ### 標題，以配合下方的解析邏輯
-    const rawData = `
-### 第一回 (1-5 冊)
-1. sentence (n.) 句子; 判刑
+    // ================= 1. 資料處理 (請在此貼上你的單字資料) =================
+    const rawData = `1. sentence (n.) 句子; 判刑
 4. dispense (v.) 分配；發放
 5. context (n.) 語境；背景
 6. refresh (v.) 使清新；更新
@@ -2140,9 +1988,10 @@
 243. hormone (n.) 荷爾蒙
 245. intelligent (adj.) 智能的；聰明的
 246. simultaneously (adv.) 同時地
-`;
+        
+    `; // 請將你的單字貼在反引號中間
 
-    // 1.2 LINE 偵測模組 (放在最前面執行)
+    // 1.2 LINE 偵測模組
     function isLineApp() {
         const ua = navigator.userAgent || navigator.vendor || window.opera;
         return (ua.indexOf("Line") > -1);
@@ -2155,13 +2004,12 @@
         document.body.prepend(warningDiv);
     }
 
-    // ================= 2. 邏輯處理 (更新版) =================
+    // ================= 2. 邏輯處理 =================
     
-    // 變數
     let categories = {}; 
     let selectedChapters = new Set();
-    let currentQuizList = []; // 測驗用的列表 (隨機切過)
-    let fullWordList = [];    // 背單字模式用的完整列表
+    let currentQuizList = []; 
+    let fullWordList = [];    
     let currentIndex = 0;
     let score = 0;
     let mistakes = [];
@@ -2253,21 +2101,20 @@
         }
     }
 
-    // 切換模式 (Study 只需收集單字，Quiz 需跳彈窗)
+    // 切換模式
     function startMode(mode) {
         if (selectedChapters.size === 0) {
             alert("請先選擇至少一個章節！");
             return;
         }
 
-        // 收集所有選中章節的單字
         let tempList = [];
         selectedChapters.forEach(cat => {
             tempList = tempList.concat(categories[cat]);
         });
 
         if (mode === 'study') {
-            fullWordList = tempList; // 背單字依順序
+            fullWordList = tempList; 
             setupStudy();
         } 
     }
@@ -2282,8 +2129,7 @@
         fullWordList.forEach((item, index) => {
             const card = document.createElement('div');
             card.className = 'vocab-card';
-            card.id = `vocab-${index}`; // 加入 ID 以便捲動
-            // 點擊卡片任何地方都可以手動播放該單字
+            card.id = `vocab-${index}`;
             card.onclick = () => manualPlay(index);
             card.innerHTML = `
                 <div class="vocab-content">
@@ -2298,13 +2144,12 @@
             container.appendChild(card);
         });
 
-        // 初始化播放器狀態
         playIndex = 0;
         isPlaying = false;
         updatePlayBtn();
         document.getElementById('total-play-count').innerText = fullWordList.length;
         document.getElementById('playing-word-index').innerText = 1;
-        document.getElementById('player-bar').style.display = 'flex'; // 顯示播放器
+        document.getElementById('player-bar').style.display = 'flex'; 
 
         switchView('study-view');
     }
@@ -2326,7 +2171,6 @@
     function startAutoPlay() {
         isPlaying = true;
         currentRepeat = 0;
-        // 讀取使用者設定的重複次數
         repeatCount = parseInt(document.getElementById('repeat-count').value);
         updatePlayBtn();
         playSequence();
@@ -2337,11 +2181,11 @@
         clearTimeout(playTimeout);
         window.speechSynthesis.cancel();
         updatePlayBtn();
-        highlightCard(-1); // 清除高亮
+        highlightCard(-1);
     }
 
     function manualPlay(index) {
-        stopAutoPlay(); // 手動點擊時，停止自動播放
+        stopAutoPlay(); 
         playIndex = index;
         highlightCard(playIndex);
         document.getElementById('playing-word-index').innerText = playIndex + 1;
@@ -2351,16 +2195,14 @@
     function playSequence() {
         if (!isPlaying) return;
         if (playIndex >= fullWordList.length) {
-            stopAutoPlay(); // 播完了
-            playIndex = 0; // 重置
+            stopAutoPlay();
+            playIndex = 0; 
             return;
         }
 
-        // 1. 高亮並捲動
         highlightCard(playIndex);
         document.getElementById('playing-word-index').innerText = playIndex + 1;
 
-        // 2. 發音，並等待結束
         const word = fullWordList[playIndex].w;
         
         speakText(word, () => {
@@ -2368,10 +2210,8 @@
 
             currentRepeat++;
             if (currentRepeat < repeatCount) {
-                // 還沒重複完，休息一下再唸同一個字
                 playTimeout = setTimeout(playSequence, 800); 
             } else {
-                // 唸完指定次數，換下一個字
                 currentRepeat = 0;
                 playIndex++;
                 playTimeout = setTimeout(playSequence, 1200);
@@ -2380,14 +2220,11 @@
     }
 
     function highlightCard(index) {
-        // 移除所有高亮
         document.querySelectorAll('.vocab-card').forEach(c => c.classList.remove('playing'));
-        
         if (index >= 0 && index < fullWordList.length) {
             const card = document.getElementById(`vocab-${index}`);
             if (card) {
                 card.classList.add('playing');
-                // 自動捲動到畫面中間
                 card.scrollIntoView({ behavior: 'smooth', block: 'center' });
             }
         }
@@ -2398,22 +2235,19 @@
         btn.innerText = isPlaying ? "⏸" : "▶";
     }
 
-    // ================= 測驗模式 (含題數設定) =================
+    // ================= 測驗模式 (含題數設定 & 詞性篩選) =================
 
-    // 1. 點擊「開始測驗」-> 顯示彈窗
     function prepareQuiz() {
         if (selectedChapters.size === 0) return;
 
-        // 計算總字數
         let total = 0;
         selectedChapters.forEach(cat => total += categories[cat].length);
         
         document.getElementById('modal-total-words').innerText = total;
         
-        // 設定預設輸入值
         const input = document.getElementById('quiz-num-input');
         input.max = total;
-        input.value = Math.min(total, 20); // 預設考20題
+        input.value = Math.min(total, 20); 
 
         document.getElementById('quiz-settings-modal').style.display = 'flex';
     }
@@ -2422,19 +2256,16 @@
         document.getElementById('quiz-settings-modal').style.display = 'none';
     }
 
-    // 2. 確認題數 -> 開始測驗
     function confirmStartQuiz() {
         let allWords = [];
         selectedChapters.forEach(cat => {
             allWords = allWords.concat(categories[cat]);
         });
 
-        // 取得使用者想要的題數
         let count = parseInt(document.getElementById('quiz-num-input').value);
         if (isNaN(count) || count < 1) count = 10;
         if (count > allWords.length) count = allWords.length;
 
-        // 洗牌並截取
         shuffle(allWords);
         currentQuizList = allWords.slice(0, count);
 
@@ -2446,10 +2277,10 @@
         currentIndex = 0;
         score = 0;
         mistakes = [];
-        shuffle(currentQuizList); // 再次洗牌順序
+        shuffle(currentQuizList); 
         loadQuestion();
         switchView('quiz-view');
-        window.speechSynthesis.speak(new SpeechSynthesisUtterance('')); // 預熱
+        window.speechSynthesis.speak(new SpeechSynthesisUtterance('')); 
     }
 
     function loadQuestion() {
@@ -2470,14 +2301,31 @@
         const container = document.getElementById('options-box');
         container.innerHTML = "";
 
-        // 產生選項
+        // ★★★ 智慧選項生成邏輯 (同詞性優先) ★★★
         let fullPool = []; 
         selectedChapters.forEach(cat => fullPool = fullPool.concat(categories[cat]));
         
-        let distractors = fullPool.filter(i => i.w !== q.w);
-        shuffle(distractors);
+        // 1. 找出所有詞性相同的干擾項 (且不是正確答案)
+        let samePosDistractors = fullPool.filter(i => i.w !== q.w && i.p === q.p);
         
-        let options = [q, ...distractors.slice(0, 3)];
+        let distractors = [];
+        
+        // 2. 如果同詞性的字夠多(至少3個)，就全用同詞性
+        if (samePosDistractors.length >= 3) {
+            shuffle(samePosDistractors);
+            distractors = samePosDistractors.slice(0, 3);
+        } else {
+            // 3. 不夠的話，就混著用 (同詞性優先 + 隨機補足)
+            let otherDistractors = fullPool.filter(i => i.w !== q.w && i.p !== q.p);
+            shuffle(otherDistractors);
+            
+            distractors = samePosDistractors; // 先把有的都放進去
+            let needed = 3 - distractors.length;
+            distractors = distractors.concat(otherDistractors.slice(0, needed));
+        }
+        
+        // 4. 組合選項並洗牌
+        let options = [q, ...distractors];
         shuffle(options);
 
         options.forEach(opt => {
@@ -2571,7 +2419,6 @@
         speakText(word);
     }
 
-    // 修改後的發音函式，支援 callback (用於連續播放)
     function speakText(text, callback) {
         window.speechSynthesis.cancel();
 
@@ -2589,7 +2436,7 @@
 
         utterance.onend = () => { 
             if(btn) btn.style.transform = "scale(1)"; 
-            if(callback) callback(); // 播放結束後執行回調
+            if(callback) callback();
         };
         
         window.speechSynthesis.speak(utterance);
@@ -2600,6 +2447,5 @@
     renderMenu();
 
 </script>
-
 </body>
 </html>
