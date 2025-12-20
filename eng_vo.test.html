@@ -33,7 +33,7 @@
             min-height: 100vh;
         }
 
-        /* 滿版容器設計，更像 App */
+        /* App 容器 */
         .container {
             width: 100%;
             max-width: 600px;
@@ -48,28 +48,37 @@
         /* --- Header --- */
         header {
             text-align: center;
-            padding: 20px;
+            padding: 15px 20px;
             background: #fff;
             position: sticky;
             top: 0;
             z-index: 50;
             border-bottom: 1px solid #e2e8f0;
             box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 60px;
         }
+        .header-content { flex: 1; display: flex; flex-direction: column; justify-content: center; }
         .back-btn {
-            position: absolute; left: 15px; top: 20px;
-            background: #f1f5f9; border: none; padding: 5px 12px; border-radius: 15px;
-            font-size: 0.9rem; color: var(--gray); text-decoration: none; cursor: pointer;
+            position: absolute; left: 15px;
+            background: #f1f5f9; border: none; padding: 8px 15px; border-radius: 20px;
+            font-size: 0.9rem; color: var(--gray); font-weight: bold; cursor: pointer;
         }
-        h1 { margin: 0; font-size: 1.4rem; color: var(--primary); letter-spacing: 1px; }
-        .subtitle { color: var(--gray); font-size: 0.85rem; margin-top: 4px; }
+        .settings-btn {
+            position: absolute; right: 15px;
+            background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--gray);
+        }
+        h1 { margin: 0; font-size: 1.2rem; color: var(--primary); letter-spacing: 1px; }
+        .subtitle { color: var(--gray); font-size: 0.8rem; margin-top: 2px; }
 
-        /* --- View --- */
+        /* --- View 切換 --- */
         .view { display: none; padding: 20px; flex: 1; overflow-y: auto; }
         .view.active { display: block; animation: fadeIn 0.3s ease; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* --- Menu List --- */
+        /* --- 選單列表 (Menu) --- */
         .stats-panel {
             background: var(--primary); color: white; padding: 15px 20px; border-radius: 16px;
             margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;
@@ -79,7 +88,7 @@
         .chapter-card {
             background: #f8fafc; border: 2px solid transparent; border-radius: 12px; padding: 15px;
             cursor: pointer; transition: 0.2s; position: relative; overflow: hidden;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.03);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.03); min-height: 80px;
         }
         .chapter-card.selected { border-color: var(--primary); background-color: #eff6ff; }
         .chapter-card::after {
@@ -95,13 +104,14 @@
         .bottom-dock {
             position: fixed; bottom: 0; left: 50%; transform: translateX(-50%);
             width: 100%; max-width: 600px;
-            background: white; padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.95); padding: 15px 20px;
             border-top: 1px solid #e2e8f0;
             display: flex; gap: 12px; z-index: 100;
             box-shadow: 0 -4px 20px rgba(0,0,0,0.05);
+            backdrop-filter: blur(5px);
         }
         .action-btn {
-            flex: 1; border: none; padding: 14px; border-radius: 12px;
+            flex: 1; border: none; padding: 14px; border-radius: 30px;
             font-size: 1rem; font-weight: bold; cursor: pointer; transition: 0.2s;
         }
         .btn-study { background: #f1f5f9; color: var(--text); }
@@ -110,7 +120,7 @@
         .action-btn:active { transform: scale(0.96); }
 
         /* 墊高底部，避免內容被按鈕遮住 */
-        .spacer { height: 100px; width: 100%; }
+        .spacer { height: 120px; width: 100%; }
 
         /* --- 單字列表 (Study) --- */
         .word-list { display: flex; flex-direction: column; gap: 12px; }
@@ -181,22 +191,33 @@
         .opt-btn.correct { background: #dcfce7; border-color: var(--success); color: #166534; font-weight: bold; }
         .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
 
-        /* --- 彈窗 --- */
+        /* --- 彈窗 (通用) --- */
         .modal-overlay {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6);
             display: none; justify-content: center; align-items: center; z-index: 300; backdrop-filter: blur(3px);
         }
         .modal {
-            background: white; padding: 30px; border-radius: 20px; width: 85%; max-width: 340px;
+            background: white; padding: 30px; border-radius: 20px; width: 85%; max-width: 360px;
             text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: popIn 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
         @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        
+        .modal h3 { margin: 0 0 15px 0; color: var(--primary); font-size: 1.3rem; }
         .num-input {
             font-size: 2rem; padding: 10px; width: 100px; text-align: center;
             border: 2px solid #cbd5e1; border-radius: 12px; margin: 20px 0; color: var(--primary); font-weight: bold;
         }
         .num-input:focus { border-color: var(--primary); outline: none; }
-        .modal-btns { display: flex; gap: 12px; margin-top: 10px; }
+        .modal-btns { display: flex; gap: 12px; margin-top: 20px; }
+
+        /* 聲音設定特定樣式 */
+        .setting-row { text-align: left; margin-bottom: 20px; }
+        .setting-label { display: block; font-size: 0.95rem; color: var(--gray); margin-bottom: 8px; font-weight: bold; }
+        select.voice-select {
+            width: 100%; padding: 12px; border: 1px solid #cbd5e1; border-radius: 10px;
+            font-size: 1rem; background: #f8fafc; color: #334155; outline: none;
+        }
+        input[type=range] { width: 100%; accent-color: var(--primary); cursor: pointer; }
 
         /* --- 結果頁 --- */
         .result-box { text-align: center; background: white; padding: 40px; border-radius: 20px; margin-bottom: 20px; }
@@ -214,8 +235,11 @@
     <div id="menu-view" class="view active">
         <header>
             <a href="index.html" class="back-btn">← 總部</a>
-            <h1>高中英單特訓</h1>
-            <div class="subtitle">單字量：<span id="total-db-words">0</span></div>
+            <div class="header-content">
+                <h1>高中英單特訓</h1>
+                <div class="subtitle">單字量：<span id="total-db-words">0</span></div>
+            </div>
+            <button class="settings-btn" onclick="openVoiceSettings()">⚙️</button>
         </header>
 
         <div class="stats-panel">
@@ -240,6 +264,7 @@
         <header>
             <button class="back-btn" onclick="stopPlayerAndReturn()">← 返回</button>
             <h1>單字列表</h1>
+            <button class="settings-btn" onclick="openVoiceSettings()">⚙️</button>
         </header>
         
         <div id="study-container" class="word-list">
@@ -313,15 +338,40 @@
         <div class="spacer"></div>
     </div>
 
-    <!-- 5. 題數設定彈窗 -->
+    <!-- 彈窗：題數設定 -->
     <div id="quiz-settings-modal" class="modal-overlay">
         <div class="modal">
-            <h3 style="margin-top:0; color:var(--primary); font-size:1.4rem;">設定測驗題數</h3>
+            <h3>設定測驗題數</h3>
             <p style="color:#64748b; margin-bottom:0;">範圍總字數：<span id="modal-total-words" style="color:#1e293b; font-weight:bold;">0</span></p>
             <input type="number" id="quiz-num-input" class="num-input" value="20" min="5">
             <div class="modal-btns">
-                <button class="action-btn btn-study" onclick="closeModal()">取消</button>
+                <button class="action-btn btn-study" onclick="closeModal('quiz-settings-modal')">取消</button>
                 <button class="action-btn btn-quiz" onclick="confirmStartQuiz()">開始</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- 彈窗：聲音設定 (New) -->
+    <div id="voice-settings-modal" class="modal-overlay">
+        <div class="modal" style="max-width: 400px;">
+            <h3>發音設定</h3>
+            
+            <div class="setting-row">
+                <label class="setting-label">選擇聲音</label>
+                <select id="voice-select" class="voice-select" onchange="testVoice()">
+                    <option value="">載入中...</option>
+                </select>
+                <div style="font-size:0.8rem; color:#94a3b8; margin-top:5px;">推薦選擇 Google US English 或 Samantha</div>
+            </div>
+
+            <div class="setting-row">
+                <label class="setting-label">語速: <span id="rate-value" style="color:var(--primary)">0.8</span></label>
+                <input type="range" id="rate-range" min="0.5" max="1.5" step="0.1" value="0.8" oninput="document.getElementById('rate-value').innerText = this.value">
+            </div>
+
+            <div class="modal-btns">
+                <button class="action-btn btn-study" style="background:#f1f5f9; color:#475569" onclick="testVoice()">🔊 試聽</button>
+                <button class="action-btn btn-quiz" onclick="saveVoiceSettings()">完成</button>
             </div>
         </div>
     </div>
@@ -2030,7 +2080,7 @@
 243. hormone (n.) 荷爾蒙
 245. intelligent (adj.) 智能的；聰明的
 246. simultaneously (adv.) 同時地
-    `; // ★★★ 請將你的單字資料貼在這裡的反引號中間 ★★★
+    `; // ★★★ 請將你的單字資料貼在這裡 ★★★
 
     // 1.2 LINE 偵測模組
     function isLineApp() {
@@ -2055,27 +2105,75 @@
     let score = 0;
     let mistakes = [];
     
-    // 播放器變數
+    // 播放器與發音變數
     let isPlaying = false;
     let playIndex = 0;
     let repeatCount = 3;
     let currentRepeat = 0;
     let playTimeout = null;
-    let selectedVoice = null; // 儲存最佳發音人聲
+    let availableVoices = [];
+    let selectedVoiceURI = null;
+    let speakRate = 0.8;
 
-    // 2.1 聲音獵人：尋找最佳發音
-    function initVoices() {
-        const voices = window.speechSynthesis.getVoices();
-        if (voices.length > 0) {
-            // 優先順序：Google US -> Microsoft Zira -> 任何 US English -> 任何 English
-            selectedVoice = voices.find(v => v.name.includes("Google US English")) || 
-                            voices.find(v => v.name.includes("Microsoft Zira")) ||
-                            voices.find(v => v.lang === "en-US") || 
-                            voices.find(v => v.lang.includes("en"));
+    // 2.1 聲音載入與設定
+    function loadVoices() {
+        let allVoices = window.speechSynthesis.getVoices();
+        if (allVoices.length === 0) return;
+
+        // 篩選英文聲音
+        availableVoices = allVoices.filter(v => v.lang.startsWith('en'));
+        
+        const select = document.getElementById('voice-select');
+        select.innerHTML = '';
+        
+        availableVoices.forEach(voice => {
+            const option = document.createElement('option');
+            option.value = voice.voiceURI;
+            option.textContent = `${voice.name} (${voice.lang})`;
+            select.appendChild(option);
+        });
+
+        // 自動選擇最佳聲音
+        if (!selectedVoiceURI) {
+            const bestVoice = availableVoices.find(v => v.name.includes("Google US English")) || 
+                              availableVoices.find(v => v.name.includes("Samantha")) || 
+                              availableVoices.find(v => v.name.includes("Microsoft Zira")) ||
+                              availableVoices.find(v => v.lang === "en-US") ||
+                              availableVoices[0];
+            if (bestVoice) {
+                selectedVoiceURI = bestVoice.voiceURI;
+                select.value = selectedVoiceURI;
+            }
+        } else {
+            select.value = selectedVoiceURI;
         }
     }
-    // 瀏覽器載入聲音是異步的，所以要監聽
-    window.speechSynthesis.onvoiceschanged = initVoices;
+
+    if (window.speechSynthesis.onvoiceschanged !== undefined) {
+        window.speechSynthesis.onvoiceschanged = loadVoices;
+    }
+
+    function openVoiceSettings() {
+        loadVoices();
+        document.getElementById('voice-settings-modal').style.display = 'flex';
+    }
+
+    function saveVoiceSettings() {
+        selectedVoiceURI = document.getElementById('voice-select').value;
+        speakRate = parseFloat(document.getElementById('rate-range').value);
+        closeModal('voice-settings-modal');
+    }
+
+    function testVoice() {
+        const tempURI = document.getElementById('voice-select').value;
+        const tempRate = parseFloat(document.getElementById('rate-range').value);
+        window.speechSynthesis.cancel();
+        const u = new SpeechSynthesisUtterance("Hello, this is a test.");
+        const v = availableVoices.find(x => x.voiceURI === tempURI);
+        if(v) u.voice = v;
+        u.rate = tempRate;
+        window.speechSynthesis.speak(u);
+    }
 
     // 解析資料
     function parseData() {
@@ -2114,6 +2212,7 @@
             }
         });
         document.getElementById('total-db-words').innerText = totalCount;
+        renderMenu();
     }
 
     // 渲染選單
@@ -2185,7 +2284,6 @@
             const card = document.createElement('div');
             card.className = 'vocab-card';
             card.id = `vocab-${index}`;
-            // 點擊卡片發音
             card.onclick = () => manualPlay(index);
             card.innerHTML = `
                 <div class="vocab-content">
@@ -2200,7 +2298,6 @@
             container.appendChild(card);
         });
 
-        // 重置播放器
         playIndex = 0;
         isPlaying = false;
         updatePlayBtn();
@@ -2209,7 +2306,8 @@
         document.getElementById('player-bar').style.display = 'flex'; 
 
         switchView('study-view');
-        initVoices(); // 確保聲音已載入
+        // 嘗試預載聲音
+        if(availableVoices.length === 0) loadVoices();
     }
 
     function stopPlayerAndReturn() {
@@ -2227,7 +2325,7 @@
     }
 
     function startAutoPlay() {
-        if (playIndex >= fullWordList.length) playIndex = 0; // 如果播到底了，從頭開始
+        if (playIndex >= fullWordList.length) playIndex = 0;
         isPlaying = true;
         currentRepeat = 0;
         repeatCount = parseInt(document.getElementById('repeat-count').value);
@@ -2269,10 +2367,8 @@
 
             currentRepeat++;
             if (currentRepeat < repeatCount) {
-                // 重複唸同一個字
                 playTimeout = setTimeout(playSequence, 800); 
             } else {
-                // 換下一個字
                 currentRepeat = 0;
                 playIndex++;
                 playTimeout = setTimeout(playSequence, 1000);
@@ -2313,8 +2409,8 @@
         document.getElementById('quiz-settings-modal').style.display = 'flex';
     }
 
-    function closeModal() {
-        document.getElementById('quiz-settings-modal').style.display = 'none';
+    function closeModal(id) {
+        document.getElementById(id).style.display = 'none';
     }
 
     function confirmStartQuiz() {
@@ -2330,7 +2426,7 @@
         shuffle(allWords);
         currentQuizList = allWords.slice(0, count);
 
-        closeModal();
+        closeModal('quiz-settings-modal');
         setupQuiz();
     }
 
@@ -2341,7 +2437,6 @@
         shuffle(currentQuizList); 
         loadQuestion();
         switchView('quiz-view');
-        // 預熱語音
         window.speechSynthesis.speak(new SpeechSynthesisUtterance('')); 
     }
 
@@ -2363,36 +2458,28 @@
         const container = document.getElementById('options-box');
         container.innerHTML = "";
 
-        // === 智慧選項生成 (Smart Distractors) ===
-        // 1. 建立干擾項候選池 (從所有選取章節的單字中找)
+        // === 智慧選項 (同詞性優先) ===
         let fullPool = []; 
         selectedChapters.forEach(cat => fullPool = fullPool.concat(categories[cat]));
         
-        // 2. 優先篩選「同詞性」的單字 (排除正確答案)
-        // 這裡的 p 是詞性字串，如 "(v.)"，我們做簡單比對
+        // 篩選同詞性
         let samePosDistractors = fullPool.filter(i => i.w !== q.w && i.p === q.p);
-        
         let distractors = [];
         
-        // 3. 如果同詞性單字足夠 (至少3個)，就全部用同詞性
         if (samePosDistractors.length >= 3) {
             shuffle(samePosDistractors);
             distractors = samePosDistractors.slice(0, 3);
         } else {
-            // 4. 如果不夠，先用有的，剩下用隨機補
             let otherDistractors = fullPool.filter(i => i.w !== q.w && i.p !== q.p);
             shuffle(otherDistractors);
-            
-            distractors = samePosDistractors; // 先放入所有同詞性的
+            distractors = samePosDistractors; 
             let needed = 3 - distractors.length;
             distractors = distractors.concat(otherDistractors.slice(0, needed));
         }
         
-        // 5. 組合選項並洗牌
         let options = [q, ...distractors];
         shuffle(options);
 
-        // 渲染按鈕
         options.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'opt-btn';
@@ -2403,22 +2490,20 @@
     }
 
     function checkAnswer(btn, selected, correct) {
-        // 鎖定所有按鈕
         const allBtns = document.querySelectorAll('.opt-btn');
         allBtns.forEach(b => b.disabled = true);
 
         if (selected.w === correct.w) {
             btn.classList.add('correct');
             score++;
-            setTimeout(nextQ, 500); // 答對快一點
+            setTimeout(nextQ, 500);
         } else {
             btn.classList.add('wrong');
             mistakes.push(correct);
-            // 標示正確答案
             allBtns.forEach(b => {
                 if (b.innerText === correct.d) b.classList.add('correct');
             });
-            setTimeout(nextQ, 1500); // 答錯慢一點
+            setTimeout(nextQ, 1500);
         }
     }
 
@@ -2453,7 +2538,6 @@
     }
 
     function retryQuiz() {
-        // 重新洗牌，保留相同題數設定
         shuffle(currentQuizList); 
         currentIndex = 0;
         score = 0;
@@ -2472,7 +2556,7 @@
 
     function showMenu() {
         stopAutoPlay();
-        document.getElementById('player-bar').style.display = 'none'; // 隱藏播放器
+        document.getElementById('player-bar').style.display = 'none'; 
         switchView('menu-view');
     }
 
@@ -2488,41 +2572,33 @@
         speakText(word);
     }
 
-    // 發音核心函式
+    // 發音核心函式 (支援自選聲音)
     function speakText(text, callback) {
-        window.speechSynthesis.cancel(); // 停止目前發音
+        window.speechSynthesis.cancel(); 
 
-        // 簡單動畫回饋
         const btn = document.getElementById('tts-btn');
         if(btn) { btn.style.opacity = "0.5"; setTimeout(()=>btn.style.opacity="1", 200); }
 
         const utterance = new SpeechSynthesisUtterance(text);
         
-        // 使用最佳聲音
-        if (selectedVoice) {
-            utterance.voice = selectedVoice;
+        if (selectedVoiceURI) {
+            const voice = availableVoices.find(v => v.voiceURI === selectedVoiceURI);
+            if (voice) utterance.voice = voice;
         }
         
         utterance.lang = 'en-US';
         utterance.volume = 1;
-        utterance.rate = 0.85; // 稍微放慢一點點比較清楚
+        utterance.rate = speakRate; 
 
-        utterance.onend = () => { 
-            if(callback) callback();
-        };
-        
-        utterance.onerror = () => {
-            // 出錯也要執行 callback 避免卡住
-            if(callback) callback();
-        };
+        utterance.onend = () => { if(callback) callback(); };
+        utterance.onerror = () => { if(callback) callback(); };
 
         window.speechSynthesis.speak(utterance);
     }
 
     // 初始化
     parseData();
-    renderMenu();
-    initVoices(); // 嘗試載入聲音
+    loadVoices();
 
 </script>
 </body>
