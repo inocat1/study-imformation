@@ -187,9 +187,132 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+         /* --- 右上角功能列 --- */
+        .top-actions {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+            z-index: 100;
+        }
+        
+        .icon-btn {
+            background: rgba(255, 255, 255, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+            width: 45px;
+            height: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
+            text-decoration: none;
+        }
+        
+        .icon-btn:hover {
+            background: rgba(255, 255, 255, 0.9);
+            color: #764ba2;
+            transform: scale(1.1) rotate(10deg);
+        }
+        
+        /* --- 彈窗 (Modal) 通用樣式 --- */
+        .modal-overlay {
+            display: none; /* 預設隱藏 */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(3px);
+            animation: fadeIn 0.3s;
+        }
+        
+        .modal-card {
+            background: white;
+            width: 90%;
+            max-width: 500px;
+            border-radius: 16px;
+            padding: 25px;
+            position: relative;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+            animation: slideUp 0.3s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+            max-height: 80vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #f3f4f6;
+            padding-bottom: 10px;
+        }
+        
+        .modal-header h2 {
+            margin: 0;
+            font-size: 1.5rem;
+            color: #4b5563;
+        }
+        
+        .close-btn {
+            background: none;
+            border: none;
+            font-size: 2rem;
+            color: #9ca3af;
+            cursor: pointer;
+            line-height: 1;
+        }
+        
+        .close-btn:hover { color: #ef4444; }
+        
+        .modal-body {
+            overflow-y: auto;
+            flex: 1;
+            font-size: 1rem;
+            line-height: 1.6;
+            color: #374151;
+        }
+        
+        /* --- 更新日誌列表樣式 --- */
+        .update-item {
+            margin-bottom: 20px;
+            padding-left: 15px;
+            border-left: 4px solid #667eea;
+        }
+        .update-date {
+            font-size: 0.85rem;
+            color: #6b7280;
+            font-weight: bold;
+        }
+        .update-content {
+            margin-top: 5px;
+        }
+        
+        /* --- 動畫定義 --- */
+        @keyframes slideUp {
+            from { transform: translateY(50px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+                
     </style>
 </head>
 <body>
+
+    <div class="top-actions">
+    <button class="icon-btn" onclick="openModal('updates')" title="更新日誌">🔔</button>
+    <button class="icon-btn" onclick="openModal('feedback')" title="功能許願/回報">💬</button>
+</div>
 
     <h1>📚 複習資源總部</h1>
 
@@ -273,8 +396,92 @@
 
     </div>
 
+        <!-- 更新日誌 Modal -->
+<div id="modal-updates" class="modal-overlay" onclick="closeModal(event, 'updates')">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h2>🚀 更新日誌</h2>
+            <button class="close-btn" onclick="closeModal(null, 'updates')">&times;</button>
+        </div>
+        <div class="modal-body" id="updates-list">
+            <!-- JS 會自動填入內容 -->
+        </div>
+    </div>
+</div>
+
+<!-- 使用者回饋 Modal -->
+<div id="modal-feedback" class="modal-overlay" onclick="closeModal(event, 'feedback')">
+    <div class="modal-card" onclick="event.stopPropagation()">
+        <div class="modal-header">
+            <h2>💬 許願池 & 回報</h2>
+            <button class="close-btn" onclick="closeModal(null, 'feedback')">&times;</button>
+        </div>
+        <div class="modal-body">
+            <p>想要新功能？發現 Bug？歡迎填寫表單告訴我！</p>
+            <!-- ★★★ 請在此處替換為你的 Google Form 嵌入代碼 ★★★ -->
+            <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdcWA8lX7x3j.../viewform?embedded=true" 
+                    width="100%" height="400" frameborder="0" marginheight="0" marginwidth="0">
+                載入中…
+            </iframe>
+            <!-- ★★★★★★★★★★★★★★★★★★★★★★★★★★★★★ -->
+        </div>
+    </div>
+</div>
+    
     <!-- 4. JavaScript 控制切換邏輯 -->
     <script>
+/* --- 新增：公告與彈窗邏輯 --- */
+
+    // 1. 設定更新日誌資料 (最新的放上面)
+    const updateLog = [
+        {
+            date: "2025/12/20",
+            content: "新增了<b>「國中 B5 單字」</b>專區，包含 L5 與 L6 的單字卡與測驗。"
+        },
+        {
+            date: "2025/12/15",
+            content: "優化了高中英單的測驗功能，現在支援<b>連續播放</b>與<b>自訂題數</b>。"
+        },
+        {
+            date: "2025/12/01",
+            content: "網站正式上線！收錄學測複習、國文古文筆記與自然科重點整理。"
+        }
+    ];
+
+    // 2. 初始化：將資料寫入彈窗
+    function renderUpdates() {
+        const container = document.getElementById('updates-list');
+        let html = '';
+        updateLog.forEach(item => {
+            html += `
+                <div class="update-item">
+                    <div class="update-date">${item.date}</div>
+                    <div class="update-content">${item.content}</div>
+                </div>
+            `;
+        });
+        container.innerHTML = html;
+    }
+
+    // 3. 開啟彈窗
+    function openModal(type) {
+        if (type === 'updates') {
+            renderUpdates(); // 每次打開都重新渲染，確保最新
+            document.getElementById('modal-updates').style.display = 'flex';
+        } else if (type === 'feedback') {
+            document.getElementById('modal-feedback').style.display = 'flex';
+        }
+    }
+
+    // 4. 關閉彈窗
+    function closeModal(event, type) {
+        // 如果是點擊背景(overlay)或是點擊關閉按鈕，則關閉
+        // event 為 null 代表是直接呼叫關閉
+        if (!event || event.target.id === `modal-${type}` || event.target.classList.contains('close-btn')) {
+            document.getElementById(`modal-${type}`).style.display = 'none';
+        }
+    }
+        
         function switchTab(type) {
             // 1. 把所有內容藏起來
             document.getElementById('senior-section').classList.remove('show');
