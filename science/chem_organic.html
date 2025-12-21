@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>高中化學：有機與生活</title>
+    <style>
+        :root {
+            --primary: #0d9488; /* 化學藍綠色 */
+            --primary-light: #ccfbf1;
+            --secondary: #0f766e;
+            --accent: #f59e0b; /* 重點橘色 */
+            --bg: #f0fdfa;
+            --card-bg: #ffffff;
+            --text-main: #333;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .container { max-width: 1000px; margin: 0 auto; }
+
+        /* --- Header --- */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 15px;
+            position: relative;
+        }
+
+        .back-btn {
+            position: absolute;
+            left: 0; top: 10px;
+            text-decoration: none;
+            color: var(--secondary);
+            font-weight: bold;
+            padding: 5px 10px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 5px;
+        }
+
+        h1 { color: var(--secondary); margin: 0; font-size: 2rem; }
+        .subtitle { color: #555; font-size: 0.95rem; margin-top: 5px; }
+
+        /* --- Card Styles --- */
+        .card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-top: 5px solid var(--primary);
+        }
+
+        h2 {
+            color: var(--secondary);
+            border-left: 5px solid var(--accent);
+            padding-left: 10px;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* --- Tables --- */
+        .table-container {
+            overflow-x: auto; /* 手機版可橫向捲動 */
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.95rem;
+            min-width: 600px; /* 確保表格不會擠在一起 */
+        }
+
+        th {
+            background-color: var(--primary);
+            color: white;
+            padding: 12px;
+            text-align: left;
+            white-space: nowrap;
+        }
+
+        td {
+            border-bottom: 1px solid #e2e8f0;
+            padding: 12px;
+            vertical-align: top;
+        }
+
+        tr:nth-child(even) { background-color: #f8fafc; }
+        tr:hover { background-color: var(--primary-light); }
+
+        /* --- Specific Styles --- */
+        .formula {
+            font-family: 'Courier New', monospace;
+            background: #f1f5f9;
+            padding: 2px 6px;
+            border-radius: 4px;
+            color: #d946ef; /* 紫色強調化學式 */
+            font-weight: bold;
+            display: inline-block;
+        }
+
+        .highlight {
+            color: #d97706;
+            font-weight: bold;
+            background: #fffbeb;
+            padding: 0 3px;
+        }
+
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 0.8rem;
+            color: white;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+        .tag-med { background-color: #ef4444; }
+        .tag-clean { background-color: #3b82f6; }
+        .tag-poly { background-color: #8b5cf6; }
+        .tag-food { background-color: #10b981; }
+        .tag-energy { background-color: #f59e0b; }
+
+        /* --- Isomer Grid --- */
+        .isomer-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        
+        .isomer-box {
+            background: #f0fdfa;
+            border: 1px solid #ccfbf1;
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .isomer-title {
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+            border-bottom: 1px dashed var(--primary);
+            padding-bottom: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="header">
+        <a href="index.html" class="back-btn">← 回總部</a>
+        <h1>⚗️ 有機化學精華筆記</h1>
+        <div class="subtitle">官能基總整理 & 生活化學對照</div>
+    </div>
+
+    <!-- 1. 十大官能基 -->
+    <div class="card">
+        <h2>一、有機官能基總表 (依氧鍵結分類)</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>家族 (Class)</th>
+                        <th>官能基 (Group)</th>
+                        <th>通式</th>
+                        <th>代表化合物</th>
+                        <th>考試記憶點</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>1. 醇類</strong></td>
+                        <td>-OH (羥基)</td>
+                        <td>R-OH</td>
+                        <td><span class="formula">C<sub>2</sub>H<sub>5</sub>OH</span> (乙醇)</td>
+                        <td>易溶於水、中性、可被氧化。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>2. 醚類</strong></td>
+                        <td>-O- (醚基)</td>
+                        <td>R-O-R'</td>
+                        <td><span class="formula">CH<sub>3</sub>OCH<sub>3</sub></span> (二甲醚)</td>
+                        <td>醇的同分異構物、沸點低、麻醉劑。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>3. 醛類</strong></td>
+                        <td>-CHO (醛基)</td>
+                        <td>R-CHO</td>
+                        <td><span class="formula">HCHO</span> (甲醛)</td>
+                        <td><span class="highlight">有還原力</span> (銀鏡反應)、防腐。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>4. 酮類</strong></td>
+                        <td>-CO- (羰基)</td>
+                        <td>R-CO-R'</td>
+                        <td><span class="formula">CH<sub>3</sub>COCH<sub>3</sub></span> (丙酮)</td>
+                        <td>醛的同分異構物、優良溶劑、無還原力。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>5. 羧酸</strong></td>
+                        <td>-COOH (羧基)</td>
+                        <td>R-COOH</td>
+                        <td><span class="formula">CH<sub>3</sub>COOH</span> (乙酸)</td>
+                        <td><span class="highlight">弱酸性</span>、有刺激味。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>6. 酯類</strong></td>
+                        <td>-COO- (酯基)</td>
+                        <td>R-COO-R'</td>
+                        <td>乙酸乙酯</td>
+                        <td><span class="highlight">水果香味</span>、難溶於水(浮在水面)。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>7. 胺類</strong></td>
+                        <td>-NH<sub>2</sub> (胺基)</td>
+                        <td>R-NH<sub>2</sub></td>
+                        <td>苯胺</td>
+                        <td><span class="highlight">弱鹼性</span>、有魚腥味。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>8. 醯胺</strong></td>
+                        <td>-CONH<sub>2</sub> (醯胺基)</td>
+                        <td>R-CONH<sub>2</sub></td>
+                        <td>乙醯胺</td>
+                        <td>中性、蛋白質(肽鍵)的基礎。</td>
+                    </tr>
+                    <tr>
+                        <td><strong>9. 酚類</strong></td>
+                        <td>Ar-OH (苯環接OH)</td>
+                        <td>C<sub>6</sub>H<sub>5</sub>OH</td>
+                        <td>苯酚 (石炭酸)</td>
+                        <td><span class="highlight">弱酸性</span>、氯化鐵檢驗呈紫色。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <!-- 2. 同分異構物 (CP值最高) -->
+    <div class="card">
+        <h2>二、必考同分異構物配對 (官能基異構)</h2>
+        <p>看到分子式，要馬上反應出是哪兩類！</p>
+        
+        <div class="isomer-grid">
+            <div class="isomer-box">
+                <div class="isomer-title">1. 醇 & 醚 (C<sub>n</sub>H<sub>2n+2</sub>O)</div>
+                <p>特徵：1 個氧，氫全滿。</p>
+                <p>例：<span class="formula">C<sub>2</sub>H<sub>6</sub>O</span></p>
+                <ul>
+                    <li><strong>乙醇</strong> (跟鈉反應生H<sub>2</sub>)</li>
+                    <li><strong>二甲醚</strong> (不跟鈉反應)</li>
+                </ul>
+            </div>
+
+            <div class="isomer-box">
+                <div class="isomer-title">2. 醛 & 酮 (C<sub>n</sub>H<sub>2n</sub>O)</div>
+                <p>特徵：1 個氧，有雙鍵 (氫少2個)。</p>
+                <p>例：<span class="formula">C<sub>3</sub>H<sub>6</sub>O</span></p>
+                <ul>
+                    <li><strong>丙醛</strong> (有還原力，銀鏡反應)</li>
+                    <li><strong>丙酮</strong> (無還原力)</li>
+                </ul>
+            </div>
+
+            <div class="isomer-box">
+                <div class="isomer-title">3. 酸 & 酯 (C<sub>n</sub>H<sub>2n</sub>O<sub>2</sub>)</div>
+                <p>特徵：2 個氧。</p>
+                <p>例：<span class="formula">C<sub>2</sub>H<sub>4</sub>O<sub>2</sub></span></p>
+                <ul>
+                    <li><strong>乙酸</strong> (石蕊試紙變紅)</li>
+                    <li><strong>甲酸甲酯</strong> (中性，有香味)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 3. 生活化學 -->
+    <div class="card">
+        <h2>三、生活化學 vs. 化學結構</h2>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="10%">分類</th>
+                        <th width="15%">名稱</th>
+                        <th width="20%">關鍵結構</th>
+                        <th>原理與考點</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tag tag-med">醫藥</span></td>
+                        <td><strong>阿斯匹靈</strong></td>
+                        <td>羧基 + 酯基</td>
+                        <td>水楊酸 + 乙酐酯化。<br>解熱鎮痛、抗凝血。<span class="highlight">酸性傷胃</span>。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-clean">清潔</span></td>
+                        <td><strong>肥皂</strong></td>
+                        <td>羧酸鹽 (-COO<sup>-</sup>Na<sup>+</sup>)</td>
+                        <td>油脂 + 強鹼皂化。<br>怕酸、<span class="highlight">怕硬水</span>(生成鈣肥皂沉澱)。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-clean">清潔</span></td>
+                        <td><strong>合成清潔劑</strong></td>
+                        <td>磺酸鹽 (-SO<sub>3</sub><sup>-</sup>Na<sup>+</sup>)</td>
+                        <td>石油原料。<span class="highlight">耐酸、耐硬水</span>。<br>支鏈多難分解(硬性)。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-poly">聚合物</span></td>
+                        <td><strong>PE / PVC</strong></td>
+                        <td>單鍵鏈狀</td>
+                        <td>加成聚合。熱塑性。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-poly">聚合物</span></td>
+                        <td><strong>PET (寶特瓶)</strong></td>
+                        <td>酯基 (-COO-)</td>
+                        <td><span class="highlight">縮合聚合</span> (酸+醇)。聚酯纖維。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-poly">聚合物</span></td>
+                        <td><strong>耐綸 (Nylon)</strong></td>
+                        <td>醯胺基 (-CONH-)</td>
+                        <td><span class="highlight">縮合聚合</span> (酸+胺)。肽鍵結構似蛋白質。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-food">食品</span></td>
+                        <td><strong>葡萄糖</strong></td>
+                        <td>多羥基 + 醛</td>
+                        <td>單醣。有醛基故有<span class="highlight">還原力</span> (斐林試劑變紅)。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-food">食品</span></td>
+                        <td><strong>油脂</strong></td>
+                        <td>酯基</td>
+                        <td>甘油 + 3個脂肪酸。</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tag tag-energy">能源</span></td>
+                        <td><strong>汽油</strong></td>
+                        <td>烷類混合物</td>
+                        <td>辛烷值：抗震爆。<br>異辛烷=100 (支鏈多好)，正庚烷=0。</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+
+</body>
+</html>
