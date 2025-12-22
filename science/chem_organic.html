@@ -723,7 +723,8 @@
             questionArea.appendChild(qCard);
 
             answerArea.className = 'options-grid';
-            const opts = [...q.o].sort(() => 0.5 - Math.random());
+            const uniqueOpts = new Set([...q.o, q.a]);
+            const opts = Array.from(uniqueOpts).sort(() => 0.5 - Math.random());
             opts.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = 'opt-btn';
