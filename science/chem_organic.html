@@ -2,362 +2,708 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>高中化學：有機與生活</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>高中化學全能特訓</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #0d9488; /* 化學藍綠色 */
+            /* 沿用英文版的主題色 (紫色漸層)，但卡片內保留化學綠 */
+            --app-bg-start: #667eea;
+            --app-bg-end: #764ba2;
+            --primary: #0d9488; /* 化學綠 */
             --primary-light: #ccfbf1;
-            --secondary: #0f766e;
-            --accent: #f59e0b; /* 重點橘色 */
-            --bg: #f0fdfa;
-            --card-bg: #ffffff;
-            --text-main: #333;
+            --text: #1e293b;
+            --gray: #64748b;
+            --success: #059669;
+            --error: #dc2626;
+            --slot-bg: #e2e8f0;
         }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-            background-color: var(--bg);
-            color: var(--text-main);
+            font-family: 'Noto Sans TC', sans-serif;
+            background: linear-gradient(135deg, var(--app-bg-start) 0%, var(--app-bg-end) 100%);
+            color: var(--text);
             margin: 0;
             padding: 20px;
-            line-height: 1.6;
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
         }
 
-        .container { max-width: 1000px; margin: 0 auto; }
-
-        /* --- Header --- */
-        .header {
-            text-align: center;
-            margin-bottom: 30px;
-            border-bottom: 3px solid var(--primary);
-            padding-bottom: 15px;
+        .container {
+            width: 100%;
+            max-width: 800px;
+            background: rgba(255, 255, 255, 0.98);
+            min-height: 90vh;
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
             position: relative;
         }
 
-        .back-btn {
-            position: absolute;
-            left: 0; top: 10px;
-            text-decoration: none;
-            color: var(--secondary);
-            font-weight: bold;
-            padding: 5px 10px;
-            background: rgba(255,255,255,0.8);
-            border-radius: 5px;
-        }
-
-        h1 { color: var(--secondary); margin: 0; font-size: 2rem; }
-        .subtitle { color: #555; font-size: 0.95rem; margin-top: 5px; }
-
-        /* --- Card Styles --- */
-        .card {
-            background: var(--card-bg);
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-            border-top: 5px solid var(--primary);
-        }
-
-        h2 {
-            color: var(--secondary);
-            border-left: 5px solid var(--accent);
-            padding-left: 10px;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-
-        /* --- Tables --- */
-        .table-container {
-            overflow-x: auto; /* 手機版可橫向捲動 */
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.95rem;
-            min-width: 600px; /* 確保表格不會擠在一起 */
-        }
-
-        th {
-            background-color: var(--primary);
-            color: white;
-            padding: 12px;
-            text-align: left;
-            white-space: nowrap;
-        }
-
-        td {
+        /* --- Header --- */
+        header {
+            text-align: center;
+            padding: 20px;
+            background: #fff;
+            position: sticky;
+            top: 0;
+            z-index: 50;
             border-bottom: 1px solid #e2e8f0;
-            padding: 12px;
-            vertical-align: top;
         }
-
-        tr:nth-child(even) { background-color: #f8fafc; }
-        tr:hover { background-color: var(--primary-light); }
-
-        /* --- Specific Styles --- */
-        .formula {
-            font-family: 'Courier New', monospace;
-            background: #f1f5f9;
-            padding: 2px 6px;
-            border-radius: 4px;
-            color: #d946ef; /* 紫色強調化學式 */
-            font-weight: bold;
-            display: inline-block;
+        .back-btn {
+            position: absolute; left: 15px; top: 20px;
+            background: #f1f5f9; border: none; padding: 6px 14px; border-radius: 20px;
+            font-size: 0.9rem; color: var(--gray); font-weight: bold; cursor: pointer; text-decoration: none;
         }
+        h1 { margin: 0; font-size: 1.5rem; color: #333; letter-spacing: 1px; }
 
-        .highlight {
-            color: #d97706;
-            font-weight: bold;
-            background: #fffbeb;
-            padding: 0 3px;
-        }
-
-        .tag {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 0.8rem;
-            color: white;
-            margin-bottom: 5px;
-            font-weight: bold;
-        }
-        .tag-med { background-color: #ef4444; }
-        .tag-clean { background-color: #3b82f6; }
-        .tag-poly { background-color: #8b5cf6; }
-        .tag-food { background-color: #10b981; }
-        .tag-energy { background-color: #f59e0b; }
-
-        /* --- Isomer Grid --- */
-        .isomer-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 20px;
-        }
-        
-        .isomer-box {
-            background: #f0fdfa;
-            border: 1px solid #ccfbf1;
+        /* --- Tab 切換 --- */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
             padding: 15px;
-            border-radius: 8px;
+            background: #f8fafc;
+            border-bottom: 1px solid #e2e8f0;
         }
-        
-        .isomer-title {
+        .tab-btn {
+            padding: 10px 24px;
+            border: none;
+            border-radius: 50px;
+            font-size: 1rem;
             font-weight: bold;
-            color: var(--secondary);
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            border-bottom: 1px dashed var(--primary);
-            padding-bottom: 5px;
+            color: var(--gray);
+            background: #e2e8f0;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        .tab-btn.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3);
         }
 
+        /* --- 內容區塊 --- */
+        .view-section { display: none; padding: 20px; flex: 1; overflow-y: auto; }
+        .view-section.active { display: block; animation: fadeIn 0.3s ease; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- [View 1] 筆記模式 --- */
+        .note-card {
+            background: #fff; border-radius: 12px; padding: 25px; margin-bottom: 30px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid var(--primary); border-top: 1px solid #f1f5f9;
+        }
+        h2 { color: #0f766e; margin-top: 0; margin-bottom: 20px; font-size: 1.3rem; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; }
+        
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 600px; }
+        .table-wrapper { overflow-x: auto; }
+        th { background-color: var(--primary); color: white; padding: 12px; text-align: left; white-space: nowrap; }
+        td { border-bottom: 1px solid #e2e8f0; padding: 12px; vertical-align: top; }
+        tr:nth-child(even) { background-color: #f8fafc; }
+        
+        .formula { font-family: 'Courier New', monospace; background: #f3e8ff; padding: 2px 6px; border-radius: 4px; color: #7e22ce; font-weight: bold; }
+        .highlight { color: #b45309; font-weight: bold; background: #fffbeb; padding: 0 3px; }
+        
+        /* 標籤 */
+        .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; color: white; margin-bottom: 5px; font-weight: bold; }
+        .tag-med { background: #ef4444; } .tag-clean { background: #3b82f6; } 
+        .tag-poly { background: #8b5cf6; } .tag-food { background: #10b981; } .tag-energy { background: #f59e0b; }
+
+        /* --- [View 2] 測驗選單 --- */
+        .stats-panel {
+            background: var(--primary); color: white; padding: 20px; border-radius: 16px;
+            margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;
+            box-shadow: 0 5px 15px rgba(13, 148, 136, 0.3);
+        }
+        .chapter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 80px; }
+        .chapter-card {
+            background: #f8fafc; border: 2px solid transparent; border-radius: 12px; padding: 15px;
+            cursor: pointer; transition: 0.2s; position: relative; overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); min-height: 90px; display: flex; flex-direction: column; justify-content: center;
+        }
+        .chapter-card.selected { border-color: var(--primary); background-color: var(--primary-light); }
+        .chapter-card.selected::after {
+            content: '✓'; position: absolute; top: 5px; right: 5px; background: var(--primary); color: white;
+            border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; align-items: center; justify-content: center;
+        }
+        .ch-title { font-weight: bold; font-size: 1.05rem; margin-bottom: 5px; color: #333; }
+        .ch-count { font-size: 0.85rem; color: var(--gray); }
+
+        /* 底部懸浮按鈕 */
+        .bottom-dock {
+            position: absolute; bottom: 0; left: 0; width: 100%;
+            background: rgba(255, 255, 255, 0.9); padding: 15px 20px;
+            border-top: 1px solid #e2e8f0; backdrop-filter: blur(5px);
+            z-index: 100;
+        }
+        .start-btn {
+            width: 100%; padding: 15px; border: none; border-radius: 30px;
+            font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s;
+            background: var(--primary); color: white;
+            box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3);
+        }
+        .start-btn:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
+        .start-btn:active { transform: scale(0.98); }
+
+        /* --- 測驗進行中 --- */
+        .quiz-status { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; color: var(--gray); font-size: 0.9rem; }
+        .progress-bar { height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 25px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
+        
+        .question-box {
+            min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center;
+            background: white; border-radius: 16px; padding: 25px; margin-bottom: 20px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; border: 1px solid #f1f5f9;
+        }
+        .q-text { font-size: 1.3rem; font-weight: 800; color: #333; line-height: 1.5; }
+        
+        /* 選擇題按鈕 */
+        .options-grid { display: grid; gap: 12px; }
+        .opt-btn {
+            background: white; border: 2px solid #e2e8f0; padding: 18px; border-radius: 12px;
+            font-size: 1rem; text-align: left; cursor: pointer; transition: 0.2s; color: var(--text);
+            font-weight: 500;
+        }
+        .opt-btn:active { background: #f1f5f9; }
+        .opt-btn.correct { background: #dcfce7; border-color: var(--success); color: #166534; font-weight: bold; }
+        .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
+
+        /* 填空題樣式 */
+        .drop-slot {
+            display: inline-flex; min-width: 80px; height: 36px; background: var(--slot-bg);
+            border-bottom: 3px solid #94a3b8; border-radius: 6px; margin: 0 5px;
+            vertical-align: middle; align-items: center; justify-content: center;
+            color: #64748b; font-weight: bold; padding: 0 8px; font-size: 1rem;
+        }
+        .drop-slot.filled { background: transparent; border: none; border-bottom: 3px solid var(--primary); color: var(--primary); }
+        .drop-slot.error { color: var(--error); border-bottom-color: var(--error); }
+        
+        .drag-pool { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 10px; }
+        .drag-item {
+            background: white; border: 2px solid var(--primary); color: var(--primary);
+            padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 1rem;
+        }
+
+        /* 解析與彈窗 */
+        .feedback-box {
+            display: none; background: #f0fdfa; padding: 20px; border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-top: 20px; text-align: left;
+            border: 1px solid var(--primary); animation: slideUp 0.3s;
+        }
+        
+        .modal-overlay {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
+            display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(3px);
+        }
+        .modal {
+            background: white; padding: 30px; border-radius: 20px; width: 85%; max-width: 350px;
+            text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: popIn 0.3s;
+        }
+        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+        .num-input {
+            font-size: 2rem; padding: 10px; width: 100px; text-align: center;
+            border: 2px solid #cbd5e1; border-radius: 12px; margin: 20px 0; color: var(--primary); font-weight: bold;
+        }
+        .modal-btns { display: flex; gap: 12px; margin-top: 20px; }
+
+        /* 結果頁 */
+        .result-box { text-align: center; background: white; padding: 40px; border-radius: 20px; margin-bottom: 20px; }
+        .final-score { font-size: 4.5rem; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 10px; }
+        .mistake-card {
+            background: white; padding: 15px; border-radius: 10px; border-left: 4px solid var(--error);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 10px; text-align: left;
+        }
+
+        /* SVG */
+        .atom-c { fill: #333; font-weight:bold; font-family: Arial; font-size: 24px; text-anchor: middle; dominant-baseline: middle;}
+        .atom-o { fill: #ef4444; font-weight:bold; font-family: Arial; font-size: 24px; text-anchor: middle; dominant-baseline: middle;}
+        .atom-n { fill: #3b82f6; font-weight:bold; font-family: Arial; font-size: 24px; text-anchor: middle; dominant-baseline: middle;}
+        .atom-h { fill: #666; font-weight:normal; font-family: Arial; font-size: 18px; text-anchor: middle; dominant-baseline: middle;}
+        .bond { stroke: #333; stroke-width: 3; stroke-linecap: round; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <div class="header">
-        <a href="../index.html" class="back-btn">← 回總部</a>
-        <h1>⚗️ 有機化學精華筆記</h1>
-        <div class="subtitle">官能基總整理 & 生活化學對照</div>
+    
+    <header>
+        <a href="../index.html" class="back-btn">← 總部</a>
+        <h1>有機化學全能特訓</h1>
+    </header>
+
+    <!-- 分頁按鈕 -->
+    <div class="tab-container">
+        <button class="tab-btn active" onclick="switchView('note')">📖 筆記模式</button>
+        <button class="tab-btn" onclick="switchView('quiz')">📝 測驗專區</button>
     </div>
 
-    <!-- 1. 十大官能基 -->
-    <div class="card">
-        <h2>一、有機官能基總表 (依氧鍵結分類)</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>家族 (Class)</th>
-                        <th>官能基 (Group)</th>
-                        <th>通式</th>
-                        <th>代表化合物</th>
-                        <th>考試記憶點</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>1. 醇類</strong></td>
-                        <td>-OH (羥基)</td>
-                        <td>R-OH</td>
-                        <td><span class="formula">C<sub>2</sub>H<sub>5</sub>OH</span> (乙醇)</td>
-                        <td>易溶於水、中性、可被氧化。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>2. 醚類</strong></td>
-                        <td>-O- (醚基)</td>
-                        <td>R-O-R'</td>
-                        <td><span class="formula">CH<sub>3</sub>OCH<sub>3</sub></span> (二甲醚)</td>
-                        <td>醇的同分異構物、沸點低、麻醉劑。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>3. 醛類</strong></td>
-                        <td>-CHO (醛基)</td>
-                        <td>R-CHO</td>
-                        <td><span class="formula">HCHO</span> (甲醛)</td>
-                        <td><span class="highlight">有還原力</span> (銀鏡反應)、防腐。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>4. 酮類</strong></td>
-                        <td>-CO- (羰基)</td>
-                        <td>R-CO-R'</td>
-                        <td><span class="formula">CH<sub>3</sub>COCH<sub>3</sub></span> (丙酮)</td>
-                        <td>醛的同分異構物、優良溶劑、無還原力。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>5. 羧酸</strong></td>
-                        <td>-COOH (羧基)</td>
-                        <td>R-COOH</td>
-                        <td><span class="formula">CH<sub>3</sub>COOH</span> (乙酸)</td>
-                        <td><span class="highlight">弱酸性</span>、有刺激味。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>6. 酯類</strong></td>
-                        <td>-COO- (酯基)</td>
-                        <td>R-COO-R'</td>
-                        <td>乙酸乙酯</td>
-                        <td><span class="highlight">水果香味</span>、難溶於水(浮在水面)。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>7. 胺類</strong></td>
-                        <td>-NH<sub>2</sub> (胺基)</td>
-                        <td>R-NH<sub>2</sub></td>
-                        <td>苯胺</td>
-                        <td><span class="highlight">弱鹼性</span>、有魚腥味。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>8. 醯胺</strong></td>
-                        <td>-CONH<sub>2</sub> (醯胺基)</td>
-                        <td>R-CONH<sub>2</sub></td>
-                        <td>乙醯胺</td>
-                        <td>中性、蛋白質(肽鍵)的基礎。</td>
-                    </tr>
-                    <tr>
-                        <td><strong>9. 酚類</strong></td>
-                        <td>Ar-OH (苯環接OH)</td>
-                        <td>C<sub>6</sub>H<sub>5</sub>OH</td>
-                        <td>苯酚 (石炭酸)</td>
-                        <td><span class="highlight">弱酸性</span>、氯化鐵檢驗呈紫色。</td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- ==================== View 1: 筆記模式 ==================== -->
+    <div id="view-note" class="view-section active">
+        <!-- 1. 十大官能基 -->
+        <div class="note-card">
+            <h2>一、有機官能基總表</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>家族</th><th>官能基</th><th>通式</th><th>代表化合物</th><th>考試記憶點</th></tr></thead>
+                    <tbody>
+                        <tr><td><strong>1. 醇類</strong></td><td>-OH</td><td>R-OH</td><td><span class="formula">C<sub>2</sub>H<sub>5</sub>OH</span></td><td>易溶於水、中性。</td></tr>
+                        <tr><td><strong>2. 醚類</strong></td><td>-O-</td><td>R-O-R'</td><td><span class="formula">CH<sub>3</sub>OCH<sub>3</sub></span></td><td>醇的同分異構物。</td></tr>
+                        <tr><td><strong>3. 醛類</strong></td><td>-CHO</td><td>R-CHO</td><td><span class="formula">HCHO</span></td><td><span class="highlight">有還原力</span> (銀鏡)。</td></tr>
+                        <tr><td><strong>4. 酮類</strong></td><td>-CO-</td><td>R-CO-R'</td><td><span class="formula">CH<sub>3</sub>COCH<sub>3</sub></span></td><td>無還原力，溶劑。</td></tr>
+                        <tr><td><strong>5. 羧酸</strong></td><td>-COOH</td><td>R-COOH</td><td><span class="formula">CH<sub>3</sub>COOH</span></td><td><span class="highlight">弱酸性</span>。</td></tr>
+                        <tr><td><strong>6. 酯類</strong></td><td>-COO-</td><td>R-COO-R'</td><td>乙酸乙酯</td><td><span class="highlight">水果香</span>，難溶。</td></tr>
+                        <tr><td><strong>7. 胺類</strong></td><td>-NH<sub>2</sub></td><td>R-NH<sub>2</sub></td><td>苯胺</td><td><span class="highlight">弱鹼性</span>，魚腥。</td></tr>
+                        <tr><td><strong>8. 醯胺</strong></td><td>-CONH<sub>2</sub></td><td>R-CONH<sub>2</sub></td><td>乙醯胺</td><td>中性，肽鍵。</td></tr>
+                        <tr><td><strong>9. 酚類</strong></td><td>Ar-OH</td><td>C<sub>6</sub>H<sub>5</sub>OH</td><td>苯酚</td><td><span class="highlight">弱酸性</span>，氯化鐵紫色。</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- 2. 生活化學 -->
+        <div class="note-card">
+            <h2>二、生活化學 vs. 結構</h2>
+            <div class="table-wrapper">
+                <table>
+                    <thead><tr><th>分類</th><th>名稱</th><th>結構特徵</th><th>原理與考點</th></tr></thead>
+                    <tbody>
+                        <tr><td><span class="tag tag-med">醫藥</span></td><td><strong>阿斯匹靈</strong></td><td>羧基+酯基</td><td>水楊酸+乙酐酯化。<span class="highlight">傷胃</span>。</td></tr>
+                        <tr><td><span class="tag tag-clean">清潔</span></td><td><strong>肥皂</strong></td><td>羧酸鹽</td><td>油脂皂化。<span class="highlight">怕硬水</span>。</td></tr>
+                        <tr><td><span class="tag tag-poly">聚合物</span></td><td><strong>PET</strong></td><td>酯基</td><td><span class="highlight">縮合聚合</span>，寶特瓶。</td></tr>
+                        <tr><td><span class="tag tag-poly">聚合物</span></td><td><strong>耐綸</strong></td><td>醯胺基</td><td><span class="highlight">縮合聚合</span>，含氮。</td></tr>
+                        <tr><td><span class="tag tag-food">食品</span></td><td><strong>葡萄糖</strong></td><td>多羥基醛</td><td>有醛基故有<span class="highlight">還原力</span>。</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 
-    <!-- 2. 同分異構物 (CP值最高) -->
-    <div class="card">
-        <h2>二、必考同分異構物配對 (官能基異構)</h2>
-        <p>看到分子式，要馬上反應出是哪兩類！</p>
+    <!-- ==================== View 2: 測驗專區 ==================== -->
+    <div id="view-quiz" class="view-section">
         
-        <div class="isomer-grid">
-            <div class="isomer-box">
-                <div class="isomer-title">1. 醇 & 醚 (C<sub>n</sub>H<sub>2n+2</sub>O)</div>
-                <p>特徵：1 個氧，氫全滿。</p>
-                <p>例：<span class="formula">C<sub>2</sub>H<sub>6</sub>O</span></p>
-                <ul>
-                    <li><strong>乙醇</strong> (跟鈉反應生H<sub>2</sub>)</li>
-                    <li><strong>二甲醚</strong> (不跟鈉反應)</li>
-                </ul>
+        <!-- 1. 測驗選單 -->
+        <div id="quiz-menu">
+            <div class="stats-panel">
+                <div style="font-size:0.9rem;">已選 <span id="selected-count" style="font-weight:bold; color:#ccfbf1; font-size:1.2rem;">0</span> 個單元</div>
+                <div style="font-size:0.9rem;">共 <span id="total-selected-items" style="font-weight:bold; font-size:1.2rem;">0</span> 題</div>
             </div>
 
-            <div class="isomer-box">
-                <div class="isomer-title">2. 醛 & 酮 (C<sub>n</sub>H<sub>2n</sub>O)</div>
-                <p>特徵：1 個氧，有雙鍵 (氫少2個)。</p>
-                <p>例：<span class="formula">C<sub>3</sub>H<sub>6</sub>O</span></p>
-                <ul>
-                    <li><strong>丙醛</strong> (有還原力，銀鏡反應)</li>
-                    <li><strong>丙酮</strong> (無還原力)</li>
-                </ul>
+            <div class="chapter-grid" id="chapter-list">
+                <!-- JS 生成章節 -->
             </div>
 
-            <div class="isomer-box">
-                <div class="isomer-title">3. 酸 & 酯 (C<sub>n</sub>H<sub>2n</sub>O<sub>2</sub>)</div>
-                <p>特徵：2 個氧。</p>
-                <p>例：<span class="formula">C<sub>2</sub>H<sub>4</sub>O<sub>2</sub></span></p>
-                <ul>
-                    <li><strong>乙酸</strong> (石蕊試紙變紅)</li>
-                    <li><strong>甲酸甲酯</strong> (中性，有香味)</li>
-                </ul>
+            <div class="bottom-dock">
+                <button class="start-btn" id="btn-start-quiz" onclick="prepareQuiz()" disabled>📝 設定題數並開始</button>
+            </div>
+        </div>
+
+        <!-- 2. 測驗進行中 -->
+        <div id="quiz-play" style="display:none;">
+            <div class="quiz-status">
+                <span>題目 <span id="q-curr">1</span> / <span id="q-total">10</span></span>
+                <span>分數: <span id="score">0</span></span>
+            </div>
+            <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+
+            <!-- 題目區塊 -->
+            <div id="question-area"></div>
+
+            <!-- 選項區塊 (會變動) -->
+            <div id="answer-area"></div>
+
+            <!-- 解析區塊 -->
+            <div id="feedback" class="feedback-box">
+                <div id="feedback-text" style="margin-bottom:15px; font-size:1rem; line-height:1.5;"></div>
+                <button class="tab-btn active" style="width:100%" onclick="nextQuestion()">下一題 ➔</button>
+            </div>
+
+            <div style="text-align:center; margin-top:30px;">
+                <button style="background:none; border:none; color:#64748b; font-weight:bold; cursor:pointer;" onclick="switchView('quiz')">
+                    退出測驗
+                </button>
+            </div>
+        </div>
+
+        <!-- 3. 結果頁 -->
+        <div id="quiz-result" style="display:none;">
+            <div class="result-box">
+                <div class="final-score" id="final-score">100</div>
+                <div class="final-label">測驗得分</div>
+            </div>
+
+            <button class="tab-btn active" onclick="retryQuiz()" style="width:100%; margin-bottom:15px;">再測一次</button>
+            <button class="tab-btn" onclick="switchView('quiz')" style="width:100%;">回測驗選單</button>
+
+            <div id="mistake-section" style="display:none; margin-top:30px;">
+                <h3 style="color:var(--error); text-align:center; margin-bottom:15px;">⚠️ 需加強的觀念</h3>
+                <div id="mistake-list" class="mistake-list"></div>
             </div>
         </div>
     </div>
 
-    <!-- 3. 生活化學 -->
-    <div class="card">
-        <h2>三、生活化學 vs. 化學結構</h2>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th width="10%">分類</th>
-                        <th width="15%">名稱</th>
-                        <th width="20%">關鍵結構</th>
-                        <th>原理與考點</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><span class="tag tag-med">醫藥</span></td>
-                        <td><strong>阿斯匹靈</strong></td>
-                        <td>羧基 + 酯基</td>
-                        <td>水楊酸 + 乙酐酯化。<br>解熱鎮痛、抗凝血。<span class="highlight">酸性傷胃</span>。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tag tag-clean">清潔</span></td>
-                        <td><strong>肥皂</strong></td>
-                        <td>羧酸鹽 (-COO<sup>-</sup>Na<sup>+</sup>)</td>
-                        <td>油脂 + 強鹼皂化。<br>怕酸、<span class="highlight">怕硬水</span>(生成鈣肥皂沉澱)。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tag tag-clean">清潔</span></td>
-                        <td><strong>合成清潔劑</strong></td>
-                        <td>磺酸鹽 (-SO<sub>3</sub><sup>-</sup>Na<sup>+</sup>)</td>
-                        <td>石油原料。<span class="highlight">耐酸、耐硬水</span>。<br>支鏈多難分解(硬性)。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tag tag-poly">聚合物</span></td>
-                        <td><strong>PE / PVC</strong></td>
-                        <td>單鍵鏈狀</td>
-                        <td>加成聚合。熱塑性。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tag tag-poly">聚合物</span></td>
-                        <td><strong>PET (寶特瓶)</strong></td>
-                        <td>酯基 (-COO-)</td>
-                        <td><span class="highlight">縮合聚合</span> (酸+醇)。聚酯纖維。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tag tag-poly">聚合物</span></td>
-                        <td><strong>耐綸 (Nylon)</strong></td>
-                        <td>醯胺基 (-CONH-)</td>
-                        <td><span class="highlight">縮合聚合</span> (酸+胺)。肽鍵結構似蛋白質。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tag tag-food">食品</span></td>
-                        <td><strong>葡萄糖</strong></td>
-                        <td>多羥基 + 醛</td>
-                        <td>單醣。有醛基故有<span class="highlight">還原力</span> (斐林試劑變紅)。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tag tag-food">食品</span></td>
-                        <td><strong>油脂</strong></td>
-                        <td>酯基</td>
-                        <td>甘油 + 3個脂肪酸。</td>
-                    </tr>
-                    <tr>
-                        <td><span class="tag tag-energy">能源</span></td>
-                        <td><strong>汽油</strong></td>
-                        <td>烷類混合物</td>
-                        <td>辛烷值：抗震爆。<br>異辛烷=100 (支鏈多好)，正庚烷=0。</td>
-                    </tr>
-                </tbody>
-            </table>
+    <!-- 彈窗：題數設定 -->
+    <div id="quiz-settings-modal" class="modal-overlay">
+        <div class="modal">
+            <h3>設定測驗題數</h3>
+            <p style="color:#64748b; margin-bottom:0;">範圍總題數：<span id="modal-total-items" style="color:#0d9488; font-weight:bold;">0</span></p>
+            <input type="number" id="quiz-num-input" class="num-input" value="10" min="5">
+            <div class="modal-btns">
+                <button class="tab-btn" onclick="closeModal()">取消</button>
+                <button class="tab-btn active" onclick="confirmStartQuiz()">開始</button>
+            </div>
         </div>
     </div>
 
 </div>
 
+<script>
+    // ================= 1. 資料庫 (30+ 題) =================
+    
+    const chemData = {
+        "基礎官能基": [
+            { type: 'image_choice', svg: `<svg viewBox="0 0 100 60"><line x1="10" y1="30" x2="40" y2="30" class="bond"/><text x="60" y="30" class="atom-o">O</text><text x="85" y="30" class="atom-h">H</text></svg>`, q: "這個「-OH」結構屬於什麼官能基？", a: "羥基", o: ["羧基", "羥基", "醛基", "羰基"], exp: "-OH 是羥基。醇類和酚類都有它。" },
+            { type: 'image_choice', svg: `<svg viewBox="0 0 120 80"><line x1="10" y1="40" x2="40" y2="40" class="bond"/><text x="55" y="40" class="atom-c">C</text><line x1="65" y1="25" x2="80" y2="10" class="bond"/><text x="90" y="10" class="atom-o">O</text><line x1="70" y1="30" x2="85" y2="15" class="bond"/><line x1="65" y1="50" x2="80" y2="65" class="bond"/><text x="90" y="70" class="atom-h">H</text></svg>`, q: "「-CHO」是哪種官能基？", a: "醛基", o: ["酮基", "羧基", "醛基", "酯基"], exp: "醛基特徵是 C=O 雙鍵末端接一個 H。" },
+            { type: 'image_choice', svg: `<svg viewBox="0 0 120 80"><line x1="10" y1="40" x2="40" y2="40" class="bond"/><text x="55" y="40" class="atom-c">C</text><line x1="65" y1="25" x2="80" y2="10" class="bond"/><text x="90" y="10" class="atom-o">O</text><line x1="70" y1="30" x2="85" y2="15" class="bond"/><line x1="65" y1="50" x2="80" y2="65" class="bond"/><text x="90" y="70" class="atom-o">O</text><text x="110" y="70" class="atom-h">H</text></svg>`, q: "「-COOH」結構是？", a: "羧基", o: ["酯基", "羧基", "羥基", "羰基"], exp: "羧基是有機酸的特徵，呈弱酸性。" },
+            { type: 'image_choice', svg: `<svg viewBox="0 0 120 80"><text x="20" y="40" class="atom-c">C</text><line x1="30" y1="40" x2="60" y2="40" class="bond"/><text x="75" y="40" class="atom-o">O</text><line x1="90" y1="40" x2="110" y2="40" class="bond"/><text x="120" y="40" class="atom-c">C</text></svg>`, q: "碳與碳中間夾一個氧「C-O-C」，這是？", a: "醚類", o: ["酯類", "酮類", "醚類", "醇類"], exp: "醚類結構較穩定，如甲醚。" },
+            { type: 'image_choice', svg: `<svg viewBox="0 0 120 80"><text x="20" y="40" class="atom-c">C</text><line x1="35" y1="25" x2="50" y2="10" class="bond"/><text x="60" y="10" class="atom-o">O</text><line x1="40" y1="30" x2="55" y2="15" class="bond"/><line x1="30" y1="50" x2="50" y2="65" class="bond"/><text x="60" y="70" class="atom-o">O</text><line x1="75" y1="70" x2="95" y2="70" class="bond"/><text x="105" y="70" class="atom-c">C</text></svg>`, q: "看到「-COO-」結構，通常具有香味，它是？", a: "酯基", o: ["羧基", "酯基", "醚基", "酮基"], exp: "酯基常見於水果香味和油脂中，不溶於水。" },
+            { type: 'image_choice', svg: `<svg viewBox="0 0 100 60"><line x1="10" y1="30" x2="40" y2="30" class="bond"/><text x="55" y="30" class="atom-n">N</text><text x="80" y="15" class="atom-h">H</text><text x="80" y="45" class="atom-h">H</text></svg>`, q: "「-NH₂」結構稱為什麼？", a: "胺基", o: ["胺基", "醯胺基", "硝基", "氨基"], exp: "胺基具有孤對電子，表現出弱鹼性。" },
+            { type: 'image_choice', svg: `<svg viewBox="0 0 140 80"><text x="20" y="40" class="atom-c">C</text><line x1="30" y1="25" x2="45" y2="10" class="bond"/><text x="55" y="10" class="atom-o">O</text><line x1="35" y1="30" x2="50" y2="15" class="bond"/><line x1="30" y1="50" x2="50" y2="50" class="bond"/><text x="65" y="50" class="atom-n">N</text><text x="85" y="50" class="atom-h">H</text><line x1="95" y1="50" x2="115" y2="50" class="bond"/></svg>`, q: "「-CONH-」結構在蛋白質中被稱為？", a: "肽鍵", o: ["氫鍵", "離子鍵", "肽鍵", "酯鍵"], exp: "這是醯胺基 (肽鍵)，連接胺基酸形成蛋白質。" },
+            { type: 'image_choice', svg: `<svg viewBox="0 0 120 80"><text x="20" y="50" class="atom-c">C</text><line x1="35" y1="35" x2="50" y2="20" class="bond"/><text x="60" y="20" class="atom-o">O</text><line x1="40" y1="40" x2="55" y2="25" class="bond"/><line x1="35" y1="60" x2="70" y2="60" class="bond"/><text x="80" y="60" class="atom-c">C</text></svg>`, q: "碳與碳之間夾著「C=O」，兩邊都接碳，這是？", a: "酮基", o: ["醛基", "酮基", "羧基", "醚基"], exp: "這是酮基。最簡單的酮是丙酮(去光水)。" },
+            { type: 'fill', pre: "結構式為 R-OH 的官能基稱為", post: "，具有親水性。", ans: "羥基", opts: ["羧基", "醛基", "羰基"], exp: "-OH 是羥基 (Hydroxyl group)。" },
+            { type: 'fill', pre: "醛基的結構式為", post: "，具有還原性。", ans: "-CHO", opts: ["-COOH", "-OH", "-COO-"], exp: "醛基寫作 -CHO。" },
+            { type: 'fill', pre: "有機酸必定含有", post: "官能基，呈弱酸性。", ans: "羧基", opts: ["酯基", "羥基", "醛基"], exp: "羧基 (-COOH) 顯酸性。" }
+        ],
+        "生活與環境": [
+            { type: 'text_choice', q: "阿斯匹靈是由水楊酸與何者反應製成？", a: "乙酐", o: ["乙醇", "乙酐", "乙酸", "甲醇"], exp: "阿斯匹靈(乙醯水楊酸)是利用乙酐將水楊酸酯化而成。" },
+            { type: 'fill', pre: "阿斯匹靈是由水楊酸與", post: "反應製成。", ans: "乙酐", opts: ["乙醇", "乙酸", "甲醇"], exp: "水楊酸 + 乙酐 -> 阿斯匹靈。" },
+            { type: 'fill', pre: "肥皂在硬水中產生", post: "，影響洗滌。", ans: "皂垢", opts: ["泡沫", "甘油", "酸性物質"], exp: "硬水中的鈣鎂離子會形成皂垢。" },
+            { type: 'text_choice', q: "下列哪一種塑膠燃燒時易產生戴奧辛？", a: "PVC", o: ["PE", "PP", "PVC", "PET"], exp: "PVC (聚氯乙烯) 含氯，燃燒不完全易生戴奧辛。" },
+            { type: 'fill', pre: "耐綸 (Nylon) 結構中含有", post: "元素。", ans: "氮", opts: ["氯", "硫", "磷"], exp: "耐綸是聚醯胺，含氮。" },
+            { type: 'fill', pre: "汽油的辛烷值代表", post: "能力。", ans: "抗震爆", opts: ["燃燒", "潤滑", "揮發"], exp: "辛烷值越高，抗震爆越好。" },
+            { type: 'fill', pre: "造成「酸雨」的主要氣體是硫氧化物 (SOx) 與", post: "。", ans: "氮氧化物", opts: ["二氧化碳", "甲烷", "臭氧"], exp: "SOx 與 NOx 溶於水會形成酸雨。" },
+            { type: 'fill', pre: "溫室效應的主要元兇是", post: "。", ans: "二氧化碳", opts: ["氧氣", "氮氣", "氫氣"], exp: "雖然水氣也是，但人類活動主要增加的是 CO2。" },
+            { type: 'fill', pre: "自來水廠通常使用", post: "氣體來進行消毒殺菌。", ans: "氯氣", opts: ["氫氣", "氮氣", "氦氣"], exp: "氯氣溶於水產生次氯酸，有強氧化力。" },
+            { type: 'fill', pre: "市售的「味精」化學成分是", post: "。", ans: "麩胺酸鈉", opts: ["氯化鈉", "碳酸鈉", "苯甲酸鈉"], exp: "味精是麩胺酸的鈉鹽。" },
+            { type: 'fill', pre: "水俁病是因為", post: "汙染所引起的神經毒性疾病。", ans: "汞", opts: ["鎘", "鉛", "砷"], exp: "甲基汞導致水俁病。" },
+            { type: 'fill', pre: "痛痛病是因為", post: "汙染所導致的骨骼病變。", ans: "鎘", opts: ["汞", "銅", "鉻"], exp: "鎘米事件導致痛痛病。" },
+            { tag: 'life', pre: "胃藥中若含有", post: "成分，容易引起便秘的副作用。", ans: "氫氧化鋁", opts: ["氫氧化鎂", "碳酸鈣", "碳酸氫鈉"], exp: "鋁鹽易便秘，鎂鹽易腹瀉。" },
+            { tag: 'life', pre: "盤尼西林的抗菌原理是破壞細菌的", post: "合成。", ans: "細胞壁", opts: ["細胞膜", "細胞核", "蛋白質"], exp: "抑制細胞壁肽聚醣合成。" },
+            { tag: 'life', pre: "回收標誌 1 號的塑膠是", post: "，常用於寶特瓶。", ans: "PET", opts: ["HDPE", "PVC", "PP"], exp: "Polyethylene terephthalate (聚對苯二甲酸乙二酯)。" },
+            { tag: 'life', pre: "蛋白質遇到強酸、強鹼或高溫會失去活性，稱為", post: "。", ans: "變性", opts: ["水解", "聚合", "發酵"], exp: "變性 (Denaturation) 是蛋白質立體結構被破壞。" },
+            { tag: 'life', pre: "DNA 與 RNA 結構上的差異，除了鹼基 U/T 不同外，還有", post: "不同。", ans: "五碳醣", opts: ["磷酸", "氫鍵", "螺旋"], exp: "DNA 是去氧核糖，RNA 是核糖。" }
+        ],
+        "進階有機反應": [
+            { type: 'fill', pre: "一級醇氧化後會先變成", post: "，繼續氧化則變成羧酸。", ans: "醛", opts: ["酮", "酯", "醚"], exp: "一級醇 -> 醛 -> 酸。" },
+            { type: 'fill', pre: "苯酚的水溶液呈弱酸性，俗稱", post: "。", ans: "石炭酸", opts: ["醋酸", "水楊酸", "甲酸"], exp: "苯酚俗稱石炭酸。" },
+            { type: 'fill', pre: "乙炔的結構特徵是碳與碳之間有", post: "鍵結。", ans: "參鍵", opts: ["雙鍵", "單鍵", "離子鍵"], exp: "炔類含有碳碳參鍵。" },
+            { type: 'fill', pre: "甲醛的水溶液俗稱", post: "，具有防腐作用。", ans: "福馬林", opts: ["甘油", "酒精", "去光水"], exp: "37% 的甲醛水溶液稱為福馬林。" },
+            { type: 'fill', pre: "乙酸乙酯是由乙酸與", post: "反應脫水而成的。", ans: "乙醇", opts: ["甲醇", "乙醚", "乙烷"], exp: "酯化反應：酸 + 醇 -> 酯 + 水。" },
+            { type: 'fill', pre: "檢驗「酚類」的存在，可加入", post: "溶液，會呈現紫色。", ans: "氯化鐵", opts: ["斐林試劑", "多倫試劑", "溴水"], exp: "酚類遇氯化鐵呈紫色。" },
+            { type: 'fill', pre: "二級胺的結構特徵是氮原子連接了", post: "個碳原子。", ans: "2", opts: ["1", "3", "4"], exp: "氮接 2 個碳是二級胺。" },
+            { type: 'fill', pre: "下列何者互為「官能基異構物」？乙醇與", post: "。", ans: "甲醚", opts: ["乙酸", "乙醛", "丙酮"], exp: "醇與醚互為同分異構物。" },
+            { type: 'fill', pre: "醯胺基在酸性環境下水解，會產生", post: "與胺。", ans: "羧酸", opts: ["醇", "醛", "酮"], exp: "醯胺水解生成酸 + 胺。" },
+            { type: 'fill', pre: "多倫試劑含", post: "錯離子，遇醛會產生銀鏡。", ans: "銀氨", opts: ["銅氨", "鋅氨", "鐵氨"], exp: "又稱銀鏡反應。" },
+            { type: 'fill', pre: "斐林試劑含", post: "離子，遇醛共熱產生紅色沉澱。", ans: "銅", opts: ["銀", "鐵", "鎂"], exp: "Cu2+ 被還原成 Cu2O (紅色)。" },
+            { type: 'fill', pre: "檢驗碳碳雙鍵或參鍵，可使用", post: "，會發生褪色反應。", ans: "溴水", opts: ["石蕊", "酚酞", "碘液"], exp: "溴與不飽和烴發生加成反應。" },
+            { type: 'fill', pre: "鹵代烴與氫氧化鈉水溶液共熱，會發生", post: "反應生成醇。", ans: "取代", opts: ["加成", "消去", "酯化"], exp: "R-X + OH- -> R-OH + X-。" },
+            { type: 'fill', pre: "苯與濃硝酸、濃硫酸共熱，發生", post: "反應生成硝基苯。", ans: "取代", opts: ["加成", "消去", "中和"], exp: "親電芳香取代反應。" },
+            { type: 'fill', pre: "酯化反應通常需要加入", post: "作為催化劑與脫水劑。", ans: "濃硫酸", opts: ["濃鹽酸", "濃硝酸", "氫氧化鈉"], exp: "濃硫酸吸收生成的水，提高產率。" }
+        ]
+    };
+
+    // ================= 頁面初始化與選單 =================
+
+    let selectedChapters = new Set();
+    let currentList = [];
+    let currentIndex = 0;
+    let score = 0;
+    let mistakes = [];
+
+    // 自動執行：計算並顯示總題數
+    let totalItems = 0;
+    for (const cat in chemData) {
+        totalItems += chemData[cat].length;
+    }
+    // 檢查元素是否存在，避免報錯
+    const totalEl = document.getElementById('total-db-items');
+    if (totalEl) totalEl.innerText = totalItems;
+    
+    // 執行選單繪製
+    renderMenu();
+    
+    // 解決白畫面問題：強制執行一次
+    window.onload = function() {
+        renderMenu();
+    }
+
+    function renderMenu() {
+        const grid = document.getElementById('chapter-list');
+        if (!grid) return;
+        
+        grid.innerHTML = "";
+        
+        Object.keys(chemData).forEach(cat => {
+            const count = chemData[cat].length;
+            const card = document.createElement('div');
+            card.className = 'chapter-card';
+            card.onclick = () => toggleSelection(card, cat);
+            card.innerHTML = `
+                <div class="ch-title">${cat}</div>
+                <div class="ch-count">${count} 題</div>
+            `;
+            grid.appendChild(card);
+        });
+    }
+
+    function toggleSelection(card, cat) {
+        if (selectedChapters.has(cat)) {
+            selectedChapters.delete(cat);
+            card.classList.remove('selected');
+        } else {
+            selectedChapters.add(cat);
+            card.classList.add('selected');
+        }
+        updateStats();
+    }
+
+    function updateStats() {
+        document.getElementById('selected-count').innerText = selectedChapters.size;
+        let currentTotal = 0;
+        selectedChapters.forEach(cat => currentTotal += chemData[cat].length);
+        document.getElementById('total-selected-items').innerText = currentTotal;
+
+        const btnQuiz = document.getElementById('btn-start-quiz');
+        if (btnQuiz) btnQuiz.disabled = (selectedChapters.size === 0);
+    }
+
+    function switchView(view) {
+        document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
+        document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
+        if (view === 'note') {
+            document.getElementById('view-note').classList.add('active');
+            document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        } else {
+            document.getElementById('view-quiz').classList.add('active');
+            document.querySelectorAll('.tab-btn')[1].classList.add('active');
+            // 切換到測驗時，重置選單顯示，強制重新繪製以防萬一
+            document.getElementById('quiz-menu').style.display = 'block';
+            document.getElementById('quiz-play').style.display = 'none';
+            document.getElementById('quiz-result').style.display = 'none';
+            renderMenu(); 
+        }
+        window.scrollTo(0, 0);
+    }
+
+    // ================= 測驗邏輯 =================
+
+    function prepareQuiz() {
+        let total = 0;
+        selectedChapters.forEach(cat => total += chemData[cat].length);
+        
+        document.getElementById('modal-total-items').innerText = total;
+        const input = document.getElementById('quiz-num-input');
+        input.max = total;
+        input.value = Math.min(total, 10); 
+        document.getElementById('quiz-settings-modal').style.display = 'flex';
+    }
+
+    function closeModal() {
+        document.getElementById('quiz-settings-modal').style.display = 'none';
+    }
+
+    function confirmStartQuiz() {
+        let allItems = [];
+        selectedChapters.forEach(cat => {
+            allItems = allItems.concat(chemData[cat]);
+        });
+
+        let count = parseInt(document.getElementById('quiz-num-input').value);
+        if (isNaN(count) || count < 1) count = 5;
+        if (count > allItems.length) count = allItems.length;
+
+        shuffle(allItems);
+        currentList = allItems.slice(0, count);
+
+        closeModal();
+        startQuizFlow();
+    }
+
+    function startQuizFlow() {
+        currentIndex = 0;
+        score = 0;
+        mistakes = [];
+        
+        document.getElementById('quiz-menu').style.display = 'none';
+        document.getElementById('quiz-play').style.display = 'block';
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        if (currentIndex >= currentList.length) {
+            showResult();
+            return;
+        }
+
+        const q = currentList[currentIndex];
+        
+        document.getElementById('q-curr').innerText = currentIndex + 1;
+        document.getElementById('q-total').innerText = currentList.length;
+        document.getElementById('score').innerText = Math.round(score);
+        document.getElementById('progress-fill').style.width = `${(currentIndex / currentList.length) * 100}%`;
+        
+        document.getElementById('feedback').style.display = 'none';
+        
+        const questionArea = document.getElementById('question-area');
+        const answerArea = document.getElementById('answer-area');
+        questionArea.innerHTML = '';
+        answerArea.innerHTML = '';
+
+        if (q.type === 'fill') {
+            // --- 填空題 ---
+            const qCard = document.createElement('div');
+            qCard.className = 'question-box';
+            qCard.innerHTML = `
+                <div style="font-size:1.3rem; line-height:2;">
+                    ${q.pre} <div class="drop-slot" id="slot">?</div> ${q.post ? q.post : ''}
+                </div>`;
+            questionArea.appendChild(qCard);
+
+            answerArea.className = 'drag-pool';
+            const opts = [q.ans, ...q.opts].sort(() => 0.5 - Math.random());
+            opts.forEach(opt => {
+                const btn = document.createElement('div');
+                btn.className = 'drag-item';
+                btn.innerText = opt;
+                btn.onclick = () => checkFillAnswer(opt, q);
+                answerArea.appendChild(btn);
+            });
+
+        } else {
+            // --- 選擇題 ---
+            const qCard = document.createElement('div');
+            qCard.className = 'question-box';
+            if (q.type && q.type.includes('image')) {
+                qCard.innerHTML = `${q.svg}<div class="q-text" style="font-size:1.2rem; margin-top:15px;">${q.q}</div>`;
+            } else {
+                qCard.innerHTML = `<div class="q-text">${q.q}</div>`;
+            }
+            questionArea.appendChild(qCard);
+
+            answerArea.className = 'options-grid';
+            const opts = [...q.o].sort(() => 0.5 - Math.random());
+            opts.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = 'opt-btn';
+                btn.innerText = opt;
+                btn.onclick = () => checkChoiceAnswer(btn, opt, q);
+                answerArea.appendChild(btn);
+            });
+        }
+    }
+
+    function checkChoiceAnswer(btn, userAns, qData) {
+        const btns = document.querySelectorAll('.opt-btn');
+        btns.forEach(b => b.disabled = true);
+
+        if (userAns === qData.a) {
+            btn.classList.add('correct');
+            score += 100 / currentList.length;
+            showFeedback(true, qData.exp);
+        } else {
+            btn.classList.add('wrong');
+            btns.forEach(b => { if(b.innerText === qData.a) b.classList.add('correct'); });
+            showFeedback(false, `正解是：${qData.a}。<br>${qData.exp}`);
+            mistakes.push(qData);
+        }
+    }
+
+    function checkFillAnswer(userAns, qData) {
+        const slot = document.getElementById('slot');
+        if (slot.classList.contains('filled')) return; 
+
+        slot.innerText = userAns;
+        slot.classList.add('filled');
+        
+        const items = document.querySelectorAll('.drag-item');
+        items.forEach(i => i.style.pointerEvents = 'none');
+
+        if (userAns === qData.ans) {
+            slot.style.borderBottomColor = 'var(--success)';
+            slot.style.color = 'var(--success)';
+            score += 100 / currentList.length;
+            showFeedback(true, qData.exp);
+        } else {
+            slot.classList.add('error');
+            showFeedback(false, `錯囉！正解是：${qData.ans}。<br>${qData.exp}`);
+            mistakes.push(qData);
+        }
+    }
+
+    function showFeedback(isCorrect, text) {
+        const fb = document.getElementById('feedback');
+        const fbText = document.getElementById('feedback-text');
+        fb.style.display = 'block';
+        fbText.innerHTML = isCorrect ? `✅ 答對了！<br><small>${text}</small>` : `❌ 答錯了...<br><small>${text}</small>`;
+    }
+
+    function nextQuestion() {
+        currentIndex++;
+        loadQuestion();
+    }
+
+    function showResult() {
+        document.getElementById('quiz-play').style.display = 'none';
+        document.getElementById('quiz-result').style.display = 'block';
+        
+        document.getElementById('final-score').innerText = Math.round(score);
+        const section = document.getElementById('mistake-section');
+        const list = document.getElementById('mistake-list');
+        list.innerHTML = "";
+
+        if (mistakes.length > 0) {
+            section.style.display = 'block';
+            mistakes.forEach(m => {
+                let displayQ = '', displayA = '';
+                if (m.type === 'fill') {
+                    displayQ = `${m.pre} ____ ${m.post ? m.post : ''}`; displayA = m.ans;
+                } else {
+                    displayQ = (m.type && m.type.includes('image')) ? '看圖題' : m.q; displayA = m.a;
+                }
+
+                list.innerHTML += `
+                    <div class="mistake-card">
+                        <div style="font-weight:bold; color:#333;">${displayQ}</div>
+                        <div style="color:var(--success); margin-top:5px;">正解：${displayA}</div>
+                        <div style="font-size:0.9rem; color:#666; margin-top:5px;">${m.exp}</div>
+                    </div>
+                `;
+            });
+        } else {
+            section.style.display = 'none';
+        }
+    }
+
+    function retryQuiz() {
+        shuffle(currentList); 
+        startQuizFlow();
+    }
+
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+    }
+
+</script>
 </body>
 </html>
