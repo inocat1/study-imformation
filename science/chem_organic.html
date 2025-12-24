@@ -112,9 +112,9 @@
         .highlight { color: #b45309; font-weight: bold; background: #fffbeb; padding: 0 3px; }
         
         /* 標籤 */
-        .tag { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; color: white; margin-bottom: 5px; font-weight: bold; }
-        .tag-med { background: #ef4444; } .tag-clean { background: #3b82f6; } 
-        .tag-poly { background: #8b5cf6; } .tag-food { background: #10b981; } .tag-energy { background: #f59e0b; }
+        .type { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; color: white; margin-bottom: 5px; font-weight: bold; }
+        .type-med { background: #ef4444; } .type-clean { background: #3b82f6; } 
+        .type-poly { background: #8b5cf6; } .type-food { background: #10b981; } .type-energy { background: #f59e0b; }
 
         /* --- [View 2] 測驗選單 --- */
         .stats-panel {
@@ -162,7 +162,7 @@
             background: white; border-radius: 16px; padding: 25px; margin-bottom: 20px;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; border: 1px solid #f1f5f9;
         }
-        .q-text { font-size: 1.3rem; font-weight: 800; color: #333; line-height: 1.5; }
+        .pre-text { font-size: 1.3rem; font-weight: 800; color: #333; line-height: 1.5; }
         
         /* 選擇題按鈕 */
         .options-grid { display: grid; gap: 12px; }
@@ -275,11 +275,11 @@
                 <table>
                     <thead><tr><th>分類</th><th>名稱</th><th>結構特徵</th><th>原理與考點</th></tr></thead>
                     <tbody>
-                        <tr><td><span class="tag tag-med">醫藥</span></td><td><strong>阿斯匹靈</strong></td><td>羧基+酯基</td><td>水楊酸+乙酐酯化。<span class="highlight">傷胃</span>。</td></tr>
-                        <tr><td><span class="tag tag-clean">清潔</span></td><td><strong>肥皂</strong></td><td>羧酸鹽</td><td>油脂皂化。<span class="highlight">怕硬水</span>。</td></tr>
-                        <tr><td><span class="tag tag-poly">聚合物</span></td><td><strong>PET</strong></td><td>酯基</td><td><span class="highlight">縮合聚合</span>，寶特瓶。</td></tr>
-                        <tr><td><span class="tag tag-poly">聚合物</span></td><td><strong>耐綸</strong></td><td>醯胺基</td><td><span class="highlight">縮合聚合</span>，含氮。</td></tr>
-                        <tr><td><span class="tag tag-food">食品</span></td><td><strong>葡萄糖</strong></td><td>多羥基醛</td><td>有醛基故有<span class="highlight">還原力</span>。</td></tr>
+                        <tr><td><span class="type type-med">醫藥</span></td><td><strong>阿斯匹靈</strong></td><td>羧基+酯基</td><td>水楊酸+乙酐酯化。<span class="highlight">傷胃</span>。</td></tr>
+                        <tr><td><span class="type type-clean">清潔</span></td><td><strong>肥皂</strong></td><td>羧酸鹽</td><td>油脂皂化。<span class="highlight">怕硬水</span>。</td></tr>
+                        <tr><td><span class="type type-poly">聚合物</span></td><td><strong>PET</strong></td><td>酯基</td><td><span class="highlight">縮合聚合</span>，寶特瓶。</td></tr>
+                        <tr><td><span class="type type-poly">聚合物</span></td><td><strong>耐綸</strong></td><td>醯胺基</td><td><span class="highlight">縮合聚合</span>，含氮。</td></tr>
+                        <tr><td><span class="type type-food">食品</span></td><td><strong>葡萄糖</strong></td><td>多羥基醛</td><td>有醛基故有<span class="highlight">還原力</span>。</td></tr>
                     </tbody>
                 </table>
             </div>
@@ -308,7 +308,7 @@
         <!-- 2. 測驗進行中 -->
         <div id="quiz-play" style="display:none;">
             <div class="quiz-status">
-                <span>題目 <span id="q-curr">1</span> / <span id="q-total">10</span></span>
+                <span>題目 <span id="pre-curr">1</span> / <span id="pre-total">10</span></span>
                 <span>分數: <span id="score">0</span></span>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
@@ -370,11 +370,11 @@
     const chemData = {
     "基礎官能基 (50題)": [
         // --- 結構圖形題 (Image Choice) ---
-        { type: 'image_choice', svg: `<svg viewBox="0 0 100 60"><line x1="10" y1="30" x2="40" y2="30" class="bond"/><text x="60" y="30" class="atom-o">O</text><text x="85" y="30" class="atom-h">H</text></svg>`, q: "這個「-OH」結構屬於什麼官能基？", a: "羥基", o: ["羧基", "羥基", "醛基", "羰基"], exp: "醇類(R-OH)和酚類(Ar-OH)都有它。" },
-        { type: 'image_choice', svg: `<svg viewBox="0 0 120 80"><line x1="10" y1="40" x2="40" y2="40" class="bond"/><text x="55" y="40" class="atom-c">C</text><line x1="65" y1="25" x2="80" y2="10" class="bond"/><text x="90" y="10" class="atom-o">O</text><line x1="70" y1="30" x2="85" y2="15" class="bond"/><line x1="65" y1="50" x2="80" y2="65" class="bond"/><text x="90" y="70" class="atom-h">H</text></svg>`, q: "「-CHO」是哪種官能基？", a: "醛基", o: ["酮基", "羧基", "醛基", "酯基"], exp: "醛基特徵是 C=O 雙鍵末端接一個 H，具有還原力。" },
-        { type: 'image_choice', svg: `<svg viewBox="0 0 120 80"><text x="20" y="40" class="atom-c">C</text><line x1="30" y1="40" x2="60" y2="40" class="bond"/><text x="75" y="40" class="atom-o">O</text><line x1="90" y1="40" x2="110" y2="40" class="bond"/><text x="120" y="40" class="atom-c">C</text></svg>`, q: "碳與碳中間夾一個氧「C-O-C」，這是？", a: "醚類", o: ["酯類", "酮類", "醚類", "醇類"], exp: "醚類結構較穩定，乙醇的同分異構物「甲醚」即為此類。" },
-        { type: 'image_choice', svg: `<svg viewBox="0 0 140 80"><text x="20" y="40" class="atom-c">C</text><line x1="30" y1="25" x2="45" y2="10" class="bond"/><text x="55" y="10" class="atom-o">O</text><line x1="35" y1="30" x2="50" y2="15" class="bond"/><line x1="30" y1="50" x2="50" y2="50" class="bond"/><text x="65" y="50" class="atom-n">N</text><text x="85" y="50" class="atom-h">H</text><line x1="95" y1="50" x2="115" y2="50" class="bond"/></svg>`, q: "「-CONH-」結構在蛋白質中被稱為？", a: "肽鍵", o: ["氫鍵", "離子鍵", "肽鍵", "酯鍵"], exp: "這是醯胺基 (肽鍵)，連接胺基酸形成蛋白質。" },
-        { type: 'image_choice', svg: `<svg viewBox="0 0 100 100"><polygon points="50,10 85,30 85,70 50,90 15,70 15,30" fill="none" stroke="#333" stroke-width="3"/><circle cx="50" cy="50" r="20" fill="none" stroke="#333" stroke-width="2"/></svg>`, q: "六角形內有圓圈的結構是？", a: "苯環", o: ["環己烷", "苯環", "萘", "酚"], exp: "苯環結構非常穩定，是芳香烴的基礎。" },
+        { type: 'image_choice', svg: `<svg viewBox="0 0 100 60"><line x1="10" y1="30" x2="40" y2="30" class="bond"/><text x="60" y="30" class="atom-o">O</text><text x="85" y="30" class="atom-h">H</text></svg>`, pre: "這個「-OH」結構屬於什麼官能基？", a: "羥基", o: ["羧基", "羥基", "醛基", "羰基"], exp: "醇類(R-OH)和酚類(Ar-OH)都有它。" },
+        { type: 'image_choice', svg: `<svg viewBox="0 0 120 80"><line x1="10" y1="40" x2="40" y2="40" class="bond"/><text x="55" y="40" class="atom-c">C</text><line x1="65" y1="25" x2="80" y2="10" class="bond"/><text x="90" y="10" class="atom-o">O</text><line x1="70" y1="30" x2="85" y2="15" class="bond"/><line x1="65" y1="50" x2="80" y2="65" class="bond"/><text x="90" y="70" class="atom-h">H</text></svg>`, pre: "「-CHO」是哪種官能基？", a: "醛基", o: ["酮基", "羧基", "醛基", "酯基"], exp: "醛基特徵是 C=O 雙鍵末端接一個 H，具有還原力。" },
+        { type: 'image_choice', svg: `<svg viewBox="0 0 120 80"><text x="20" y="40" class="atom-c">C</text><line x1="30" y1="40" x2="60" y2="40" class="bond"/><text x="75" y="40" class="atom-o">O</text><line x1="90" y1="40" x2="110" y2="40" class="bond"/><text x="120" y="40" class="atom-c">C</text></svg>`, pre: "碳與碳中間夾一個氧「C-O-C」，這是？", a: "醚類", o: ["酯類", "酮類", "醚類", "醇類"], exp: "醚類結構較穩定，乙醇的同分異構物「甲醚」即為此類。" },
+        { type: 'image_choice', svg: `<svg viewBox="0 0 140 80"><text x="20" y="40" class="atom-c">C</text><line x1="30" y1="25" x2="45" y2="10" class="bond"/><text x="55" y="10" class="atom-o">O</text><line x1="35" y1="30" x2="50" y2="15" class="bond"/><line x1="30" y1="50" x2="50" y2="50" class="bond"/><text x="65" y="50" class="atom-n">N</text><text x="85" y="50" class="atom-h">H</text><line x1="95" y1="50" x2="115" y2="50" class="bond"/></svg>`, pre: "「-CONH-」結構在蛋白質中被稱為？", a: "肽鍵", o: ["氫鍵", "離子鍵", "肽鍵", "酯鍵"], exp: "這是醯胺基 (肽鍵)，連接胺基酸形成蛋白質。" },
+        { type: 'image_choice', svg: `<svg viewBox="0 0 100 100"><polygon points="50,10 85,30 85,70 50,90 15,70 15,30" fill="none" stroke="#333" stroke-width="3"/><circle cx="50" cy="50" r="20" fill="none" stroke="#333" stroke-width="2"/></svg>`, pre: "六角形內有圓圈的結構是？", a: "苯環", o: ["環己烷", "苯環", "萘", "酚"], exp: "苯環結構非常穩定，是芳香烴的基礎。" },
         
         // --- 填空題 (Fill) ---
         { type: 'fill', pre: "烷烴的通式為", post: "，屬於飽和烴。", ans: "CnH2n+2", opts: ["CnH2n", "CnH2n-2", "CnHn"], exp: "烷烴是飽和鏈狀烴，碳與碳之間皆為單鍵。" },
@@ -392,41 +392,41 @@
         { type: 'fill', pre: "醯胺基 (-CONH-) 呈", post: "性，不與酸鹼反應。", ans: "中", opts: ["酸", "鹼", "兩"], exp: "醯胺基具共振效應，不具鹼性。" },
         
         // --- 文字選擇題 (Text Choice) ---
-        { type: 'text_choice', q: "下列何者屬於三級醇？", a: "2-甲基-2-丙醇", o: ["1-丁醇", "2-丁醇", "乙醇"], exp: "中心碳接了三個甲基和一個羥基。" },
-        { type: 'text_choice', q: "乙醚 ($C_2H_5OC_2H_5$) 常作為有機溶劑，曾被用作？", a: "麻醉劑", o: ["防腐劑", "催化劑", "抗生素"], exp: "乙醚沸點低、易揮發，早期用作吸入性麻醉劑。" },
-        { type: 'text_choice', q: "丙酮與下列何者互為官能基異構物？", a: "丙醛", o: ["丙醇", "丙酸", "丙醚"], exp: "醛與酮通式皆為 $C_nH_{2n}O$。" },
-        { type: 'text_choice', q: "甲酸 ($HCOOH$) 俗稱？", a: "蟻酸", o: ["醋酸", "草酸", "乳酸"], exp: "甲酸是螞蟻叮咬分泌的物質。" },
-        { type: 'text_choice', q: "乙二酸 ($H_2C_2O_4$) 俗稱？", a: "草酸", o: ["蟻酸", "醋酸", "水楊酸"], exp: "常見於菠菜，可用於除鏽。" },
-        { type: 'text_choice', q: "鄰苯二甲酸加熱容易脫水形成？", a: "酐", o: ["酯", "醚", "醇"], exp: "形成鄰苯二甲酸酐。" },
-        { type: 'text_choice', q: "低級酯類通常具有什麼味道？", a: "水果香", o: ["腐臭", "刺鼻", "魚腥"], exp: "常用於香料工業。" },
-        { type: 'text_choice', q: "油脂在化學結構上屬於什麼類？", a: "酯", o: ["酸", "醇", "醚"], exp: "油脂是三酸甘油酯。" },
-        { type: 'text_choice', q: "苯胺 ($C_6H_5NH_2$) 可溶於下列何者？", a: "鹽酸", o: ["氫氧化鈉", "食鹽水", "氨水"], exp: "苯胺是鹼，溶於酸生成鹽類。" },
-        { type: 'text_choice', q: "尿素 ($H_2N-CO-NH_2$) 含有幾個醯胺基結構？", a: "2", o: ["1", "3", "0"], exp: "尿素可視為碳酸的兩個 -OH 被 -NH2 取代。" },
-        { type: 'text_choice', q: "萘 ($C_{10}H_8$) 的結構特徵是？", a: "兩個苯環共用邊", o: ["兩個苯環單鍵相連", "三個苯環共用邊", "一個苯環接兩個甲基"], exp: "俗稱焦油腦，易昇華。" },
-        { type: 'text_choice', q: "甲苯上的甲基受苯環影響，容易被？", a: "氧化", o: ["還原", "水解", "聚合"], exp: "遇強氧化劑會被氧化成苯甲酸。" },
-        { type: 'text_choice', q: "三硝基甲苯 (TNT) 是一種？", a: "炸藥", o: ["染料", "藥物", "塑膠"], exp: "甲苯經硝化反應生成。" },
-        { type: 'text_choice', q: "乙醇與下列何者互為官能基異構物？", a: "甲醚", o: ["乙醛", "乙酸", "乙烷"], exp: "分子式皆為 $C_2H_6O$。" },
-        { type: 'text_choice', q: "葡萄糖分子含有5個羥基和1個？", a: "醛基", o: ["酮基", "酸基", "酯基"], exp: "葡萄糖是多羥基醛。" },
-        { type: 'text_choice', q: "果糖分子含有5個羥基和1個？", a: "酮基", o: ["醛基", "酸基", "醚基"], exp: "果糖是多羥基酮。" },
-        { type: 'text_choice', q: "胺基酸分子中同時含有胺基與？", a: "羧基", o: ["醛基", "酮基", "酯基"], exp: "具有兩性性質。" },
-        { type: 'text_choice', q: "順-2-丁烯與反-2-丁烯互為？", a: "幾何異構物", o: ["結構異構物", "位置異構物", "官能基異構物"], exp: "雙鍵無法旋轉造成立體異構。" },
-        { type: 'text_choice', q: "正戊烷、異戊烷、新戊烷互為？", a: "結構異構物", o: ["幾何異構物", "位置異構物", "官能基異構物"], exp: "碳鏈骨架排列不同。" },
-        { type: 'text_choice', q: "下列何者具有「光學異構物」？", a: "2-丁醇", o: ["1-丁醇", "2-甲基-2-丙醇", "乙醇"], exp: "2-丁醇有手性碳。" },
-        { type: 'text_choice', q: "聯苯 (Biphenyl) 是由兩個苯環以什麼相連？", a: "單鍵", o: ["共用邊", "雙鍵", "氧原子"], exp: "結構為 Ph-Ph。" },
-        { type: 'text_choice', q: "苯酚與乙醇相比，苯酚的酸性較？", a: "強", o: ["弱", "一樣", "無法比較"], exp: "苯環共振穩定負離子，使 $H^+$ 易解離。" },
-        { type: 'text_choice', q: "在水溶液中，甲胺的鹼性比氨？", a: "強", o: ["弱", "一樣", "無法比較"], exp: "甲基推電子，增加氮的電子密度。" },
-        { type: 'text_choice', q: "乙醯胺 (Acetamide) 是什麼狀態的物質？", a: "固態", o: ["液態", "氣態", "電漿態"], exp: "分子間氫鍵強，熔點高。" },
-        { type: 'text_choice', q: "油脂的結構中，含有幾個酯基？", a: "3", o: ["1", "2", "4"], exp: "三酸甘油酯。" },
-        { type: 'text_choice', q: "下列何者不含羰基 (C=O)？", a: "乙醚", o: ["乙醛", "丙酮", "乙酸"], exp: "醚是 C-O-C。" },
-        { type: 'text_choice', q: "鹵烷 (R-X) 的沸點隨鹵素原子序增加而？", a: "升高", o: ["降低", "不變", "先降後升"], exp: "分子量越大，凡得瓦力越強。" },
-        { type: 'text_choice', q: "下列何者可形成分子內氫鍵？", a: "鄰-硝基苯酚", o: ["對-硝基苯酚", "苯酚", "甲醇"], exp: "鄰位官能基距離近。" },
-        { type: 'text_choice', q: "正烷烴的沸點隨著碳數增加而？", a: "升高", o: ["降低", "不變", "無規則"], exp: "分子量越大，沸點越高。" },
-        { type: 'text_choice', q: "同碳數烷烴中，支鏈越多，沸點越？", a: "低", o: ["高", "不變", "無關"], exp: "接觸面積變小，凡得瓦力變弱。" },
-        { type: 'text_choice', q: "乙炔的碳原子混成軌域為？", a: "sp", o: ["sp2", "sp3", "dsp2"], exp: "直線形結構。" },
-        { type: 'text_choice', q: "乙烯的碳原子混成軌域為？", a: "sp2", o: ["sp", "sp3", "dsp2"], exp: "平面三角形結構。" },
-        { type: 'text_choice', q: "苯環上的碳原子混成軌域為？", a: "sp2", o: ["sp", "sp3", "sp3d"], exp: "平面正六邊形。" },
-        { type: 'text_choice', q: "下列何者難溶於水？", a: "乙酸乙酯", o: ["乙酸", "乙醇", "丙酮"], exp: "酯類難溶於水。" },
-        { type: 'text_choice', q: "下列何者易溶於水？", a: "乙胺", o: ["苯胺", "硝基苯", "氯苯"], exp: "低級胺可與水形成氫鍵。" }
+        { type: 'text_choice', pre: "下列何者屬於三級醇？", a: "2-甲基-2-丙醇", o: ["1-丁醇", "2-丁醇", "乙醇"], exp: "中心碳接了三個甲基和一個羥基。" },
+        { type: 'text_choice', pre: "乙醚 ($C_2H_5OC_2H_5$) 常作為有機溶劑，曾被用作？", a: "麻醉劑", o: ["防腐劑", "催化劑", "抗生素"], exp: "乙醚沸點低、易揮發，早期用作吸入性麻醉劑。" },
+        { type: 'text_choice', pre: "丙酮與下列何者互為官能基異構物？", a: "丙醛", o: ["丙醇", "丙酸", "丙醚"], exp: "醛與酮通式皆為 $C_nH_{2n}O$。" },
+        { type: 'text_choice', pre: "甲酸 ($HCOOH$) 俗稱？", a: "蟻酸", o: ["醋酸", "草酸", "乳酸"], exp: "甲酸是螞蟻叮咬分泌的物質。" },
+        { type: 'text_choice', pre: "乙二酸 ($H_2C_2O_4$) 俗稱？", a: "草酸", o: ["蟻酸", "醋酸", "水楊酸"], exp: "常見於菠菜，可用於除鏽。" },
+        { type: 'text_choice', pre: "鄰苯二甲酸加熱容易脫水形成？", a: "酐", o: ["酯", "醚", "醇"], exp: "形成鄰苯二甲酸酐。" },
+        { type: 'text_choice', pre: "低級酯類通常具有什麼味道？", a: "水果香", o: ["腐臭", "刺鼻", "魚腥"], exp: "常用於香料工業。" },
+        { type: 'text_choice', pre: "油脂在化學結構上屬於什麼類？", a: "酯", o: ["酸", "醇", "醚"], exp: "油脂是三酸甘油酯。" },
+        { type: 'text_choice', pre: "苯胺 ($C_6H_5NH_2$) 可溶於下列何者？", a: "鹽酸", o: ["氫氧化鈉", "食鹽水", "氨水"], exp: "苯胺是鹼，溶於酸生成鹽類。" },
+        { type: 'text_choice', pre: "尿素 ($H_2N-CO-NH_2$) 含有幾個醯胺基結構？", a: "2", o: ["1", "3", "0"], exp: "尿素可視為碳酸的兩個 -OH 被 -NH2 取代。" },
+        { type: 'text_choice', pre: "萘 ($C_{10}H_8$) 的結構特徵是？", a: "兩個苯環共用邊", o: ["兩個苯環單鍵相連", "三個苯環共用邊", "一個苯環接兩個甲基"], exp: "俗稱焦油腦，易昇華。" },
+        { type: 'text_choice', pre: "甲苯上的甲基受苯環影響，容易被？", a: "氧化", o: ["還原", "水解", "聚合"], exp: "遇強氧化劑會被氧化成苯甲酸。" },
+        { type: 'text_choice', pre: "三硝基甲苯 (TNT) 是一種？", a: "炸藥", o: ["染料", "藥物", "塑膠"], exp: "甲苯經硝化反應生成。" },
+        { type: 'text_choice', pre: "乙醇與下列何者互為官能基異構物？", a: "甲醚", o: ["乙醛", "乙酸", "乙烷"], exp: "分子式皆為 $C_2H_6O$。" },
+        { type: 'text_choice', pre: "葡萄糖分子含有5個羥基和1個？", a: "醛基", o: ["酮基", "酸基", "酯基"], exp: "葡萄糖是多羥基醛。" },
+        { type: 'text_choice', pre: "果糖分子含有5個羥基和1個？", a: "酮基", o: ["醛基", "酸基", "醚基"], exp: "果糖是多羥基酮。" },
+        { type: 'text_choice', pre: "胺基酸分子中同時含有胺基與？", a: "羧基", o: ["醛基", "酮基", "酯基"], exp: "具有兩性性質。" },
+        { type: 'text_choice', pre: "順-2-丁烯與反-2-丁烯互為？", a: "幾何異構物", o: ["結構異構物", "位置異構物", "官能基異構物"], exp: "雙鍵無法旋轉造成立體異構。" },
+        { type: 'text_choice', pre: "正戊烷、異戊烷、新戊烷互為？", a: "結構異構物", o: ["幾何異構物", "位置異構物", "官能基異構物"], exp: "碳鏈骨架排列不同。" },
+        { type: 'text_choice', pre: "下列何者具有「光學異構物」？", a: "2-丁醇", o: ["1-丁醇", "2-甲基-2-丙醇", "乙醇"], exp: "2-丁醇有手性碳。" },
+        { type: 'text_choice', pre: "聯苯 (Biphenyl) 是由兩個苯環以什麼相連？", a: "單鍵", o: ["共用邊", "雙鍵", "氧原子"], exp: "結構為 Ph-Ph。" },
+        { type: 'text_choice', pre: "苯酚與乙醇相比，苯酚的酸性較？", a: "強", o: ["弱", "一樣", "無法比較"], exp: "苯環共振穩定負離子，使 $H^+$ 易解離。" },
+        { type: 'text_choice', pre: "在水溶液中，甲胺的鹼性比氨？", a: "強", o: ["弱", "一樣", "無法比較"], exp: "甲基推電子，增加氮的電子密度。" },
+        { type: 'text_choice', pre: "乙醯胺 (Acetamide) 是什麼狀態的物質？", a: "固態", o: ["液態", "氣態", "電漿態"], exp: "分子間氫鍵強，熔點高。" },
+        { type: 'text_choice', pre: "油脂的結構中，含有幾個酯基？", a: "3", o: ["1", "2", "4"], exp: "三酸甘油酯。" },
+        { type: 'text_choice', pre: "下列何者不含羰基 (C=O)？", a: "乙醚", o: ["乙醛", "丙酮", "乙酸"], exp: "醚是 C-O-C。" },
+        { type: 'text_choice', pre: "鹵烷 (R-X) 的沸點隨鹵素原子序增加而？", a: "升高", o: ["降低", "不變", "先降後升"], exp: "分子量越大，凡得瓦力越強。" },
+        { type: 'text_choice', pre: "下列何者可形成分子內氫鍵？", a: "鄰-硝基苯酚", o: ["對-硝基苯酚", "苯酚", "甲醇"], exp: "鄰位官能基距離近。" },
+        { type: 'text_choice', pre: "正烷烴的沸點隨著碳數增加而？", a: "升高", o: ["降低", "不變", "無規則"], exp: "分子量越大，沸點越高。" },
+        { type: 'text_choice', pre: "同碳數烷烴中，支鏈越多，沸點越？", a: "低", o: ["高", "不變", "無關"], exp: "接觸面積變小，凡得瓦力變弱。" },
+        { type: 'text_choice', pre: "乙炔的碳原子混成軌域為？", a: "sp", o: ["sp2", "sp3", "dsp2"], exp: "直線形結構。" },
+        { type: 'text_choice', pre: "乙烯的碳原子混成軌域為？", a: "sp2", o: ["sp", "sp3", "dsp2"], exp: "平面三角形結構。" },
+        { type: 'text_choice', pre: "苯環上的碳原子混成軌域為？", a: "sp2", o: ["sp", "sp3", "sp3d"], exp: "平面正六邊形。" },
+        { type: 'text_choice', pre: "下列何者難溶於水？", a: "乙酸乙酯", o: ["乙酸", "乙醇", "丙酮"], exp: "酯類難溶於水。" },
+        { type: 'text_choice', pre: "下列何者易溶於水？", a: "乙胺", o: ["苯胺", "硝基苯", "氯苯"], exp: "低級胺可與水形成氫鍵。" }
     ],
 
     "生活與環境 (50題)": [
@@ -463,26 +463,26 @@
         { type: 'fill', pre: "蓮葉效應是因為葉面具有", post: "結構。", ans: "奈米凸起", opts: ["親水性", "平滑", "帶電"], exp: "造成超疏水性。" },
         
         // --- 文字選擇題 (Text Choice) ---
-        { type: 'text_choice', q: "磺胺藥 (Sulfa drugs) 是什麼類型的藥物？", a: "抗菌藥", o: ["抗癌藥", "止痛藥", "抗病毒藥"], exp: "人工合成的抗菌劑。" },
-        { type: 'text_choice', q: "茶鹼 (Theophylline) 常用於治療？", a: "氣喘", o: ["頭痛", "胃潰瘍", "高血壓"], exp: "鬆弛支氣管。" },
-        { type: 'text_choice', q: "下列何者是「縮合聚合」的產物？", a: "聚酯 (PET)", o: ["聚乙烯 (PE)", "聚丙烯 (PP)", "聚氯乙烯 (PVC)"], exp: "其他為加成聚合。" },
-        { type: 'text_choice', q: "單醣 (如葡萄糖) 屬於哪種醣？", a: "還原醣", o: ["非還原醣", "多醣", "寡醣"], exp: "具還原力。" },
-        { type: 'text_choice', q: "蔗糖水解後會產生？", a: "葡萄糖+果糖", o: ["2葡萄糖", "葡萄糖+半乳糖", "2果糖"], exp: "蔗糖是雙醣。" },
-        { type: 'text_choice', q: "茶與咖啡中的提神成分是？", a: "咖啡因", o: ["尼古丁", "阿斯匹靈", "嗎啡"], exp: "生物鹼。" },
-        { type: 'text_choice', q: "水俁病是因為哪種重金屬汙染？", a: "汞", o: ["鎘", "鉛", "砷"], exp: "有機汞中毒。" },
-        { type: 'text_choice', q: "痛痛病是因為哪種重金屬汙染？", a: "鎘", o: ["汞", "銅", "鉻"], exp: "鎘造成骨骼病變。" },
-        { type: 'text_choice', q: "鉛蓄電池放電時，正負極都會變成？", a: "硫酸鉛", o: ["二氧化鉛", "鉛", "氧化鉛"], exp: "PbSO4 沉澱。" },
-        { type: 'text_choice', q: "食品包裝中常充入什麼氣體保鮮？", a: "氮氣", o: ["氧氣", "氫氣", "氯氣"], exp: "氮氣安定抗氧化。" },
-        { type: 'text_choice', q: "漂白水不可與什麼混合，否則產生毒氣？", a: "酸", o: ["鹼", "食鹽水", "酒精"], exp: "產生氯氣 (Cl2)。" },
-        { type: 'text_choice', q: "普拿疼含有哪種官能基？", a: "醯胺基", o: ["酯基", "羧基", "醚基"], exp: "乙醯胺酚。" },
-        { type: 'text_choice', q: "不沾鍋塗層鐵氟龍是哪類聚合物？", a: "加成聚合物", o: ["縮合聚合物", "天然聚合物", "熱固性"], exp: "聚四氟乙烯。" },
-        { type: 'text_choice', q: "生物發酵將葡萄糖轉化為？", a: "乙醇+CO2", o: ["甲醇", "乙酸", "乳酸+O2"], exp: "酒精發酵。" },
-        { type: 'text_choice', q: "原子經濟性 100% 的反應是？", a: "加成反應", o: ["取代反應", "消去反應", "酯化反應"], exp: "無廢料產生。" },
-        { type: 'text_choice', q: "放射性元素「鐳」化學性質類似？", a: "鋇", o: ["鐵", "鈾", "碳"], exp: "同族元素。" },
-        { type: 'text_choice', q: "蛋白質變性通常是不可逆的，例如？", a: "煮熟雞蛋", o: ["溶解鹽", "冰凍水", "糖溶於水"], exp: "結構破壞。" },
-        { type: 'text_choice', q: "光化學煙霧的主要成分包含？", a: "臭氧", o: ["硫酸", "碳酸", "氨氣"], exp: "二次汙染物。" },
-        { type: 'text_choice', q: "溫室效應貢獻最大的氣體是？", a: "水蒸氣", o: ["二氧化碳", "甲烷", "臭氧"], exp: "自然界中水氣最多。" },
-        { type: 'text_choice', q: "胃藥中含有碳酸氫鈉容易導致？", a: "脹氣", o: ["腹瀉", "便秘", "頭痛"], exp: "產生 CO2。" }
+        { type: 'text_choice', pre: "磺胺藥 (Sulfa drugs) 是什麼類型的藥物？", a: "抗菌藥", o: ["抗癌藥", "止痛藥", "抗病毒藥"], exp: "人工合成的抗菌劑。" },
+        { type: 'text_choice', pre: "茶鹼 (Theophylline) 常用於治療？", a: "氣喘", o: ["頭痛", "胃潰瘍", "高血壓"], exp: "鬆弛支氣管。" },
+        { type: 'text_choice', pre: "下列何者是「縮合聚合」的產物？", a: "聚酯 (PET)", o: ["聚乙烯 (PE)", "聚丙烯 (PP)", "聚氯乙烯 (PVC)"], exp: "其他為加成聚合。" },
+        { type: 'text_choice', pre: "單醣 (如葡萄糖) 屬於哪種醣？", a: "還原醣", o: ["非還原醣", "多醣", "寡醣"], exp: "具還原力。" },
+        { type: 'text_choice', pre: "蔗糖水解後會產生？", a: "葡萄糖+果糖", o: ["2葡萄糖", "葡萄糖+半乳糖", "2果糖"], exp: "蔗糖是雙醣。" },
+        { type: 'text_choice', pre: "茶與咖啡中的提神成分是？", a: "咖啡因", o: ["尼古丁", "阿斯匹靈", "嗎啡"], exp: "生物鹼。" },
+        { type: 'text_choice', pre: "水俁病是因為哪種重金屬汙染？", a: "汞", o: ["鎘", "鉛", "砷"], exp: "有機汞中毒。" },
+        { type: 'text_choice', pre: "痛痛病是因為哪種重金屬汙染？", a: "鎘", o: ["汞", "銅", "鉻"], exp: "鎘造成骨骼病變。" },
+        { type: 'text_choice', pre: "鉛蓄電池放電時，正負極都會變成？", a: "硫酸鉛", o: ["二氧化鉛", "鉛", "氧化鉛"], exp: "PbSO4 沉澱。" },
+        { type: 'text_choice', pre: "食品包裝中常充入什麼氣體保鮮？", a: "氮氣", o: ["氧氣", "氫氣", "氯氣"], exp: "氮氣安定抗氧化。" },
+        { type: 'text_choice', pre: "漂白水不可與什麼混合，否則產生毒氣？", a: "酸", o: ["鹼", "食鹽水", "酒精"], exp: "產生氯氣 (Cl2)。" },
+        { type: 'text_choice', pre: "普拿疼含有哪種官能基？", a: "醯胺基", o: ["酯基", "羧基", "醚基"], exp: "乙醯胺酚。" },
+        { type: 'text_choice', pre: "不沾鍋塗層鐵氟龍是哪類聚合物？", a: "加成聚合物", o: ["縮合聚合物", "天然聚合物", "熱固性"], exp: "聚四氟乙烯。" },
+        { type: 'text_choice', pre: "生物發酵將葡萄糖轉化為？", a: "乙醇+CO2", o: ["甲醇", "乙酸", "乳酸+O2"], exp: "酒精發酵。" },
+        { type: 'text_choice', pre: "原子經濟性 100% 的反應是？", a: "加成反應", o: ["取代反應", "消去反應", "酯化反應"], exp: "無廢料產生。" },
+        { type: 'text_choice', pre: "放射性元素「鐳」化學性質類似？", a: "鋇", o: ["鐵", "鈾", "碳"], exp: "同族元素。" },
+        { type: 'text_choice', pre: "蛋白質變性通常是不可逆的，例如？", a: "煮熟雞蛋", o: ["溶解鹽", "冰凍水", "糖溶於水"], exp: "結構破壞。" },
+        { type: 'text_choice', pre: "光化學煙霧的主要成分包含？", a: "臭氧", o: ["硫酸", "碳酸", "氨氣"], exp: "二次汙染物。" },
+        { type: 'text_choice', pre: "溫室效應貢獻最大的氣體是？", a: "水蒸氣", o: ["二氧化碳", "甲烷", "臭氧"], exp: "自然界中水氣最多。" },
+        { type: 'text_choice', pre: "胃藥中含有碳酸氫鈉容易導致？", a: "脹氣", o: ["腹瀉", "便秘", "頭痛"], exp: "產生 CO2。" }
     ],
 
     "進階有機反應 (50題)": [
@@ -524,21 +524,60 @@
         { type: 'fill', pre: "乙炔通入硝酸銀氨溶液產", post: "色沉澱。", ans: "白", opts: ["紅", "黃", "黑"], exp: "乙炔銀。" },
         
         // --- 文字選擇題 (Text Choice) ---
-        { type: 'text_choice', q: "乙炔通入氯化亞銅氨溶液產色沉澱？", a: "紅", o: ["白", "黃", "黑"], exp: "乙炔亞銅。" },
-        { type: 'text_choice', q: "PE 是由乙烯經什麼反應製成？", a: "加成聚合", o: ["縮合聚合", "取代", "開環"], exp: "雙鍵打開。" },
-        { type: 'text_choice', q: "特多龍 (Dacron) 是哪種聚合物？", a: "聚酯", o: ["聚醯胺", "聚醚", "聚烯"], exp: "對苯二甲酸+乙二醇。" },
-        { type: 'text_choice', q: "耐綸-66 是哪種聚合物？", a: "聚醯胺", o: ["聚酯", "聚烯", "聚醚"], exp: "己二酸+己二胺。" },
-        { type: 'text_choice', q: "羊毛的主要成分是？", a: "蛋白質", o: ["纖維素", "澱粉", "聚酯"], exp: "動物纖維。" },
-        { type: 'text_choice', q: "棉花的主要成分是？", a: "纖維素", o: ["蛋白質", "澱粉", "聚酯"], exp: "植物纖維。" },
-        { type: 'text_choice', q: "人造絲 (Rayon) 的本質是？", a: "纖維素", o: ["蛋白質", "石油", "澱粉"], exp: "再生纖維素。" },
-        { type: 'text_choice', q: "下列何者視為無機化合物？", a: "KCN", o: ["尿素", "甲烷", "乙酸"], exp: "氰化物。" },
-        { type: 'text_choice', q: "烷類完全燃燒生成？", a: "CO2 + H2O", o: ["CO + H2O", "C + H2O", "H2 + CO2"], exp: "氧化反應。" },
-        { type: 'text_choice', q: "同碳數下，燃燒熱最高的是？", a: "烷類", o: ["烯類", "炔類", "醇類"], exp: "氫含量最高。" },
-        { type: 'text_choice', q: "碘仿反應檢驗什麼結構？", a: "甲基酮/甲基醇", o: ["乙基酮", "醛基", "羧基"], exp: "生成黃色沉澱。" },
-        { type: 'text_choice', q: "乙醇與漂白粉加熱產生？", a: "氯仿", o: ["四氯化碳", "氯乙烷", "乙酸"], exp: "鹵仿反應。" },
-        { type: 'text_choice', q: "安非他命含有什麼官能基？", a: "胺基", o: ["醯胺基", "羧基", "酯基"], exp: "胺類毒品。" },
-        { type: 'text_choice', q: "三聚氰胺富含什麼元素？", a: "氮", o: ["碳", "氧", "氯"], exp: "假造蛋白質含量。" },
-        { type: 'text_choice', q: "界面活性劑的結構特徵？", a: "親水+親油端", o: ["酸+鹼端", "氧+還端", "正+負極"], exp: "乳化作用。" }
+        { type: 'text_choice', pre: "乙炔通入氯化亞銅氨溶液產色沉澱？", a: "紅", o: ["白", "黃", "黑"], exp: "乙炔亞銅。" },
+        { type: 'text_choice', pre: "PE 是由乙烯經什麼反應製成？", a: "加成聚合", o: ["縮合聚合", "取代", "開環"], exp: "雙鍵打開。" },
+        { type: 'text_choice', pre: "特多龍 (Dacron) 是哪種聚合物？", a: "聚酯", o: ["聚醯胺", "聚醚", "聚烯"], exp: "對苯二甲酸+乙二醇。" },
+        { type: 'text_choice', pre: "耐綸-66 是哪種聚合物？", a: "聚醯胺", o: ["聚酯", "聚烯", "聚醚"], exp: "己二酸+己二胺。" },
+        { type: 'text_choice', pre: "羊毛的主要成分是？", a: "蛋白質", o: ["纖維素", "澱粉", "聚酯"], exp: "動物纖維。" },
+        { type: 'text_choice', pre: "棉花的主要成分是？", a: "纖維素", o: ["蛋白質", "澱粉", "聚酯"], exp: "植物纖維。" },
+        { type: 'text_choice', pre: "人造絲 (Rayon) 的本質是？", a: "纖維素", o: ["蛋白質", "石油", "澱粉"], exp: "再生纖維素。" },
+        { type: 'text_choice', pre: "下列何者視為無機化合物？", a: "KCN", o: ["尿素", "甲烷", "乙酸"], exp: "氰化物。" },
+        { type: 'text_choice', pre: "烷類完全燃燒生成？", a: "CO2 + H2O", o: ["CO + H2O", "C + H2O", "H2 + CO2"], exp: "氧化反應。" },
+        { type: 'text_choice', pre: "同碳數下，燃燒熱最高的是？", a: "烷類", o: ["烯類", "炔類", "醇類"], exp: "氫含量最高。" },
+        { type: 'text_choice', pre: "碘仿反應檢驗什麼結構？", a: "甲基酮/甲基醇", o: ["乙基酮", "醛基", "羧基"], exp: "生成黃色沉澱。" },
+        { type: 'text_choice', pre: "乙醇與漂白粉加熱產生？", a: "氯仿", o: ["四氯化碳", "氯乙烷", "乙酸"], exp: "鹵仿反應。" },
+        { type: 'text_choice', pre: "安非他命含有什麼官能基？", a: "胺基", o: ["醯胺基", "羧基", "酯基"], exp: "胺類毒品。" },
+        { type: 'text_choice', pre: "三聚氰胺富含什麼元素？", a: "氮", o: ["碳", "氧", "氯"], exp: "假造蛋白質含量。" },
+        { type: 'text_choice', pre: "界面活性劑的結構特徵？", a: "親水+親油端", o: ["酸+鹼端", "氧+還端", "正+負極"], exp: "乳化作用。" },
+        // ==========================================
+        // 4. 直覺聯想特訓 (Reflex Associations)
+        // ==========================================
+        
+        // --- 看到 [試劑/現象] -> 聯想 [官能基/物質] ---
+        { type: 'advanced', pre: "看到「加入氯化鐵 (FeCl3) 呈現紫色」，要馬上聯想到", post: "。", ans: "酚類 (Phenol)", opts: ["醇類", "醛類", "酸類"], exp: "這是酚類的專屬檢驗反應，形成紫色的錯合物。" },
+        { type: 'advanced', pre: "看到「加入多倫試劑產生銀鏡」，要馬上聯想到", post: "。", ans: "醛基 (-CHO)", opts: ["酮基", "羧基", "羥基"], exp: "醛基具有還原力，能將銀離子還原成金屬銀 (末端炔也可以，但高中主要考醛)。" },
+        { type: 'advanced', pre: "看到「加入斐林試劑產生紅色沉澱」，要馬上聯想到", post: "。", ans: "醛基 (-CHO)", opts: ["酮基", "酯基", "醚基"], exp: "脂肪醛能還原銅離子生成氧化亞銅 ($Cu_2O$) 紅色沉澱。" },
+        { type: 'advanced', pre: "看到「加入溴水 (CCl4溶液) 褪色」，要馬上聯想到", post: "。", ans: "不飽和烴 (烯/炔)", opts: ["苯環", "烷烴", "醇類"], exp: "溴與碳碳雙鍵或參鍵發生「加成反應」而消耗褪色。" },
+        { type: 'advanced', pre: "看到「加入金屬鈉產生氫氣」，要馬上聯想到", post: "。", ans: "醇類 (-OH) 或 酸", opts: ["醚類", "醛類", "酮類"], exp: "醇類的羥基氫具有活性，可被鈉置換 (酸也可以，但醇是經典考點)。" },
+        { type: 'advanced', pre: "看到「加入 I2 (碘液) 呈現藍黑色」，要馬上聯想到", post: "。", ans: "澱粉", opts: ["纖維素", "葡萄糖", "蛋白質"], exp: "這是澱粉的特徵反應，常用於生物實驗。" },
+        { type: 'advanced', pre: "看到「加入濃硝酸變黃色 (黃蛋白反應)」，要馬上聯想到", post: "。", ans: "含苯環的蛋白質", opts: ["脂肪", "澱粉", "纖維素"], exp: "濃硝酸會與蛋白質中帶有苯環的胺基酸(如酪胺酸)反應變色。" },
+        { type: 'advanced', pre: "看到「加入雙縮脲試劑呈紫色」，要馬上聯想到", post: "。", ans: "肽鍵 (蛋白質)", opts: ["醣類", "脂質", "核酸"], exp: "雙縮脲試劑 ($Cu^{2+}$ 在鹼性中) 檢驗肽鍵 (-CONH-)。" },
+    
+        // --- 看到 [物質名稱] -> 聯想 [化學分類/特性] ---
+        { type: 'life', pre: "看到「葡萄糖」，要馬上聯想到它是", post: "。", ans: "單醣 / 還原醣", opts: ["雙醣", "非還原醣", "多醣"], exp: "葡萄糖是多羥基醛，屬於單醣，且具有還原力。" },
+        { type: 'life', pre: "看到「蔗糖」，要馬上聯想到它是", post: "。", ans: "雙醣 / 非還原醣", opts: ["單醣", "還原醣", "多醣"], exp: "蔗糖由葡萄糖+果糖組成，但結構中沒有游離的醛/酮基，故不具還原力。" },
+        { type: 'life', pre: "看到「纖維素」，要馬上聯想到它是", post: "的聚合物。", ans: "葡萄糖 (beta)", opts: ["果糖", "胺基酸", "核苷酸"], exp: "纖維素是 $\\beta$-葡萄糖聚合而成，人體無法消化。" },
+        { type: 'life', pre: "看到「酶 (Enzyme)」，要馬上聯想到它的成分通常是", post: "。", ans: "蛋白質", opts: ["醣類", "脂質", "維生素"], exp: "絕大多數的酵素都是蛋白質 (極少數是 RNA)。" },
+        { type: 'life', pre: "看到「肥皂」，要馬上聯想到它怕", post: "。", ans: "酸 與 硬水", opts: ["鹼 與 軟水", "熱水", "有機溶劑"], exp: "酸會使肥皂變回脂肪酸(油油的)，硬水會產生皂垢(沉澱)。" },
+        { type: 'life', pre: "看到「阿斯匹靈」，要馬上聯想到它具有", post: "結構。", ans: "羧基 與 酯基", opts: ["胺基 與 酮基", "醛基 與 醚基", "磺酸基"], exp: "乙醯水楊酸 = 水楊酸(有羧基) + 乙酐(形成酯基)。" },
+        { type: 'life', pre: "看到「油脂」，要馬上聯想到它是", post: "。", ans: "酯類 (三酸甘油酯)", opts: ["酸類", "醇類", "烴類"], exp: "油脂 = 甘油 + 3分子脂肪酸 (酯化而成)。" },
+        { type: 'life', pre: "看到「耐綸 (Nylon)」，要馬上聯想到它含有", post: "鍵。", ans: "醯胺鍵 (肽鍵)", opts: ["酯鍵", "醚鍵", "雙硫鍵"], exp: "耐綸是聚醯胺，結構類似蛋白質。" },
+        
+        // --- 看到 [反應條件] -> 聯想 [反應類型] ---
+        { type: 'advanced', pre: "看到「濃硫酸 + 加熱」，通常是在進行", post: "。", ans: "脫水 (如酯化/消去)", opts: ["水解", "氧化", "還原"], exp: "濃硫酸是強脫水劑。醇+酸$\to$酯；醇$\to$烯/醚，都需要它。" },
+        { type: 'advanced', pre: "看到「照光 (UV)」，通常是烷類的", post: "反應。", ans: "鹵化 (取代)", opts: ["加成", "聚合", "燃燒"], exp: "烷類很安定，只有在照光或高溫下才會與鹵素發生自由基取代。" },
+        { type: 'advanced', pre: "看到「鎳 (Ni)、鉑 (Pt) 催化」，通常是烯/炔的", post: "反應。", ans: "氫化 (加成)", opts: ["氧化", "脫水", "水解"], exp: "不飽和烴加氫變成飽和烴 (例如植物油氫化變人造奶油)。" },
+        { type: 'advanced', pre: "看到「氫氧化鈉 (NaOH) 水溶液 + 共熱」，通常是", post: "。", ans: "皂化 (或鹵烷水解)", opts: ["酯化", "脫水", "聚合"], exp: "酯類在鹼性下水解稱為皂化；鹵烷在鹼性下水解成醇。" },
+        { type: 'advanced', pre: "看到「氫氧化鈉 (NaOH) 酒精溶液 + 共熱」，通常是鹵烷的", post: "反應。", ans: "消去 (產生烯)", opts: ["取代 (產生醇)", "加成", "酯化"], exp: "這是一個超級陷阱！NaOH(aq)是取代成醇；NaOH(alc)是消去成烯。" },
+    
+        // --- 看到 [特殊性質] -> 聯想 [物質] ---
+        { type: 'functional', pre: "看到「有水果香味」，要馬上聯想到", post: "。", ans: "酯類", opts: ["醚類", "酮類", "醛類"], exp: "低級酯類通常具有花果香，用於香料。" },
+        { type: 'functional', pre: "看到「有魚腥味」，要馬上聯想到", post: "。", ans: "胺類", opts: ["醯胺", "酸類", "醇類"], exp: "胺類 (如甲胺) 通常有難聞的魚腥味。" },
+        { type: 'functional', pre: "看到「古老的麻醉劑」，要馬上聯想到", post: "。", ans: "乙醚 或 氯仿", opts: ["乙醇", "乙酸", "乙炔"], exp: "乙醚和氯仿早期都當作麻醉劑，但副作用大。" },
+        { type: 'functional', pre: "看到「冬天會結冰的酸」，要馬上聯想到", post: "。", ans: "乙酸 (冰醋酸)", opts: ["甲酸", "草酸", "鹽酸"], exp: "純乙酸熔點約 16.7度，冬天易結凍，故稱冰醋酸。" },
+        { type: 'functional', pre: "看到「去光水」，要馬上聯想到", post: "。", ans: "丙酮", opts: ["乙酸乙酯", "乙醚", "甲醇"], exp: "丙酮是有機溶劑，能溶解指甲油。" },
+        { type: 'functional', pre: "看到「福馬林」，要馬上聯想到", post: "。", ans: "甲醛水溶液", opts: ["甲醇", "甲酸", "乙醛"], exp: "37% 甲醛水溶液，防腐用。" },
+        { type: 'functional', pre: "看到「電石氣」，要馬上聯想到", post: "。", ans: "乙炔", opts: ["乙烯", "甲烷", "丙烷"], exp: "電石加水產生乙炔，燃燒溫度極高。" },
     ]
 };
 
@@ -670,16 +709,106 @@
     }
 
     function loadQuestion() {
-        if (currentIndex >= currentList.length) {
-            showResult();
-            return;
+        const q = currentQuestions[qIndex];
+        const correctAns = q.ans || q.a; // <--- 加入這行轉接頭
+        const explanation = q.exp;
+        feedbackModal.classList.remove('show');
+        qContainer.innerHTML = '';
+        optsContainer.innerHTML = '';
+
+        // --- 1. 萬能轉接頭 (Data Adapter) ---
+        // 自動判斷是哪種格式，統一轉成程式看得懂的變數
+        const correctAnswer = q.ans || q.a; // 有 ans 用 ans，沒有就用 a
+        const optionsList = q.opts || q.o;   // 有 opts 用 opts，沒有就用 o
+        
+        // --- 2. 判斷題型並生成畫面 ---
+        
+        // 情況 A: 填空題 (有 pre 和 post)
+        if (q.type === 'fill') {
+            const preSpan = document.createElement('span');
+            preSpan.innerHTML = q.pre; // 使用 innerHTML 支援化學式
+            
+            const slot = createSlot(correctAnswer); // 呼叫下方建立空格的函式
+
+            const postSpan = document.createElement('span');
+            postSpan.innerHTML = q.post;
+
+            qContainer.append(preSpan, slot, postSpan);
+        } 
+        // 情況 B: 一般問答題 (有 q 和 svg)
+        else {
+            // 如果有圖片 (svg)，先顯示圖片
+            if (q.svg) {
+                const imgDiv = document.createElement('div');
+                imgDiv.className = 'structure-box';
+                imgDiv.innerHTML = q.svg;
+                imgDiv.style.display = 'flex';
+                imgDiv.style.width = '100%';
+                imgDiv.style.marginBottom = '15px';
+                qContainer.appendChild(imgDiv);
+            }
+
+            // 顯示題目文字
+            const questionDiv = document.createElement('div');
+            questionDiv.innerHTML = q.q;
+            questionDiv.style.width = '100%';
+            questionDiv.style.marginBottom = '15px';
+            qContainer.appendChild(questionDiv);
+
+            // 顯示空格 (讓玩家把答案拖進來)
+            const slot = createSlot(correctAnswer);
+            qContainer.appendChild(slot);
         }
 
-        const q = currentList[currentIndex];
+        // --- 3. 生成選項 (隨機排列) ---
+        let finalOptions = [correctAnswer, ...optionsList].sort(() => 0.5 - Math.random());
+        
+        finalOptions.forEach(optText => {
+            const btn = document.createElement('div');
+            btn.className = 'draggable-item';
+            btn.innerHTML = optText; // 支援化學式顯示
+            btn.draggable = true;
+            
+            // 拖曳開始
+            btn.addEventListener('dragstart', (e) => {
+                e.dataTransfer.setData('text', optText);
+                btn.classList.add('dragging');
+            });
+            
+            btn.addEventListener('dragend', () => btn.classList.remove('dragging'));
+
+            // 點擊事件 (手機友善)
+            btn.addEventListener('click', () => submitAnswer(optText, btn));
+
+            optsContainer.appendChild(btn);
+        });
+
+        updateStatus();
+    }
+
+    // 輔助函式：建立空格
+    function createSlot(correctAnswer) {
+        const slot = document.createElement('div');
+        slot.className = 'drop-slot';
+        slot.textContent = "拖曳或點擊";
+        slot.dataset.ans = correctAnswer;
+        
+        // 綁定 Drop 事件
+        slot.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            slot.classList.add('drag-over');
+        });
+        slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
+        slot.addEventListener('drop', handleDrop);
+        
+        return slot;
+    }
+
+        const pre = currentList[currentIndex];
         
         // UI 更新
-        document.getElementById('q-curr').innerText = currentIndex + 1;
-        document.getElementById('q-total').innerText = currentList.length;
+        document.getElementById('pre-curr').innerText = currentIndex + 1;
+        document.getElementById('pre-total').innerText = currentList.length;
         document.getElementById('score').innerText = Math.round(score);
         document.getElementById('progress-fill').style.width = `${(currentIndex / currentList.length) * 100}%`;
         
@@ -691,23 +820,23 @@
         answerArea.innerHTML = '';
 
         // === 判斷題型並渲染 ===
-        if (q.type === 'fill') {
+        if (pre.type === 'fill') {
             // --- 填空題 ---
             const qCard = document.createElement('div');
             qCard.className = 'quiz-card';
             qCard.innerHTML = `
                 <div style="font-size:1.3rem; line-height:2;">
-                    ${q.pre} <div class="drop-slot" id="slot">?</div> ${q.post ? q.post : ''}
+                    ${pre.pre} <div class="drop-slot" id="slot">?</div> ${pre.post ? pre.post : ''}
                 </div>`;
             questionArea.appendChild(qCard);
 
             answerArea.className = 'drag-pool';
-            const opts = [q.ans, ...q.opts].sort(() => 0.5 - Math.random());
+            const opts = [pre.ans, ...pre.opts].sort(() => 0.5 - Math.random());
             opts.forEach(opt => {
                 const btn = document.createElement('div');
                 btn.className = 'drag-item';
                 btn.innerText = opt;
-                btn.onclick = () => checkFillAnswer(opt, q);
+                btn.onclick = () => checkFillAnswer(opt, pre);
                 answerArea.appendChild(btn);
             });
 
@@ -715,21 +844,21 @@
             // --- 選擇題 ---
             const qCard = document.createElement('div');
             qCard.className = 'quiz-card';
-            if (q.type && q.type.includes('image')) {
-                qCard.innerHTML = `${q.svg}<div class="q-text" style="font-size:1.2rem; margin-top:15px;">${q.q}</div>`;
+            if (pre.type && pre.type.includes('image')) {
+                qCard.innerHTML = `${pre.svg}<div class="pre-text" style="font-size:1.2rem; margin-top:15px;">${pre.pre}</div>`;
             } else {
-                qCard.innerHTML = `<div class="q-text">${q.q}</div>`;
+                qCard.innerHTML = `<div class="pre-text">${pre.pre}</div>`;
             }
             questionArea.appendChild(qCard);
 
             answerArea.className = 'options-grid';
-            const uniqueOpts = new Set([...q.o, q.a]);
+            const uniqueOpts = new Set([...pre.o, pre.a]);
             const opts = Array.from(uniqueOpts).sort(() => 0.5 - Math.random());
             opts.forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = 'opt-btn';
                 btn.innerText = opt;
-                btn.onclick = () => checkChoiceAnswer(btn, opt, q);
+                btn.onclick = () => checkChoiceAnswer(btn, opt, pre);
                 answerArea.appendChild(btn);
             });
         }
@@ -741,7 +870,7 @@
         const btns = document.querySelectorAll('.opt-btn');
         btns.forEach(b => b.disabled = true);
 
-        if (userAns === qData.a) {
+        if (userAns === correctAns) { 
             btn.classList.add('correct');
             score += 100 / currentList.length;
             showFeedback(true, qData.exp);
@@ -805,7 +934,7 @@
                 if (m.type === 'fill') {
                     displayQ = `${m.pre} ____ ${m.post ? m.post : ''}`; displayA = m.ans;
                 } else {
-                    displayQ = (m.type && m.type.includes('image')) ? '看圖題' : m.q; displayA = m.a;
+                    displayQ = (m.type && m.type.includes('image')) ? '看圖題' : m.pre; displayA = m.a;
                 }
 
                 list.innerHTML += `
