@@ -9,26 +9,27 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            /* 沿用英文版的主題色 (紫色漸層)，但卡片內保留化學綠 */
-            --app-bg-start: #667eea;
-            --app-bg-end: #764ba2;
             --primary: #0d9488; /* 化學綠 */
             --primary-light: #ccfbf1;
+            --secondary: #0f766e;
+            --accent: #f59e0b;
+            --bg: #f0fdfa;
+            --card: #ffffff;
             --text: #1e293b;
             --gray: #64748b;
+            --slot-bg: #e2e8f0;
             --success: #059669;
             --error: #dc2626;
-            --slot-bg: #e2e8f0;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Noto Sans TC', sans-serif;
-            background: linear-gradient(135deg, var(--app-bg-start) 0%, var(--app-bg-end) 100%);
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             color: var(--text);
             margin: 0;
-            padding: 20px;
+            padding: 0;
             display: flex;
             justify-content: center;
             min-height: 100vh;
@@ -38,7 +39,7 @@
             width: 100%;
             max-width: 800px;
             background: rgba(255, 255, 255, 0.98);
-            min-height: 90vh;
+            min-height: 100vh;
             border-radius: 24px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             display: flex;
@@ -58,11 +59,11 @@
             border-bottom: 1px solid #e2e8f0;
         }
         .back-btn {
-            position: absolute; left: 15px; top: 20px;
+            position: absolute; left: 15px; top: 18px;
             background: #f1f5f9; border: none; padding: 6px 14px; border-radius: 20px;
             font-size: 0.9rem; color: var(--gray); font-weight: bold; cursor: pointer; text-decoration: none;
         }
-        h1 { margin: 0; font-size: 1.5rem; color: #333; letter-spacing: 1px; }
+        h1 { margin: 0; font-size: 1.4rem; color: #333; letter-spacing: 1px; }
 
         /* --- Tab 切換 --- */
         .tab-container {
@@ -98,275 +99,219 @@
         /* --- [View 1] 筆記模式 --- */
         .note-card {
             background: #fff; border-radius: 12px; padding: 25px; margin-bottom: 30px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid var(--primary); border-top: 1px solid #f1f5f9;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); border-left: 5px solid var(--primary);
         }
-        h2 { color: #0f766e; margin-top: 0; margin-bottom: 20px; font-size: 1.3rem; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; }
-        
-        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 600px; }
+        h2 { color: var(--secondary); margin-top: 0; margin-bottom: 20px; font-size: 1.3rem; border-bottom: 1px dashed #cbd5e1; padding-bottom: 10px; }
         .table-wrapper { overflow-x: auto; }
-        th { background-color: var(--primary); color: white; padding: 12px; text-align: left; white-space: nowrap; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.95rem; min-width: 600px; }
+        th { background-color: var(--primary); color: white; padding: 12px; text-align: left; }
         td { border-bottom: 1px solid #e2e8f0; padding: 12px; vertical-align: top; }
         tr:nth-child(even) { background-color: #f8fafc; }
-        
         .formula { font-family: 'Courier New', monospace; background: #f3e8ff; padding: 2px 6px; border-radius: 4px; color: #7e22ce; font-weight: bold; }
         .highlight { color: #b45309; font-weight: bold; background: #fffbeb; padding: 0 3px; }
-        
-        /* 標籤 */
-        .type { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 0.8rem; color: white; margin-bottom: 5px; font-weight: bold; }
-        .type-med { background: #ef4444; } .type-clean { background: #3b82f6; } 
-        .type-poly { background: #8b5cf6; } .type-food { background: #10b981; } .type-energy { background: #f59e0b; }
 
         /* --- [View 2] 測驗選單 --- */
         .stats-panel {
             background: var(--primary); color: white; padding: 20px; border-radius: 16px;
             margin-bottom: 20px; display: flex; justify-content: space-between; align-items: center;
-            box-shadow: 0 5px 15px rgba(13, 148, 136, 0.3);
         }
-        .chapter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 80px; }
+        .chapter-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; padding-bottom: 100px; }
         .chapter-card {
-            background: #f8fafc; border: 2px solid transparent; border-radius: 12px; padding: 15px;
-            cursor: pointer; transition: 0.2s; position: relative; overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); min-height: 90px; display: flex; flex-direction: column; justify-content: center;
+            background: #fff; border: 2px solid #e2e8f0; border-radius: 16px; padding: 15px;
+            cursor: pointer; transition: 0.2s; position: relative; min-height: 90px; display: flex; flex-direction: column; justify-content: center;
         }
         .chapter-card.selected { border-color: var(--primary); background-color: var(--primary-light); }
         .chapter-card.selected::after {
-            content: '✓'; position: absolute; top: 5px; right: 5px; background: var(--primary); color: white;
-            border-radius: 50%; width: 20px; height: 20px; font-size: 12px; display: flex; align-items: center; justify-content: center;
+            content: '✓'; position: absolute; top: 10px; right: 10px; background: var(--primary); color: white;
+            border-radius: 50%; width: 22px; height: 22px; font-size: 12px; display: flex; align-items: center; justify-content: center;
         }
-        .ch-title { font-weight: bold; font-size: 1.05rem; margin-bottom: 5px; color: #333; }
-        .ch-count { font-size: 0.85rem; color: var(--gray); }
 
-        /* 底部懸浮按鈕 */
         .bottom-dock {
             position: absolute; bottom: 0; left: 0; width: 100%;
-            background: rgba(255, 255, 255, 0.9); padding: 15px 20px;
-            border-top: 1px solid #e2e8f0; backdrop-filter: blur(5px);
-            z-index: 100;
+            background: rgba(255, 255, 255, 0.95); padding: 15px 20px;
+            border-top: 1px solid #e2e8f0; display: flex; gap: 12px; z-index: 100;
         }
         .start-btn {
-            width: 100%; padding: 15px; border: none; border-radius: 30px;
+            width: 100%; padding: 16px; border: none; border-radius: 50px;
             font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.2s;
-            background: var(--primary); color: white;
-            box-shadow: 0 4px 10px rgba(13, 148, 136, 0.3);
+            background: var(--primary); color: white; box-shadow: 0 4px 15px rgba(13, 148, 136, 0.3);
         }
         .start-btn:disabled { background: #cbd5e1; box-shadow: none; cursor: not-allowed; }
-        .start-btn:active { transform: scale(0.98); }
 
         /* --- 測驗進行中 --- */
         .quiz-status { display: flex; justify-content: space-between; margin-bottom: 10px; font-weight: bold; color: var(--gray); font-size: 0.9rem; }
         .progress-bar { height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 25px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
         
-        .question-box {
-            min-height: 180px; display: flex; flex-direction: column; justify-content: center; align-items: center;
-            background: white; border-radius: 16px; padding: 25px; margin-bottom: 20px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-align: center; border: 1px solid #f1f5f9;
+        .question-card {
+            background: white; padding: 30px 20px; border-radius: 20px; text-align: center;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05); margin-bottom: 25px; border: 1px solid #f1f5f9;
+            min-height: 200px; display: flex; flex-direction: column; justify-content: center; align-items: center;
         }
-        .pre-text { font-size: 1.3rem; font-weight: 800; color: #333; line-height: 1.5; }
+        .q-text { font-size: 1.3rem; font-weight: 800; color: #333; line-height: 1.6; }
         
-        /* 選擇題按鈕 */
-        .options-grid { display: grid; gap: 12px; }
+        /* 選項按鈕 */
+        .options-grid { display: grid; gap: 12px; width: 100%; }
         .opt-btn {
-            background: white; border: 2px solid #e2e8f0; padding: 18px; border-radius: 12px;
-            font-size: 1rem; text-align: left; cursor: pointer; transition: 0.2s; color: var(--text);
-            font-weight: 500;
+            background: white; border: 2px solid #e2e8f0; padding: 18px; border-radius: 16px;
+            font-size: 1.1rem; text-align: left; cursor: pointer; transition: 0.2s; color: var(--text);
         }
-        .opt-btn:active { background: #f1f5f9; }
         .opt-btn.correct { background: #dcfce7; border-color: var(--success); color: #166534; font-weight: bold; }
         .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
 
-        /* 填空題樣式 */
+        /* 填空題專用 */
         .drop-slot {
-            display: inline-flex; min-width: 80px; height: 36px; background: var(--slot-bg);
+            display: inline-flex; min-width: 80px; height: 36px; background: #e2e8f0;
             border-bottom: 3px solid #94a3b8; border-radius: 6px; margin: 0 5px;
             vertical-align: middle; align-items: center; justify-content: center;
-            color: #64748b; font-weight: bold; padding: 0 8px; font-size: 1rem;
+            color: #64748b; font-weight: bold; padding: 0 8px;
         }
         .drop-slot.filled { background: transparent; border: none; border-bottom: 3px solid var(--primary); color: var(--primary); }
-        .drop-slot.error { color: var(--error); border-bottom-color: var(--error); }
-        
-        .drag-pool { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 10px; }
+        .drag-pool { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; margin-top: 20px; }
         .drag-item {
             background: white; border: 2px solid var(--primary); color: var(--primary);
-            padding: 8px 16px; border-radius: 20px; font-weight: bold; cursor: pointer;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1); font-size: 1rem;
+            padding: 10px 20px; border-radius: 30px; font-weight: bold; cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
 
-        /* 解析與彈窗 */
+        /* 解析區 */
         .feedback-box {
-            display: none; background: #f0fdfa; padding: 20px; border-radius: 12px;
+            display: none; background: #f0fdfa; padding: 20px; border-radius: 16px;
             box-shadow: 0 5px 20px rgba(0,0,0,0.05); margin-top: 20px; text-align: left;
-            border: 1px solid var(--primary); animation: slideUp 0.3s;
+            border: 2px solid var(--success); animation: slideUp 0.3s;
         }
-        
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* 彈窗 */
         .modal-overlay {
             position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5);
             display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(3px);
         }
         .modal {
-            background: white; padding: 30px; border-radius: 20px; width: 85%; max-width: 350px;
-            text-align: center; box-shadow: 0 20px 40px rgba(0,0,0,0.2); animation: popIn 0.3s;
+            background: white; padding: 30px; border-radius: 24px; width: 85%; max-width: 360px; text-align: center;
         }
-        @keyframes popIn { from { transform: scale(0.8); opacity: 0; } to { transform: scale(1); opacity: 1; } }
         .num-input {
-            font-size: 2rem; padding: 10px; width: 100px; text-align: center;
-            border: 2px solid #cbd5e1; border-radius: 12px; margin: 20px 0; color: var(--primary); font-weight: bold;
+            font-size: 2.5rem; padding: 10px; width: 120px; text-align: center;
+            border: 2px solid #e2e8f0; border-radius: 16px; margin: 20px 0; color: var(--primary); font-weight: bold;
         }
-        .modal-btns { display: flex; gap: 12px; margin-top: 20px; }
 
         /* 結果頁 */
-        .result-box { text-align: center; background: white; padding: 40px; border-radius: 20px; margin-bottom: 20px; }
-        .final-score { font-size: 4.5rem; font-weight: 800; color: var(--primary); line-height: 1; margin-bottom: 10px; }
+        .result-box { text-align: center; background: white; padding: 40px; border-radius: 24px; margin-bottom: 30px; }
+        .final-score { font-size: 5rem; font-weight: 800; color: var(--primary); line-height: 1; }
         .mistake-card {
-            background: white; padding: 15px; border-radius: 10px; border-left: 4px solid var(--error);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05); margin-bottom: 10px; text-align: left;
+            background: white; padding: 15px; border-radius: 12px; border-left: 5px solid var(--error);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05); margin-bottom: 10px; text-align: left;
         }
-
-        /* SVG */
-        .atom-c { fill: #333; font-weight:bold; font-family: Arial; font-size: 24px; text-anchor: middle; dominant-baseline: middle;}
-        .atom-o { fill: #ef4444; font-weight:bold; font-family: Arial; font-size: 24px; text-anchor: middle; dominant-baseline: middle;}
-        .atom-n { fill: #3b82f6; font-weight:bold; font-family: Arial; font-size: 24px; text-anchor: middle; dominant-baseline: middle;}
-        .atom-h { fill: #666; font-weight:normal; font-family: Arial; font-size: 18px; text-anchor: middle; dominant-baseline: middle;}
-        .bond { stroke: #333; stroke-width: 3; stroke-linecap: round; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    
     <header>
         <a href="../index.html" class="back-btn">← 總部</a>
         <h1>有機化學全能特訓</h1>
     </header>
 
-    <!-- 分頁按鈕 -->
     <div class="tab-container">
         <button class="tab-btn active" onclick="switchView('note')">📖 筆記模式</button>
         <button class="tab-btn" onclick="switchView('quiz')">📝 測驗專區</button>
     </div>
 
-    <!-- ==================== View 1: 筆記模式 ==================== -->
+    <!-- View 1: 筆記模式 -->
     <div id="view-note" class="view-section active">
-        <!-- 1. 十大官能基 -->
         <div class="note-card">
             <h2>一、有機官能基總表</h2>
             <div class="table-wrapper">
                 <table>
-                    <thead><tr><th>家族</th><th>官能基</th><th>通式</th><th>代表化合物</th><th>考試記憶點</th></tr></thead>
+                    <thead><tr><th>家族</th><th>官能基</th><th>通式</th><th>代表物</th><th>記憶點</th></tr></thead>
                     <tbody>
-                        <tr><td><strong>1. 醇類</strong></td><td>-OH</td><td>R-OH</td><td><span class="formula">C<sub>2</sub>H<sub>5</sub>OH</span></td><td>易溶於水、中性。</td></tr>
-                        <tr><td><strong>2. 醚類</strong></td><td>-O-</td><td>R-O-R'</td><td><span class="formula">CH<sub>3</sub>OCH<sub>3</sub></span></td><td>醇的同分異構物。</td></tr>
-                        <tr><td><strong>3. 醛類</strong></td><td>-CHO</td><td>R-CHO</td><td><span class="formula">HCHO</span></td><td><span class="highlight">有還原力</span> (銀鏡)。</td></tr>
-                        <tr><td><strong>4. 酮類</strong></td><td>-CO-</td><td>R-CO-R'</td><td><span class="formula">CH<sub>3</sub>COCH<sub>3</sub></span></td><td>無還原力，溶劑。</td></tr>
-                        <tr><td><strong>5. 羧酸</strong></td><td>-COOH</td><td>R-COOH</td><td><span class="formula">CH<sub>3</sub>COOH</span></td><td><span class="highlight">弱酸性</span>。</td></tr>
-                        <tr><td><strong>6. 酯類</strong></td><td>-COO-</td><td>R-COO-R'</td><td>乙酸乙酯</td><td><span class="highlight">水果香</span>，難溶。</td></tr>
-                        <tr><td><strong>7. 胺類</strong></td><td>-NH<sub>2</sub></td><td>R-NH<sub>2</sub></td><td>苯胺</td><td><span class="highlight">弱鹼性</span>，魚腥。</td></tr>
-                        <tr><td><strong>8. 醯胺</strong></td><td>-CONH<sub>2</sub></td><td>R-CONH<sub>2</sub></td><td>乙醯胺</td><td>中性，肽鍵。</td></tr>
-                        <tr><td><strong>9. 酚類</strong></td><td>Ar-OH</td><td>C<sub>6</sub>H<sub>5</sub>OH</td><td>苯酚</td><td><span class="highlight">弱酸性</span>，氯化鐵紫色。</td></tr>
+                        <tr><td>醇類</td><td>-OH</td><td>R-OH</td><td>乙醇</td><td>易溶於水。</td></tr>
+                        <tr><td>醚類</td><td>-O-</td><td>R-O-R'</td><td>二甲醚</td><td>醇的異構物。</td></tr>
+                        <tr><td>醛類</td><td>-CHO</td><td>R-CHO</td><td>甲醛</td><td><span class="highlight">有還原力</span>。</td></tr>
+                        <tr><td>酮類</td><td>-CO-</td><td>R-CO-R'</td><td>丙酮</td><td>無還原力。</td></tr>
+                        <tr><td>羧酸</td><td>-COOH</td><td>R-COOH</td><td>乙酸</td><td><span class="highlight">弱酸性</span>。</td></tr>
+                        <tr><td>酯類</td><td>-COO-</td><td>R-COO-R'</td><td>乙酸乙酯</td><td><span class="highlight">有果香</span>。</td></tr>
+                        <tr><td>胺類</td><td>-NH<sub>2</sub></td><td>R-NH<sub>2</sub></td><td>苯胺</td><td>弱鹼性。</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
-
-        <!-- 2. 生活化學 -->
         <div class="note-card">
-            <h2>二、生活化學 vs. 結構</h2>
+            <h2>二、生活化學</h2>
             <div class="table-wrapper">
                 <table>
-                    <thead><tr><th>分類</th><th>名稱</th><th>結構特徵</th><th>原理與考點</th></tr></thead>
+                    <thead><tr><th>分類</th><th>名稱</th><th>特徵</th></tr></thead>
                     <tbody>
-                        <tr><td><span class="type type-med">醫藥</span></td><td><strong>阿斯匹靈</strong></td><td>羧基+酯基</td><td>水楊酸+乙酐酯化。<span class="highlight">傷胃</span>。</td></tr>
-                        <tr><td><span class="type type-clean">清潔</span></td><td><strong>肥皂</strong></td><td>羧酸鹽</td><td>油脂皂化。<span class="highlight">怕硬水</span>。</td></tr>
-                        <tr><td><span class="type type-poly">聚合物</span></td><td><strong>PET</strong></td><td>酯基</td><td><span class="highlight">縮合聚合</span>，寶特瓶。</td></tr>
-                        <tr><td><span class="type type-poly">聚合物</span></td><td><strong>耐綸</strong></td><td>醯胺基</td><td><span class="highlight">縮合聚合</span>，含氮。</td></tr>
-                        <tr><td><span class="type type-food">食品</span></td><td><strong>葡萄糖</strong></td><td>多羥基醛</td><td>有醛基故有<span class="highlight">還原力</span>。</td></tr>
+                        <tr><td>醫藥</td><td>阿斯匹靈</td><td>乙醯水楊酸</td></tr>
+                        <tr><td>清潔</td><td>肥皂</td><td>脂肪酸鈉，<span class="highlight">怕硬水</span></td></tr>
+                        <tr><td>聚合物</td><td>PET</td><td>酯基，縮合聚合</td></tr>
+                        <tr><td>食品</td><td>葡萄糖</td><td>多羥基醛，具還原力</td></tr>
                     </tbody>
                 </table>
             </div>
         </div>
     </div>
 
-    <!-- ==================== View 2: 測驗專區 ==================== -->
+    <!-- View 2: 測驗模式 -->
     <div id="view-quiz" class="view-section">
-        
-        <!-- 1. 測驗選單 -->
         <div id="quiz-menu">
             <div class="stats-panel">
-                <div style="font-size:0.9rem;">已選 <span id="selected-count" style="font-weight:bold; color:#ccfbf1; font-size:1.2rem;">0</span> 個單元</div>
-                <div style="font-size:0.9rem;">共 <span id="total-selected-items" style="font-weight:bold; font-size:1.2rem;">0</span> 題</div>
+                <div>已選 <span id="selected-count">0</span> 單元</div>
+                <div>共 <span id="total-selected-items">0</span> 題</div>
             </div>
-
-            <div class="chapter-grid" id="chapter-list">
-                <!-- JS 生成章節 -->
-            </div>
-
+            <div class="chapter-grid" id="chapter-list"></div>
             <div class="bottom-dock">
                 <button class="start-btn" id="btn-start-quiz" onclick="prepareQuiz()" disabled>📝 設定題數並開始</button>
             </div>
         </div>
 
-        <!-- 2. 測驗進行中 -->
         <div id="quiz-play" style="display:none;">
             <div class="quiz-status">
-                <span>題目 <span id="pre-curr">1</span> / <span id="pre-total">10</span></span>
-                <span>分數: <span id="score">0</span></span>
+                <span>題目 <span id="q-curr">1</span> / <span id="q-total">10</span></span>
+                <span>得分: <span id="score">0</span></span>
             </div>
             <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-
-            <!-- 題目區塊 -->
             <div id="question-area"></div>
-
-            <!-- 選項區塊 (會變動) -->
             <div id="answer-area"></div>
-
-            <!-- 解析區塊 -->
             <div id="feedback" class="feedback-box">
-                <div id="feedback-text" style="margin-bottom:15px; font-size:1rem; line-height:1.5;"></div>
-                <button class="tab-btn active" style="width:100%" onclick="nextQuestion()">下一題 ➔</button>
+                <div id="feedback-text"></div>
+                <button class="start-btn" style="margin-top:15px" onclick="nextQuestion()">下一題 ➔</button>
             </div>
-
             <div style="text-align:center; margin-top:30px;">
-                <button style="background:none; border:none; color:#64748b; font-weight:bold; cursor:pointer;" onclick="switchView('quiz')">
-                    退出測驗
-                </button>
+                <button style="background:none; border:none; color:var(--gray); font-weight:bold; cursor:pointer;" onclick="switchView('quiz')">退出測驗</button>
             </div>
         </div>
 
-        <!-- 3. 結果頁 -->
         <div id="quiz-result" style="display:none;">
             <div class="result-box">
                 <div class="final-score" id="final-score">100</div>
-                <div class="final-label">測驗得分</div>
+                <div style="color:var(--gray)">測驗得分</div>
             </div>
-
-            <button class="tab-btn active" onclick="retryQuiz()" style="width:100%; margin-bottom:15px;">再測一次</button>
-            <button class="tab-btn" onclick="switchView('quiz')" style="width:100%;">回測驗選單</button>
-
+            <button class="start-btn" onclick="retryQuiz()" style="margin-bottom:15px;">再測一次</button>
+            <button class="start-btn" style="background:#f1f5f9; color:var(--text);" onclick="switchView('quiz')">回選單</button>
             <div id="mistake-section" style="display:none; margin-top:30px;">
-                <h3 style="color:var(--error); text-align:center; margin-bottom:15px;">⚠️ 需加強的觀念</h3>
-                <div id="mistake-list" class="mistake-list"></div>
+                <h3 style="color:var(--error); text-align:center;">⚠️ 需加強的題目</h3>
+                <div id="mistake-list"></div>
             </div>
         </div>
     </div>
 
-    <!-- 彈窗：題數設定 -->
+    <!-- 題數彈窗 -->
     <div id="quiz-settings-modal" class="modal-overlay">
         <div class="modal">
             <h3>設定測驗題數</h3>
-            <p style="color:#64748b; margin-bottom:0;">範圍總題數：<span id="modal-total-items" style="color:#0d9488; font-weight:bold;">0</span></p>
-            <input type="number" id="quiz-num-input" class="num-input" value="10" min="5">
+            <p>範圍總題數：<span id="modal-total-items">0</span></p>
+            <input type="number" id="quiz-num-input" class="num-input" value="10">
             <div class="modal-btns">
-                <button class="tab-btn" onclick="closeModal()">取消</button>
-                <button class="tab-btn active" onclick="confirmStartQuiz()">開始</button>
+                <button class="start-btn" style="background:#f1f5f9; color:var(--text);" onclick="closeModal()">取消</button>
+                <button class="start-btn" onclick="confirmStartQuiz()">開始</button>
             </div>
         </div>
     </div>
-
 </div>
 
 <script>
-    // ================= 1. 超級擴充資料庫 (130+ 題) =================
-    
+    // ================= 1. 資料庫 (整合並補齊屬性) =================
     const chemData = {
     "基礎官能基 (50題)": [
         // --- 結構圖形題 (Image Choice) ---
@@ -582,45 +527,27 @@
 };
 
     // ================= 2. 邏輯處理 =================
-    
     let selectedChapters = new Set();
     let currentList = [];
     let currentIndex = 0;
     let score = 0;
     let mistakes = [];
-    
-    // 初始化統計
-    let totalItems = 0;
-    for (const cat in chemData) {
-        totalItems += chemData[cat].length;
-    }
-    // 檢查元素是否存在，避免報錯
-    const totalEl = document.getElementById('total-db-items');
-    if (totalEl) totalEl.innerText = totalItems;
-    
-    // 執行選單繪製
-    renderMenu();
-    
-    // 解決白畫面問題：強制執行一次
+
     window.onload = function() {
         renderMenu();
-    }
+        const total = Object.values(chemData).reduce((sum, list) => sum + list.length, 0);
+        document.getElementById('total-db-items').innerText = total;
+    };
 
     function renderMenu() {
         const grid = document.getElementById('chapter-list');
         if (!grid) return;
-        
         grid.innerHTML = "";
-        
         Object.keys(chemData).forEach(cat => {
-            const count = chemData[cat].length;
             const card = document.createElement('div');
             card.className = 'chapter-card';
             card.onclick = () => toggleSelection(card, cat);
-            card.innerHTML = `
-                <div class="ch-title">${cat}</div>
-                <div class="ch-count">${count} 題</div>
-            `;
+            card.innerHTML = `<div class="ch-title">${cat}</div><div class="ch-count">${chemData[cat].length} 題</div>`;
             grid.appendChild(card);
         });
     }
@@ -637,323 +564,151 @@
     }
 
     function updateStats() {
+        let total = 0;
+        selectedChapters.forEach(cat => total += chemData[cat].length);
         document.getElementById('selected-count').innerText = selectedChapters.size;
-        let currentTotal = 0;
-        selectedChapters.forEach(cat => currentTotal += chemData[cat].length);
-        document.getElementById('total-selected-items').innerText = currentTotal;
-
-        const btnQuiz = document.getElementById('btn-start-quiz');
-        if (btnQuiz) btnQuiz.disabled = (selectedChapters.size === 0);
+        document.getElementById('total-selected-items').innerText = total;
+        document.getElementById('btn-start-quiz').disabled = (selectedChapters.size === 0);
     }
 
     function switchView(view) {
         document.querySelectorAll('.view-section').forEach(sec => sec.classList.remove('active'));
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
-        
         if (view === 'note') {
             document.getElementById('view-note').classList.add('active');
             document.querySelectorAll('.tab-btn')[0].classList.add('active');
         } else {
             document.getElementById('view-quiz').classList.add('active');
             document.querySelectorAll('.tab-btn')[1].classList.add('active');
-            // 切換到測驗時，重置選單顯示，強制重新繪製以防萬一
             document.getElementById('quiz-menu').style.display = 'block';
             document.getElementById('quiz-play').style.display = 'none';
             document.getElementById('quiz-result').style.display = 'none';
-            renderMenu(); 
+            selectedChapters.clear();
+            renderMenu();
+            updateStats();
         }
         window.scrollTo(0, 0);
     }
 
-    // ================= 測驗邏輯 =================
-
     function prepareQuiz() {
         let total = 0;
         selectedChapters.forEach(cat => total += chemData[cat].length);
-        
         document.getElementById('modal-total-items').innerText = total;
-        const input = document.getElementById('quiz-num-input');
-        input.max = total;
-        input.value = Math.min(total, 20); 
         document.getElementById('quiz-settings-modal').style.display = 'flex';
     }
 
-    function closeModal() {
-        document.getElementById('quiz-settings-modal').style.display = 'none';
-    }
+    function closeModal() { document.getElementById('quiz-settings-modal').style.display = 'none'; }
 
     function confirmStartQuiz() {
         let allItems = [];
-        selectedChapters.forEach(cat => {
-            allItems = allItems.concat(chemData[cat]);
-        });
-
-        let count = parseInt(document.getElementById('quiz-num-input').value);
-        if (isNaN(count) || count < 1) count = 5;
-        if (count > allItems.length) count = allItems.length;
-
+        selectedChapters.forEach(cat => allItems = allItems.concat(chemData[cat]));
+        let count = parseInt(document.getElementById('quiz-num-input').value) || 10;
         shuffle(allItems);
         currentList = allItems.slice(0, count);
-
         closeModal();
         startQuizFlow();
     }
 
     function startQuizFlow() {
-        currentIndex = 0;
-        score = 0;
-        mistakes = [];
+        currentIndex = 0; score = 0; mistakes = [];
         document.getElementById('quiz-menu').style.display = 'none';
         document.getElementById('quiz-play').style.display = 'block';
         loadQuestion();
     }
 
     function loadQuestion() {
-        const q = currentQuestions[qIndex];
-        const correctAns = q.ans || q.a; // <--- 加入這行轉接頭
-        const explanation = q.exp;
-        feedbackModal.classList.remove('show');
-        qContainer.innerHTML = '';
-        optsContainer.innerHTML = '';
-
-        // --- 1. 萬能轉接頭 (Data Adapter) ---
-        // 自動判斷是哪種格式，統一轉成程式看得懂的變數
-        const correctAnswer = q.ans || q.a; // 有 ans 用 ans，沒有就用 a
-        const optionsList = q.opts || q.o;   // 有 opts 用 opts，沒有就用 o
-        
-        // --- 2. 判斷題型並生成畫面 ---
-        
-        // 情況 A: 填空題 (有 pre 和 post)
-        if (q.type === 'fill') {
-            const preSpan = document.createElement('span');
-            preSpan.innerHTML = q.pre; // 使用 innerHTML 支援化學式
-            
-            const slot = createSlot(correctAnswer); // 呼叫下方建立空格的函式
-
-            const postSpan = document.createElement('span');
-            postSpan.innerHTML = q.post;
-
-            qContainer.append(preSpan, slot, postSpan);
-        } 
-        // 情況 B: 一般問答題 (有 q 和 svg)
-        else {
-            // 如果有圖片 (svg)，先顯示圖片
-            if (q.svg) {
-                const imgDiv = document.createElement('div');
-                imgDiv.className = 'structure-box';
-                imgDiv.innerHTML = q.svg;
-                imgDiv.style.display = 'flex';
-                imgDiv.style.width = '100%';
-                imgDiv.style.marginBottom = '15px';
-                qContainer.appendChild(imgDiv);
-            }
-
-            // 顯示題目文字
-            const questionDiv = document.createElement('div');
-            questionDiv.innerHTML = q.q;
-            questionDiv.style.width = '100%';
-            questionDiv.style.marginBottom = '15px';
-            qContainer.appendChild(questionDiv);
-
-            // 顯示空格 (讓玩家把答案拖進來)
-            const slot = createSlot(correctAnswer);
-            qContainer.appendChild(slot);
-        }
-
-        // --- 3. 生成選項 (隨機排列) ---
-        let finalOptions = [correctAnswer, ...optionsList].sort(() => 0.5 - Math.random());
-        
-        finalOptions.forEach(optText => {
-            const btn = document.createElement('div');
-            btn.className = 'draggable-item';
-            btn.innerHTML = optText; // 支援化學式顯示
-            btn.draggable = true;
-            
-            // 拖曳開始
-            btn.addEventListener('dragstart', (e) => {
-                e.dataTransfer.setData('text', optText);
-                btn.classList.add('dragging');
-            });
-            
-            btn.addEventListener('dragend', () => btn.classList.remove('dragging'));
-
-            // 點擊事件 (手機友善)
-            btn.addEventListener('click', () => submitAnswer(optText, btn));
-
-            optsContainer.appendChild(btn);
-        });
-
-        updateStatus();
-    }
-
-    // 輔助函式：建立空格
-    function createSlot(correctAnswer) {
-        const slot = document.createElement('div');
-        slot.className = 'drop-slot';
-        slot.textContent = "拖曳或點擊";
-        slot.dataset.ans = correctAnswer;
-        
-        // 綁定 Drop 事件
-        slot.addEventListener('dragover', (e) => {
-            e.preventDefault();
-            slot.classList.add('drag-over');
-        });
-        slot.addEventListener('dragleave', () => slot.classList.remove('drag-over'));
-        slot.addEventListener('drop', handleDrop);
-        
-        return slot;
-    }
-
-        const pre = currentList[currentIndex];
-        
-        // UI 更新
-        document.getElementById('pre-curr').innerText = currentIndex + 1;
-        document.getElementById('pre-total').innerText = currentList.length;
+        if (currentIndex >= currentList.length) { showResult(); return; }
+        const q = currentList[currentIndex];
+        document.getElementById('q-curr').innerText = currentIndex + 1;
+        document.getElementById('q-total').innerText = currentList.length;
         document.getElementById('score').innerText = Math.round(score);
         document.getElementById('progress-fill').style.width = `${(currentIndex / currentList.length) * 100}%`;
-        
         document.getElementById('feedback').style.display = 'none';
         
-        const questionArea = document.getElementById('question-area');
-        const answerArea = document.getElementById('answer-area');
-        questionArea.innerHTML = '';
-        answerArea.innerHTML = '';
+        const qArea = document.getElementById('question-area');
+        const aArea = document.getElementById('answer-area');
+        qArea.innerHTML = ''; aArea.innerHTML = '';
 
-        // === 判斷題型並渲染 ===
-        if (pre.type === 'fill') {
-            // --- 填空題 ---
-            const qCard = document.createElement('div');
-            qCard.className = 'quiz-card';
-            qCard.innerHTML = `
-                <div style="font-size:1.3rem; line-height:2;">
-                    ${pre.pre} <div class="drop-slot" id="slot">?</div> ${pre.post ? pre.post : ''}
-                </div>`;
-            questionArea.appendChild(qCard);
-
-            answerArea.className = 'drag-pool';
-            const opts = [pre.ans, ...pre.opts].sort(() => 0.5 - Math.random());
-            opts.forEach(opt => {
+        if (q.type === 'fill') {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            card.innerHTML = `<div class="q-text">${q.pre} <div class="drop-slot" id="slot">?</div> ${q.post || ''}</div>`;
+            qArea.appendChild(card);
+            aArea.className = 'drag-pool';
+            [q.ans, ...q.opts].sort(() => 0.5 - Math.random()).forEach(opt => {
                 const btn = document.createElement('div');
                 btn.className = 'drag-item';
                 btn.innerText = opt;
-                btn.onclick = () => checkFillAnswer(opt, pre);
-                answerArea.appendChild(btn);
+                btn.onclick = () => checkFillAnswer(opt, q);
+                aArea.appendChild(btn);
             });
-
         } else {
-            // --- 選擇題 ---
-            const qCard = document.createElement('div');
-            qCard.className = 'quiz-card';
-            if (pre.type && pre.type.includes('image')) {
-                qCard.innerHTML = `${pre.svg}<div class="pre-text" style="font-size:1.2rem; margin-top:15px;">${pre.pre}</div>`;
-            } else {
-                qCard.innerHTML = `<div class="pre-text">${pre.pre}</div>`;
-            }
-            questionArea.appendChild(qCard);
-
-            answerArea.className = 'options-grid';
-            const uniqueOpts = new Set([...pre.o, pre.a]);
-            const opts = Array.from(uniqueOpts).sort(() => 0.5 - Math.random());
-            opts.forEach(opt => {
+            const card = document.createElement('div');
+            card.className = 'quiz-card';
+            card.innerHTML = q.type.includes('image') ? `${q.svg}<div class="q-text" style="margin-top:15px">${q.q}</div>` : `<div class="q-text">${q.q}</div>`;
+            qArea.appendChild(card);
+            aArea.className = 'options-grid';
+            [...q.o].sort(() => 0.5 - Math.random()).forEach(opt => {
                 const btn = document.createElement('button');
                 btn.className = 'opt-btn';
                 btn.innerText = opt;
-                btn.onclick = () => checkChoiceAnswer(btn, opt, pre);
-                answerArea.appendChild(btn);
+                btn.onclick = () => checkChoiceAnswer(btn, opt, q);
+                aArea.appendChild(btn);
             });
         }
     }
 
-    // --- 檢查答案 ---
-
     function checkChoiceAnswer(btn, userAns, qData) {
-        const btns = document.querySelectorAll('.opt-btn');
-        btns.forEach(b => b.disabled = true);
-
-        if (userAns === correctAns) { 
-            btn.classList.add('correct');
-            score += 100 / currentList.length;
+        document.querySelectorAll('.opt-btn').forEach(b => b.disabled = true);
+        if (userAns === qData.a) {
+            btn.classList.add('correct'); score += 100 / currentList.length;
             showFeedback(true, qData.exp);
         } else {
             btn.classList.add('wrong');
-            btns.forEach(b => { if(b.innerText === qData.a) b.classList.add('correct'); });
-            showFeedback(false, `正解是：${qData.a}。<br>${qData.exp}`);
+            document.querySelectorAll('.opt-btn').forEach(b => { if(b.innerText === qData.a) b.classList.add('correct'); });
+            showFeedback(false, `正解：${qData.a}<br>${qData.exp}`);
             mistakes.push(qData);
         }
     }
 
     function checkFillAnswer(userAns, qData) {
         const slot = document.getElementById('slot');
-        if (slot.classList.contains('filled')) return; 
-
-        slot.innerText = userAns;
-        slot.classList.add('filled');
-        
-        const items = document.querySelectorAll('.drag-item');
-        items.forEach(i => i.style.pointerEvents = 'none');
-
+        if (slot.classList.contains('filled')) return;
+        slot.innerText = userAns; slot.classList.add('filled');
+        document.querySelectorAll('.drag-item').forEach(i => i.style.pointerEvents = 'none');
         if (userAns === qData.ans) {
-            slot.style.borderBottomColor = 'var(--success)';
-            slot.style.color = 'var(--success)';
-            score += 100 / currentList.length;
+            slot.style.color = 'var(--success)'; score += 100 / currentList.length;
             showFeedback(true, qData.exp);
         } else {
-            slot.classList.add('error');
-            showFeedback(false, `錯囉！正解是：${qData.ans}。<br>${qData.exp}`);
+            slot.style.color = 'var(--error)';
+            showFeedback(false, `正解：${qData.ans}<br>${qData.exp}`);
             mistakes.push(qData);
         }
     }
 
     function showFeedback(isCorrect, text) {
         const fb = document.getElementById('feedback');
-        const fbText = document.getElementById('feedback-text');
+        document.getElementById('feedback-text').innerHTML = isCorrect ? `✅ 答對了！<br><small>${text}</small>` : `❌ 答錯了...<br><small>${text}</small>`;
         fb.style.display = 'block';
-        fbText.innerHTML = isCorrect ? `✅ 答對了！<br><small>${text}</small>` : `❌ 答錯了...<br><small>${text}</small>`;
     }
 
-    function nextQuestion() {
-        currentIndex++;
-        loadQuestion();
-    }
-
-    // ================= 結果與導航 =================
+    function nextQuestion() { currentIndex++; loadQuestion(); }
 
     function showResult() {
         document.getElementById('quiz-play').style.display = 'none';
         document.getElementById('quiz-result').style.display = 'block';
-        
         document.getElementById('final-score').innerText = Math.round(score);
-        const section = document.getElementById('mistake-section');
-        const list = document.getElementById('mistake-list');
-        list.innerHTML = "";
-
         if (mistakes.length > 0) {
-            section.style.display = 'block';
+            document.getElementById('mistake-section').style.display = 'block';
+            const list = document.getElementById('mistake-list');
+            list.innerHTML = "";
             mistakes.forEach(m => {
-                let displayQ = '', displayA = '';
-                if (m.type === 'fill') {
-                    displayQ = `${m.pre} ____ ${m.post ? m.post : ''}`; displayA = m.ans;
-                } else {
-                    displayQ = (m.type && m.type.includes('image')) ? '看圖題' : m.pre; displayA = m.a;
-                }
-
-                list.innerHTML += `
-                    <div class="chem-card-mini">
-                        <div style="font-weight:bold; color:#333;">${displayQ}</div>
-                        <div style="color:var(--success); margin-top:5px;">正解：${displayA}</div>
-                        <div style="font-size:0.9rem; color:#666; margin-top:5px;">${m.exp}</div>
-                    </div>
-                `;
+                list.innerHTML += `<div class="mistake-card"><b>${m.type === 'fill' ? m.pre + ' __ ' + (m.post||'') : m.q}</b><br>正解：${m.a || m.ans}</div>`;
             });
-        } else {
-            section.style.display = 'none';
         }
     }
 
-    function retryQuiz() {
-        shuffle(currentList); 
-        startQuizFlow();
-    }
+    function retryQuiz() { shuffle(currentList); startQuizFlow(); }
 
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
@@ -961,10 +716,6 @@
             [array[i], array[j]] = [array[j], array[i]];
         }
     }
-
-    // 初始化
-    renderMenu();
-
 </script>
 </body>
 </html>
