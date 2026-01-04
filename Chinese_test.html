@@ -6,17 +6,18 @@
     <title>國文形音義特訓</title>
     <style>
         :root {
-            --primary: #c2410c;       /* 主色：朱砂紅，比較有國文感 */
+            --primary: #c2410c;       /* 朱砂紅 */
             --primary-light: #ffedd5; 
             --bg-gradient-1: #fff7ed;
             --bg-gradient-2: #fed7aa;
             --text: #431407;
             --success: #15803d;
             --error: #b91c1c;
+            --info: #1d4ed8;
         }
 
         body {
-            font-family: "KaiTi", "BiauKai", "DFKai-SB", serif; /* 嘗試使用標楷體 */
+            font-family: "KaiTi", "BiauKai", "DFKai-SB", serif;
             background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
             color: var(--text);
             margin: 0; padding: 20px;
@@ -24,68 +25,107 @@
         }
 
         .container {
-            width: 100%; max-width: 600px;
-            background: rgba(255, 255, 255, 0.95);
+            width: 100%; max-width: 650px;
+            background: rgba(255, 255, 255, 0.98);
             border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
             overflow: hidden; position: relative;
-            min-height: 500px; display: flex; flex-direction: column;
+            min-height: 600px; display: flex; flex-direction: column;
             border: 2px solid #fdba74;
         }
 
         header {
-            padding: 20px; text-align: center; border-bottom: 2px solid #fdba74;
-            background: #fffaf0;
+            padding: 15px 20px; text-align: center; border-bottom: 2px solid #fdba74;
+            background: #fffaf0; position: relative;
         }
-        h1 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; }
+        h1 { margin: 0; font-size: 1.6rem; letter-spacing: 2px; }
+        
+        .exit-btn {
+            position: absolute; right: 15px; top: 15px;
+            background: #fecaca; border: 1px solid #ef4444; color: #b91c1c;
+            padding: 5px 12px; border-radius: 15px; cursor: pointer; font-weight: bold;
+            font-size: 0.9rem; display: none; /* 預設隱藏 */
+        }
+        .exit-btn:hover { background: #fee2e2; }
 
         .view-section { padding: 20px; flex: 1; display: flex; flex-direction: column; }
         
-        /* 選單 */
-        .chapter-list { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; }
-        .chapter-btn {
-            background: #fff; border: 2px solid #fdba74; padding: 18px; border-radius: 12px;
-            cursor: pointer; font-weight: bold; text-align: center; transition: 0.2s;
-            font-size: 1.2rem;
+        /* 選單樣式 */
+        .settings-panel {
+            background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 20px;
+            border: 1px solid #fed7aa;
         }
-        .chapter-btn:hover, .chapter-btn.selected {
-            background: var(--primary); color: white; border-color: var(--primary);
+        .label { font-weight: bold; margin-bottom: 8px; display: block; font-size: 1.1rem; }
+        .num-input {
+            width: 100%; padding: 10px; font-size: 1.2rem; text-align: center;
+            border: 2px solid #fdba74; border-radius: 8px; box-sizing: border-box;
+            font-family: inherit; font-weight: bold; color: var(--primary);
         }
 
-        .start-btn {
-            margin-top: auto; width: 100%; padding: 16px; border: none; border-radius: 50px;
+        .chapter-grid { display: grid; grid-template-columns: 1fr; gap: 10px; max-height: 300px; overflow-y: auto; }
+        .chapter-card {
+            background: #fff; border: 2px solid #fed7aa; padding: 12px; border-radius: 10px;
+            cursor: pointer; transition: 0.2s; display: flex; align-items: center;
+            font-weight: bold; font-size: 1.1rem;
+        }
+        .chapter-card:hover { background: #fff7ed; }
+        .chapter-card.selected {
+            background: var(--primary-light); border-color: var(--primary); color: var(--primary);
+        }
+        .chapter-card::before {
+            content: "☐"; margin-right: 10px; font-size: 1.3rem;
+        }
+        .chapter-card.selected::before {
+            content: "☑";
+        }
+
+        .action-btn {
+            margin-top: auto; width: 100%; padding: 15px; border: none; border-radius: 50px;
             background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold;
-            cursor: pointer; transition: 0.2s;
+            cursor: pointer; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
-        .start-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+        .action-btn:disabled { background: #cbd5e1; cursor: not-allowed; box-shadow: none; }
+        .action-btn.secondary { background: #fff; color: var(--primary); border: 2px solid var(--primary); margin-bottom: 10px;}
 
-        /* 測驗區 */
+        /* 測驗樣式 */
         .progress-bar { height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
 
         .quiz-card {
-            background: #fff; padding: 40px 20px; border-radius: 20px; text-align: center;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border: 1px solid #fed7aa;
+            background: #fff; padding: 30px 20px; border-radius: 20px; text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #fed7aa;
         }
-        .q-text { font-size: 2.5rem; font-weight: 800; color: #333; margin-bottom: 10px; }
+        .q-text { font-size: 2.2rem; font-weight: 800; color: #333; }
         
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;}
         .opt-btn {
-            padding: 20px; border: 2px solid #fdba74; border-radius: 15px; background: white;
-            font-size: 2rem; cursor: pointer; transition: 0.1s; font-family: "KaiTi", serif;
-            font-weight: bold;
+            padding: 15px; border: 2px solid #fdba74; border-radius: 12px; background: white;
+            font-size: 1.8rem; cursor: pointer; transition: 0.1s; font-family: inherit; font-weight: bold;
         }
         .opt-btn:hover { background: #fff7ed; transform: translateY(-2px); }
         .opt-btn.correct { background: #dcfce7; border-color: var(--success); color: #065f46; }
         .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
+        .opt-btn:disabled { cursor: default; transform: none; }
 
-        /* 結果 */
+        /* 解析區塊 */
+        .explanation-box {
+            background: #f0f9ff; border: 2px solid #bae6fd; border-radius: 12px;
+            padding: 15px; margin-top: 10px; display: none; text-align: left;
+            animation: fadeIn 0.3s;
+        }
+        .exp-title { color: #0369a1; font-weight: bold; margin-bottom: 5px; font-size: 1.1rem; }
+        .exp-text { margin-bottom: 8px; line-height: 1.5; color: #334155; }
+        .exp-tag { display: inline-block; background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 4px; font-size: 0.9rem; font-weight: bold; margin-right: 5px;}
+        
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* 結果頁 */
         .score-display { font-size: 5rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
         .mistake-item { 
             text-align: left; padding: 15px; border-bottom: 1px dashed #fdba74; 
-            font-size: 1.2rem;
+            font-size: 1.1rem;
         }
-        .correct-char { color: var(--success); font-weight: bold; margin-left: 10px; }
+        .correct-char { color: var(--success); font-weight: bold; }
     </style>
 </head>
 <body>
@@ -93,13 +133,26 @@
 <div class="container">
     <header>
         <h1>國文形音義特訓</h1>
+        <button id="btn-exit" class="exit-btn" onclick="quitQuiz()">結束測驗</button>
     </header>
 
-    <!-- 1. 選單 -->
+    <!-- 1. 選單與設定 -->
     <div id="view-menu" class="view-section">
-        <p style="text-align:center; color:#78350f;">請選擇練習回數</p>
-        <div id="chapter-list" class="chapter-list"></div>
-        <button id="btn-start" class="start-btn" onclick="startQuiz()" disabled>開始測驗</button>
+        
+        <div class="settings-panel">
+            <span class="label">1. 設定題數 (輸入 0 為全部題目)</span>
+            <input type="number" id="q-count-input" class="num-input" value="10" min="0">
+        </div>
+
+        <div class="settings-panel" style="flex:1; display:flex; flex-direction:column;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+                <span class="label" style="margin:0;">2. 選擇章節 (可多選混搭)</span>
+                <button onclick="selectAllChapters()" style="background:none; border:none; color:var(--primary); font-weight:bold; cursor:pointer; text-decoration:underline;">全選/全取消</button>
+            </div>
+            <div id="chapter-list" class="chapter-grid"></div>
+        </div>
+
+        <button id="btn-start" class="action-btn" onclick="startQuiz()" disabled>開始測驗</button>
     </div>
 
     <!-- 2. 測驗中 -->
@@ -111,10 +164,20 @@
         <div class="progress-bar"><div id="bar-fill" class="progress-fill"></div></div>
 
         <div class="quiz-card">
-            <div id="q-word" class="q-text">題目載入中...</div>
+            <div id="q-word" class="q-text">題目...</div>
         </div>
 
         <div id="options-area" class="options-grid"></div>
+
+        <!-- 解析區塊 -->
+        <div id="explanation-area" class="explanation-box">
+            <div class="exp-title">📝 解析</div>
+            <div id="exp-meaning" class="exp-text"></div>
+            <div id="exp-char" class="exp-text"></div>
+            <div id="exp-source" class="exp-text"></div>
+        </div>
+
+        <button id="btn-next" class="action-btn" style="display:none; margin-top:15px;" onclick="nextQuestion()">下一題 ➔</button>
     </div>
 
     <!-- 3. 結果 -->
@@ -127,15 +190,14 @@
             <div id="mistake-list"></div>
         </div>
 
-        <button class="start-btn" onclick="location.reload()">回選單</button>
+        <button class="action-btn" onclick="location.reload()">回選單</button>
     </div>
 </div>
 
-<!-- 引入資料檔 -->
 <script src="chinese_data.js"></script>
 
 <script>
-    let selectedRound = null;
+    let selectedChapters = new Set();
     let quizList = [];
     let currentIdx = 0;
     let score = 0;
@@ -143,51 +205,87 @@
 
     window.onload = function() {
         if (typeof chineseData === 'undefined') {
-            alert("錯誤：找不到 chinese_data.js，請確認檔案位置！");
+            alert("錯誤：找不到 chinese_data.js");
             return;
         }
-
-        const menu = document.getElementById('chapter-list');
-        Object.keys(chineseData).forEach(round => {
-            const btn = document.createElement('div');
-            btn.className = 'chapter-btn';
-            btn.innerText = round;
-            btn.onclick = () => selectRound(btn, round);
-            menu.appendChild(btn);
-        });
+        renderMenu();
     };
 
-    function selectRound(btn, round) {
-        document.querySelectorAll('.chapter-btn').forEach(b => b.classList.remove('selected'));
-        btn.classList.add('selected');
-        selectedRound = round;
-        document.getElementById('btn-start').disabled = false;
-        document.getElementById('btn-start').innerText = `開始測驗 (${round})`;
+    function renderMenu() {
+        const menu = document.getElementById('chapter-list');
+        menu.innerHTML = '';
+        Object.keys(chineseData).forEach(round => {
+            const btn = document.createElement('div');
+            btn.className = 'chapter-card';
+            btn.innerText = round;
+            btn.onclick = () => toggleChapter(btn, round);
+            menu.appendChild(btn);
+        });
+    }
+
+    function toggleChapter(btn, round) {
+        if (selectedChapters.has(round)) {
+            selectedChapters.delete(round);
+            btn.classList.remove('selected');
+        } else {
+            selectedChapters.add(round);
+            btn.classList.add('selected');
+        }
+        updateStartBtn();
+    }
+
+    function selectAllChapters() {
+        const allRounds = Object.keys(chineseData);
+        const btns = document.querySelectorAll('.chapter-card');
+        
+        if (selectedChapters.size === allRounds.length) {
+            // 全取消
+            selectedChapters.clear();
+            btns.forEach(b => b.classList.remove('selected'));
+        } else {
+            // 全選
+            allRounds.forEach(r => selectedChapters.add(r));
+            btns.forEach(b => b.classList.add('selected'));
+        }
+        updateStartBtn();
+    }
+
+    function updateStartBtn() {
+        const btn = document.getElementById('btn-start');
+        btn.disabled = selectedChapters.size === 0;
+        btn.innerText = selectedChapters.size === 0 ? "請選擇章節" : `開始測驗 (已選 ${selectedChapters.size} 章)`;
     }
 
     function startQuiz() {
-        if (!selectedRound) return;
+        // 1. 收集所有選中章節的題目
+        let pool = [];
+        selectedChapters.forEach(round => {
+            pool = pool.concat(chineseData[round]);
+        });
 
-        // 1. 取得該回題目
-        // 複製一份資料以免改到原始檔
-        const originalList = chineseData[selectedRound];
-        
-        // 2. 隨機洗牌並取 20 題 (如果題目少於20就全取)
-        let questions = JSON.parse(JSON.stringify(originalList)); // 深拷貝
+        if (pool.length === 0) return;
+
+        // 2. 處理題數設定
+        const inputCount = parseInt(document.getElementById('q-count-input').value) || 0;
+        const finalCount = (inputCount === 0 || inputCount > pool.length) ? pool.length : inputCount;
+
+        // 3. 洗牌並切片
+        // 深拷貝以防修改到原始資料
+        let questions = JSON.parse(JSON.stringify(pool));
         shuffle(questions);
-        quizList = questions.slice(0, 20); 
+        quizList = questions.slice(0, finalCount);
 
-        // 3. 準備每一題的選項 (在這裡進行選項打亂)
+        // 4. 初始化題目選項 (打亂選項)
         quizList.forEach(q => {
-            // q.o 是原始選項陣列，我們把它洗牌
             q.shuffledOptions = shuffle([...q.o]);
-            // 過濾掉重複的選項 (有些題目原始資料可能有重複字)
             q.shuffledOptions = [...new Set(q.shuffledOptions)];
         });
 
-        // 4. 切換畫面
+        // 5. 切換畫面
         document.getElementById('view-menu').style.display = 'none';
         document.getElementById('view-quiz').style.display = 'block';
+        document.getElementById('btn-exit').style.display = 'block'; // 顯示退出按鈕
+        
         currentIdx = 0;
         score = 0;
         mistakes = [];
@@ -195,6 +293,10 @@
     }
 
     function loadQuestion() {
+        // 隱藏解析與下一題按鈕
+        document.getElementById('explanation-area').style.display = 'none';
+        document.getElementById('btn-next').style.display = 'none';
+
         if (currentIdx >= quizList.length) {
             endQuiz();
             return;
@@ -218,27 +320,16 @@
             const btn = document.createElement('button');
             btn.className = 'opt-btn';
             btn.innerText = optChar;
-            // 去除括號內的註解 (例如 "麟 (筆劃誤)" 只顯示 "麟")，以免提示太明顯
-            // 如果你想保留註解提示，可以把下面這行拿掉
-            // btn.innerText = optChar.split(' ')[0]; 
-
             btn.onclick = () => checkAnswer(btn, optChar, qData);
             optArea.appendChild(btn);
         });
     }
 
     function checkAnswer(btn, userAns, qData) {
+        // 鎖定按鈕
         const allBtns = document.querySelectorAll('.opt-btn');
         allBtns.forEach(b => b.disabled = true);
 
-        // 檢查是否包含正確答案 (因為有時候選項可能有註解文字，用 includes 比較保險)
-        // 但這裡資料已經整理過，直接比對即可
-        // 注意：有些正確答案是 "麟"，選項是 "麟 (筆劃誤)"，這兩個是不一樣的
-        // 我們的正確答案 qData.a 是乾淨的字。
-        
-        // 簡單比對邏輯：檢查按鈕文字是否「包含」正確答案
-        // 或者直接比對。依據資料檔，qData.a 是單字。
-        
         let isCorrect = (userAns === qData.a);
 
         if (isCorrect) {
@@ -246,21 +337,58 @@
             score += (100 / quizList.length);
         } else {
             btn.classList.add('wrong');
-            // 標示正確答案
             allBtns.forEach(b => {
                 if (b.innerText.includes(qData.a)) b.classList.add('correct');
             });
             mistakes.push(qData);
         }
 
-        setTimeout(() => {
-            currentIdx++;
-            loadQuestion();
-        }, 1000); 
+        // 顯示解析
+        showExplanation(qData);
+        
+        // 顯示下一題按鈕 (不自動跳轉，讓使用者看解析)
+        document.getElementById('btn-next').style.display = 'block';
+        // 自動捲動到解析區
+        document.getElementById('explanation-area').scrollIntoView({behavior: "smooth", block: "nearest"});
+    }
+    
+    function showExplanation(qData) {
+        const expBox = document.getElementById('explanation-area');
+        
+        // 處理沒有資料的情況
+        const mean = qData.m ? qData.m : "（無成語釋義資料）";
+        const charMean = qData.cm ? qData.cm : "（無字義資料）";
+        const source = qData.src ? qData.src : "";
+
+        document.getElementById('exp-meaning').innerHTML = `<span class="exp-tag">釋義</span>${mean}`;
+        document.getElementById('exp-char').innerHTML = `<span class="exp-tag">字義</span>${charMean}`;
+        
+        if (source) {
+            document.getElementById('exp-source').innerHTML = `<span class="exp-tag">古文</span>${source}`;
+            document.getElementById('exp-source').style.display = 'block';
+        } else {
+            document.getElementById('exp-source').style.display = 'none';
+        }
+
+        expBox.style.display = 'block';
+    }
+
+    function nextQuestion() {
+        currentIdx++;
+        loadQuestion();
+        // 捲動回頂部
+        document.querySelector('.container').scrollIntoView({behavior: "smooth"});
+    }
+
+    function quitQuiz() {
+        if(confirm("確定要中途結束測驗嗎？")) {
+            endQuiz();
+        }
     }
 
     function endQuiz() {
         document.getElementById('view-quiz').style.display = 'none';
+        document.getElementById('btn-exit').style.display = 'none';
         document.getElementById('view-result').style.display = 'block';
         document.getElementById('final-score').innerText = Math.round(score);
 
@@ -273,15 +401,15 @@
             mistakes.forEach(m => {
                 const div = document.createElement('div');
                 div.className = 'mistake-item';
-                // 將題目中的空格填入正確答案顯示
-                const correctSentence = m.q.replace('「 」', `「${m.a}」`);
-                div.innerHTML = `${m.q} <span class="correct-char">➡ ${m.a}</span>`;
+                div.innerHTML = `
+                    <div style="font-weight:bold; margin-bottom:5px;">${m.q.replace('「 」', `「<span class="correct-char">${m.a}</span>」`)}</div>
+                    <div style="font-size:0.9rem; color:#666;">${m.m || ''}</div>
+                `;
                 list.appendChild(div);
             });
         }
     }
 
-    // 洗牌函式
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
