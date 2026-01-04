@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>國文形音義特訓</title>
     <style>
         :root {
@@ -13,196 +13,238 @@
             --text: #431407;
             --success: #15803d;
             --error: #b91c1c;
-            --info: #1d4ed8;
+            --gray: #64748b;
         }
+
+        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: "KaiTi", "BiauKai", "DFKai-SB", serif;
             background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
             color: var(--text);
-            margin: 0; padding: 20px;
-            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+            margin: 0; padding: 15px;
+            min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; /* 手機版靠上對齊較好滑動 */
         }
 
         .container {
-            width: 100%; max-width: 650px;
+            width: 100%; max-width: 600px;
             background: rgba(255, 255, 255, 0.98);
-            border-radius: 24px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            border-radius: 20px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
             overflow: hidden; position: relative;
-            min-height: 600px; display: flex; flex-direction: column;
+            min-height: 85vh; display: flex; flex-direction: column;
             border: 2px solid #fdba74;
+            margin-top: 10px;
         }
 
+        /* 頂部導航 */
         header {
-            padding: 15px 20px; text-align: center; border-bottom: 2px solid #fdba74;
-            background: #fffaf0; position: relative;
+            padding: 15px; text-align: center; border-bottom: 2px solid #fdba74;
+            background: #fffaf0; position: sticky; top: 0; z-index: 10;
+            display: flex; justify-content: center; align-items: center;
         }
-        h1 { margin: 0; font-size: 1.6rem; letter-spacing: 2px; }
+        h1 { margin: 0; font-size: 1.4rem; letter-spacing: 2px; }
         
         .exit-btn {
-            position: absolute; right: 15px; top: 15px;
-            background: #fecaca; border: 1px solid #ef4444; color: #b91c1c;
-            padding: 5px 12px; border-radius: 15px; cursor: pointer; font-weight: bold;
-            font-size: 0.9rem; display: none; /* 預設隱藏 */
+            position: absolute; right: 15px;
+            background: #fee2e2; border: 1px solid #ef4444; color: #b91c1c;
+            padding: 6px 12px; border-radius: 20px; cursor: pointer; font-weight: bold;
+            font-size: 0.85rem; display: none;
         }
-        .exit-btn:hover { background: #fee2e2; }
 
-        .view-section { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        .view-section { 
+            padding: 20px; flex: 1; display: flex; flex-direction: column; 
+            overflow-y: auto; /* 內容過長可捲動 */
+        }
         
-        /* 選單樣式 */
-        .settings-panel {
-            background: #fff; padding: 15px; border-radius: 12px; margin-bottom: 20px;
-            border: 1px solid #fed7aa;
-        }
-        .label { font-weight: bold; margin-bottom: 8px; display: block; font-size: 1.1rem; }
-        .num-input {
-            width: 100%; padding: 10px; font-size: 1.2rem; text-align: center;
-            border: 2px solid #fdba74; border-radius: 8px; box-sizing: border-box;
-            font-family: inherit; font-weight: bold; color: var(--primary);
-        }
+        /* 動畫 */
+        .fade-in { animation: fadeIn 0.3s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
 
-        .chapter-grid { display: grid; grid-template-columns: 1fr; gap: 10px; max-height: 300px; overflow-y: auto; }
+        /* --- 1. 章節選擇頁 --- */
+        .chapter-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; }
         .chapter-card {
-            background: #fff; border: 2px solid #fed7aa; padding: 12px; border-radius: 10px;
+            background: #fff; border: 2px solid #fdba74; padding: 16px; border-radius: 12px;
             cursor: pointer; transition: 0.2s; display: flex; align-items: center;
-            font-weight: bold; font-size: 1.1rem;
+            font-weight: bold; font-size: 1.1rem; box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
-        .chapter-card:hover { background: #fff7ed; }
+        .chapter-card:active { transform: scale(0.98); }
         .chapter-card.selected {
             background: var(--primary-light); border-color: var(--primary); color: var(--primary);
         }
-        .chapter-card::before {
-            content: "☐"; margin-right: 10px; font-size: 1.3rem;
+        .chapter-card::before { content: "☐"; margin-right: 12px; font-size: 1.4rem; }
+        .chapter-card.selected::before { content: "☑"; }
+
+        /* --- 2. 題數設定頁 --- */
+        .setting-box { text-align: center; margin-top: 20px; }
+        .quick-select { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .num-btn {
+            padding: 15px; border: 2px solid #fdba74; background: white; border-radius: 12px;
+            font-size: 1.2rem; font-weight: bold; color: var(--text); cursor: pointer;
         }
-        .chapter-card.selected::before {
-            content: "☑";
+        .num-btn.active { background: var(--primary); color: white; border-color: var(--primary); }
+        .custom-input {
+            width: 100%; padding: 15px; font-size: 1.2rem; text-align: center;
+            border: 2px solid #cbd5e1; border-radius: 12px; margin-top: 10px;
+            font-family: inherit;
         }
 
+        /* --- 通用按鈕 --- */
         .action-btn {
-            margin-top: auto; width: 100%; padding: 15px; border: none; border-radius: 50px;
+            margin-top: auto; width: 100%; padding: 16px; border: none; border-radius: 30px;
             background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold;
-            cursor: pointer; transition: 0.2s; box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            cursor: pointer; transition: 0.2s; box-shadow: 0 4px 10px rgba(194, 65, 12, 0.3);
+            margin-bottom: 10px;
         }
         .action-btn:disabled { background: #cbd5e1; cursor: not-allowed; box-shadow: none; }
-        .action-btn.secondary { background: #fff; color: var(--primary); border: 2px solid var(--primary); margin-bottom: 10px;}
+        .action-btn:active { transform: scale(0.98); }
+        
+        .secondary-btn {
+            background: transparent; color: var(--gray); border: none; padding: 10px;
+            font-size: 1rem; font-weight: bold; cursor: pointer; text-decoration: underline;
+            width: 100%; text-align: center;
+        }
 
-        /* 測驗樣式 */
-        .progress-bar { height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+        /* --- 3. 測驗介面 --- */
+        .progress-bar { height: 6px; background: #e2e8f0; border-radius: 3px; margin-bottom: 25px; overflow: hidden; }
         .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
 
         .quiz-card {
-            background: #fff; padding: 30px 20px; border-radius: 20px; text-align: center;
+            background: #fff; padding: 30px 15px; border-radius: 16px; text-align: center;
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #fed7aa;
+            display: flex; align-items: center; justify-content: center; min-height: 120px;
         }
-        .q-text { font-size: 2.2rem; font-weight: 800; color: #333; }
+        .q-text { font-size: 2rem; font-weight: 800; color: #333; line-height: 1.4; }
         
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;}
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;}
         .opt-btn {
-            padding: 15px; border: 2px solid #fdba74; border-radius: 12px; background: white;
+            padding: 20px; border: 2px solid #fdba74; border-radius: 16px; background: white;
             font-size: 1.8rem; cursor: pointer; transition: 0.1s; font-family: inherit; font-weight: bold;
+            display: flex; justify-content: center; align-items: center;
         }
-        .opt-btn:hover { background: #fff7ed; transform: translateY(-2px); }
+        .opt-btn:active { background: #fff7ed; transform: scale(0.95); }
         .opt-btn.correct { background: #dcfce7; border-color: var(--success); color: #065f46; }
         .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
-        .opt-btn:disabled { cursor: default; transform: none; }
 
-        /* 解析區塊 */
+        /* --- 解析區 --- */
         .explanation-box {
             background: #f0f9ff; border: 2px solid #bae6fd; border-radius: 12px;
-            padding: 15px; margin-top: 10px; display: none; text-align: left;
-            animation: fadeIn 0.3s;
+            padding: 15px; margin-top: 15px; display: none; text-align: left;
+            animation: slideUp 0.3s;
         }
-        .exp-title { color: #0369a1; font-weight: bold; margin-bottom: 5px; font-size: 1.1rem; }
-        .exp-text { margin-bottom: 8px; line-height: 1.5; color: #334155; }
-        .exp-tag { display: inline-block; background: #e0f2fe; color: #0284c7; padding: 2px 8px; border-radius: 4px; font-size: 0.9rem; font-weight: bold; margin-right: 5px;}
+        @keyframes slideUp { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
         
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .exp-row { margin-bottom: 10px; line-height: 1.6; font-size: 1.05rem; }
+        .exp-tag { 
+            display: inline-block; background: #0ea5e9; color: white; 
+            padding: 2px 8px; border-radius: 6px; font-size: 0.85rem; 
+            font-weight: bold; margin-right: 6px; vertical-align: text-bottom;
+        }
 
-        /* 結果頁 */
-        .score-display { font-size: 5rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
+        /* --- 結果頁 --- */
+        .score-display { font-size: 5rem; font-weight: 800; color: var(--primary); margin: 20px 0; line-height: 1; }
         .mistake-item { 
             text-align: left; padding: 15px; border-bottom: 1px dashed #fdba74; 
-            font-size: 1.1rem;
+            font-size: 1.1rem; background: #fff; border-radius: 8px; margin-bottom: 8px;
         }
-        .correct-char { color: var(--success); font-weight: bold; }
+        .correct-char { color: var(--success); font-weight: bold; border-bottom: 2px solid var(--success);}
     </style>
 </head>
 <body>
 
 <div class="container">
     <header>
-        <h1>國文形音義特訓</h1>
-        <button id="btn-exit" class="exit-btn" onclick="quitQuiz()">結束測驗</button>
+        <h1 id="page-title">國文形音義特訓</h1>
+        <button id="btn-exit" class="exit-btn" onclick="quitQuiz()">退出</button>
     </header>
 
-    <!-- 1. 選單與設定 -->
-    <div id="view-menu" class="view-section">
-        
-        <div class="settings-panel">
-            <span class="label">1. 設定題數 (輸入 0 為全部題目)</span>
-            <input type="number" id="q-count-input" class="num-input" value="10" min="0">
+    <!-- 1. 章節選擇頁 -->
+    <div id="view-chapters" class="view-section fade-in">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:15px;">
+            <span style="font-weight:bold; color:var(--text); font-size:1.1rem;">請選擇章節</span>
+            <button onclick="selectAllChapters()" style="background:none; border:none; color:var(--primary); font-weight:bold; cursor:pointer; font-size:1rem;">全選</button>
         </div>
-
-        <div class="settings-panel" style="flex:1; display:flex; flex-direction:column;">
-            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
-                <span class="label" style="margin:0;">2. 選擇章節 (可多選混搭)</span>
-                <button onclick="selectAllChapters()" style="background:none; border:none; color:var(--primary); font-weight:bold; cursor:pointer; text-decoration:underline;">全選/全取消</button>
-            </div>
-            <div id="chapter-list" class="chapter-grid"></div>
-        </div>
-
-        <button id="btn-start" class="action-btn" onclick="startQuiz()" disabled>開始測驗</button>
+        <div id="chapter-list" class="chapter-grid"></div>
+        <button id="btn-to-settings" class="action-btn" onclick="goToSettings()" disabled>下一步</button>
     </div>
 
-    <!-- 2. 測驗中 -->
+    <!-- 2. 題數設定頁 -->
+    <div id="view-settings" class="view-section fade-in" style="display:none;">
+        <div class="setting-box">
+            <h2 style="color:var(--text); margin-bottom:5px;">要練習幾題？</h2>
+            <p style="color:var(--gray); margin-top:0;">總題庫：<span id="total-pool-count">0</span> 題</p>
+            
+            <div class="quick-select">
+                <div class="num-btn" onclick="selectCount(10)">10 題</div>
+                <div class="num-btn" onclick="selectCount(20)">20 題</div>
+                <div class="num-btn" onclick="selectCount(50)">50 題</div>
+                <div class="num-btn active" id="btn-all" onclick="selectCount(0)">全部</div>
+            </div>
+
+            <div style="margin-top:20px; text-align:left;">
+                <label style="font-weight:bold; color:var(--gray);">或自訂題數：</label>
+                <input type="number" id="custom-count" class="custom-input" placeholder="輸入數字..." oninput="clearQuickSelect()">
+            </div>
+        </div>
+        
+        <div style="margin-top:auto;">
+            <button class="action-btn" onclick="startQuiz()">開始測驗</button>
+            <button class="secondary-btn" onclick="backToChapters()">回上一頁</button>
+        </div>
+    </div>
+
+    <!-- 3. 測驗進行中 -->
     <div id="view-quiz" class="view-section" style="display:none;">
-        <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:10px;">
+        <div style="display:flex; justify-content:space-between; font-weight:bold; color:var(--gray); margin-bottom:10px; font-size:0.9rem;">
             <span id="q-progress">1 / 10</span>
             <span id="q-score">得分: 0</span>
         </div>
         <div class="progress-bar"><div id="bar-fill" class="progress-fill"></div></div>
 
         <div class="quiz-card">
-            <div id="q-word" class="q-text">題目...</div>
+            <div id="q-word" class="q-text"></div>
         </div>
 
         <div id="options-area" class="options-grid"></div>
 
-        <!-- 解析區塊 -->
+        <!-- 解析區 -->
         <div id="explanation-area" class="explanation-box">
-            <div class="exp-title">📝 解析</div>
-            <div id="exp-meaning" class="exp-text"></div>
-            <div id="exp-char" class="exp-text"></div>
-            <div id="exp-source" class="exp-text"></div>
+            <div class="exp-row"><span class="exp-tag">釋義</span><span id="exp-meaning"></span></div>
+            <div class="exp-row"><span class="exp-tag">字義</span><span id="exp-char"></span></div>
+            <div class="exp-row" id="exp-source-row"><span class="exp-tag" style="background:#7c3aed;">古文</span><span id="exp-source"></span></div>
         </div>
 
-        <button id="btn-next" class="action-btn" style="display:none; margin-top:15px;" onclick="nextQuestion()">下一題 ➔</button>
+        <button id="btn-next" class="action-btn" style="display:none; margin-top:20px;" onclick="nextQuestion()">下一題 ➔</button>
     </div>
 
-    <!-- 3. 結果 -->
-    <div id="view-result" class="view-section" style="display:none; text-align:center;">
-        <h2>測驗結束</h2>
+    <!-- 4. 結果頁 -->
+    <div id="view-result" class="view-section fade-in" style="display:none; text-align:center;">
+        <h2 style="color:var(--text);">測驗結束</h2>
         <div class="score-display" id="final-score">100</div>
+        <p style="color:var(--gray);">本次得分</p>
         
-        <div id="mistake-area" style="margin: 20px 0; max-height: 250px; overflow-y: auto; display:none;">
-            <h3 style="color:#b91c1c;">錯題複習</h3>
+        <div id="mistake-area" style="margin: 20px 0; flex:1; overflow-y: auto; display:none; border-top: 2px solid #eee; padding-top:10px;">
+            <h3 style="color:#b91c1c; text-align:left;">⚠️ 錯題複習</h3>
             <div id="mistake-list"></div>
         </div>
 
-        <button class="action-btn" onclick="location.reload()">回選單</button>
+        <button class="action-btn" onclick="location.reload()">回首頁</button>
     </div>
 </div>
 
+<!-- 引入資料檔 -->
 <script src="chinese_data.js"></script>
 
 <script>
     let selectedChapters = new Set();
+    let poolSize = 0;
+    let selectedCount = 0; // 0 代表全部
     let quizList = [];
     let currentIdx = 0;
     let score = 0;
     let mistakes = [];
 
+    // 初始化
     window.onload = function() {
         if (typeof chineseData === 'undefined') {
             alert("錯誤：找不到 chinese_data.js");
@@ -211,6 +253,7 @@
         renderMenu();
     };
 
+    // --- 1. 選單邏輯 ---
     function renderMenu() {
         const menu = document.getElementById('chapter-list');
         menu.innerHTML = '';
@@ -231,60 +274,88 @@
             selectedChapters.add(round);
             btn.classList.add('selected');
         }
-        updateStartBtn();
+        document.getElementById('btn-to-settings').disabled = selectedChapters.size === 0;
     }
 
     function selectAllChapters() {
         const allRounds = Object.keys(chineseData);
         const btns = document.querySelectorAll('.chapter-card');
-        
         if (selectedChapters.size === allRounds.length) {
-            // 全取消
             selectedChapters.clear();
             btns.forEach(b => b.classList.remove('selected'));
         } else {
-            // 全選
             allRounds.forEach(r => selectedChapters.add(r));
             btns.forEach(b => b.classList.add('selected'));
         }
-        updateStartBtn();
+        document.getElementById('btn-to-settings').disabled = selectedChapters.size === 0;
     }
 
-    function updateStartBtn() {
-        const btn = document.getElementById('btn-start');
-        btn.disabled = selectedChapters.size === 0;
-        btn.innerText = selectedChapters.size === 0 ? "請選擇章節" : `開始測驗 (已選 ${selectedChapters.size} 章)`;
+    // --- 2. 題數設定邏輯 ---
+    function goToSettings() {
+        // 計算總題數
+        poolSize = 0;
+        selectedChapters.forEach(round => {
+            poolSize += chineseData[round].length;
+        });
+        document.getElementById('total-pool-count').innerText = poolSize;
+        
+        switchView('view-settings');
+        document.getElementById('page-title').innerText = "設定題數";
     }
 
+    function backToChapters() {
+        switchView('view-chapters');
+        document.getElementById('page-title').innerText = "國文形音義特訓";
+    }
+
+    function selectCount(num) {
+        selectedCount = num;
+        document.getElementById('custom-count').value = ""; // 清空自訂
+        // 更新按鈕樣式
+        document.querySelectorAll('.num-btn').forEach(btn => btn.classList.remove('active'));
+        // 根據數字找到對應按鈕 (簡單做)
+        if(num === 10) document.querySelectorAll('.num-btn')[0].classList.add('active');
+        if(num === 20) document.querySelectorAll('.num-btn')[1].classList.add('active');
+        if(num === 50) document.querySelectorAll('.num-btn')[2].classList.add('active');
+        if(num === 0) document.getElementById('btn-all').classList.add('active');
+    }
+
+    function clearQuickSelect() {
+        document.querySelectorAll('.num-btn').forEach(btn => btn.classList.remove('active'));
+        // 如果使用者輸入，優先使用輸入值
+        const val = parseInt(document.getElementById('custom-count').value);
+        selectedCount = isNaN(val) ? 0 : val;
+    }
+
+    // --- 3. 測驗邏輯 ---
     function startQuiz() {
-        // 1. 收集所有選中章節的題目
+        // 收集題目
         let pool = [];
         selectedChapters.forEach(round => {
             pool = pool.concat(chineseData[round]);
         });
 
-        if (pool.length === 0) return;
+        // 決定最終題數
+        let finalCount = pool.length;
+        if (selectedCount > 0 && selectedCount < pool.length) {
+            finalCount = selectedCount;
+        }
 
-        // 2. 處理題數設定
-        const inputCount = parseInt(document.getElementById('q-count-input').value) || 0;
-        const finalCount = (inputCount === 0 || inputCount > pool.length) ? pool.length : inputCount;
-
-        // 3. 洗牌並切片
-        // 深拷貝以防修改到原始資料
+        // 洗牌並切片
         let questions = JSON.parse(JSON.stringify(pool));
         shuffle(questions);
         quizList = questions.slice(0, finalCount);
 
-        // 4. 初始化題目選項 (打亂選項)
+        // 初始化選項
         quizList.forEach(q => {
             q.shuffledOptions = shuffle([...q.o]);
             q.shuffledOptions = [...new Set(q.shuffledOptions)];
         });
 
-        // 5. 切換畫面
-        document.getElementById('view-menu').style.display = 'none';
-        document.getElementById('view-quiz').style.display = 'block';
-        document.getElementById('btn-exit').style.display = 'block'; // 顯示退出按鈕
+        // 介面切換
+        switchView('view-quiz');
+        document.getElementById('page-title').innerText = "測驗中";
+        document.getElementById('btn-exit').style.display = 'block';
         
         currentIdx = 0;
         score = 0;
@@ -293,10 +364,10 @@
     }
 
     function loadQuestion() {
-        // 隱藏解析與下一題按鈕
+        // 重置介面
         document.getElementById('explanation-area').style.display = 'none';
         document.getElementById('btn-next').style.display = 'none';
-
+        
         if (currentIdx >= quizList.length) {
             endQuiz();
             return;
@@ -304,18 +375,16 @@
 
         const qData = quizList[currentIdx];
         
-        // 更新進度
+        // 更新資訊
         document.getElementById('q-progress').innerText = `${currentIdx + 1} / ${quizList.length}`;
         document.getElementById('q-score').innerText = `得分: ${Math.round(score)}`;
         document.getElementById('bar-fill').style.width = `${((currentIdx) / quizList.length) * 100}%`;
         
-        // 顯示題目
         document.getElementById('q-word').innerText = qData.q;
 
-        // 顯示選項
+        // 生成選項
         const optArea = document.getElementById('options-area');
         optArea.innerHTML = ''; 
-
         qData.shuffledOptions.forEach(optChar => {
             const btn = document.createElement('button');
             btn.className = 'opt-btn';
@@ -326,7 +395,6 @@
     }
 
     function checkAnswer(btn, userAns, qData) {
-        // 鎖定按鈕
         const allBtns = document.querySelectorAll('.opt-btn');
         allBtns.forEach(b => b.disabled = true);
 
@@ -338,46 +406,41 @@
         } else {
             btn.classList.add('wrong');
             allBtns.forEach(b => {
-                if (b.innerText.includes(qData.a)) b.classList.add('correct');
+                if (b.innerText === qData.a) b.classList.add('correct');
             });
             mistakes.push(qData);
         }
 
-        // 顯示解析
         showExplanation(qData);
-        
-        // 顯示下一題按鈕 (不自動跳轉，讓使用者看解析)
         document.getElementById('btn-next').style.display = 'block';
-        // 自動捲動到解析區
-        document.getElementById('explanation-area').scrollIntoView({behavior: "smooth", block: "nearest"});
+        
+        // 平滑捲動到底部方便看解析
+        setTimeout(() => {
+            document.querySelector('.container').scrollTo({
+                top: document.querySelector('.container').scrollHeight,
+                behavior: 'smooth'
+            });
+        }, 100);
     }
-    
+
     function showExplanation(qData) {
-        const expBox = document.getElementById('explanation-area');
+        document.getElementById('exp-meaning').innerText = qData.m || "（暫無釋義）";
+        document.getElementById('exp-char').innerText = qData.cm || "（暫無字義）";
         
-        // 處理沒有資料的情況
-        const mean = qData.m ? qData.m : "（無成語釋義資料）";
-        const charMean = qData.cm ? qData.cm : "（無字義資料）";
-        const source = qData.src ? qData.src : "";
-
-        document.getElementById('exp-meaning').innerHTML = `<span class="exp-tag">釋義</span>${mean}`;
-        document.getElementById('exp-char').innerHTML = `<span class="exp-tag">字義</span>${charMean}`;
-        
-        if (source) {
-            document.getElementById('exp-source').innerHTML = `<span class="exp-tag">古文</span>${source}`;
-            document.getElementById('exp-source').style.display = 'block';
+        const srcDiv = document.getElementById('exp-source-row');
+        if (qData.src) {
+            document.getElementById('exp-source').innerText = qData.src;
+            srcDiv.style.display = 'block';
         } else {
-            document.getElementById('exp-source').style.display = 'none';
+            srcDiv.style.display = 'none';
         }
-
-        expBox.style.display = 'block';
+        document.getElementById('explanation-area').style.display = 'block';
     }
 
     function nextQuestion() {
         currentIdx++;
         loadQuestion();
-        // 捲動回頂部
-        document.querySelector('.container').scrollIntoView({behavior: "smooth"});
+        document.querySelector('.container').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function quitQuiz() {
@@ -387,27 +450,37 @@
     }
 
     function endQuiz() {
-        document.getElementById('view-quiz').style.display = 'none';
+        switchView('view-result');
+        document.getElementById('page-title').innerText = "測驗結果";
         document.getElementById('btn-exit').style.display = 'none';
-        document.getElementById('view-result').style.display = 'block';
         document.getElementById('final-score').innerText = Math.round(score);
 
+        const area = document.getElementById('mistake-area');
+        const list = document.getElementById('mistake-list');
+        
         if (mistakes.length > 0) {
-            const area = document.getElementById('mistake-area');
-            const list = document.getElementById('mistake-list');
             area.style.display = 'block';
             list.innerHTML = '';
-            
             mistakes.forEach(m => {
                 const div = document.createElement('div');
                 div.className = 'mistake-item';
                 div.innerHTML = `
-                    <div style="font-weight:bold; margin-bottom:5px;">${m.q.replace('「 」', `「<span class="correct-char">${m.a}</span>」`)}</div>
-                    <div style="font-size:0.9rem; color:#666;">${m.m || ''}</div>
+                    <div style="font-weight:bold; margin-bottom:5px; font-size:1.2rem;">
+                        ${m.q.replace('「 」', `「<span class="correct-char">${m.a}</span>」`)}
+                    </div>
+                    <div style="font-size:0.95rem; color:#555;">釋義：${m.m || ''}</div>
                 `;
                 list.appendChild(div);
             });
+        } else {
+            area.style.display = 'none';
         }
+    }
+
+    // 輔助功能
+    function switchView(viewId) {
+        document.querySelectorAll('.view-section').forEach(v => v.style.display = 'none');
+        document.getElementById(viewId).style.display = 'flex'; // view-section 是 flex
     }
 
     function shuffle(array) {
