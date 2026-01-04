@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>國文形音義特訓</title>
+    <style>
+        :root {
+            --primary: #c2410c;       /* 主色：朱砂紅，比較有國文感 */
+            --primary-light: #ffedd5; 
+            --bg-gradient-1: #fff7ed;
+            --bg-gradient-2: #fed7aa;
+            --text: #431407;
+            --success: #15803d;
+            --error: #b91c1c;
+        }
+
+        body {
+            font-family: "KaiTi", "BiauKai", "DFKai-SB", serif; /* 嘗試使用標楷體 */
+            background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+            color: var(--text);
+            margin: 0; padding: 20px;
+            min-height: 100vh; display: flex; justify-content: center; align-items: center;
+        }
+
+        .container {
+            width: 100%; max-width: 600px;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 24px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            overflow: hidden; position: relative;
+            min-height: 500px; display: flex; flex-direction: column;
+            border: 2px solid #fdba74;
+        }
+
+        header {
+            padding: 20px; text-align: center; border-bottom: 2px solid #fdba74;
+            background: #fffaf0;
+        }
+        h1 { margin: 0; font-size: 1.8rem; letter-spacing: 2px; }
+
+        .view-section { padding: 20px; flex: 1; display: flex; flex-direction: column; }
+        
+        /* 選單 */
+        .chapter-list { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 20px; }
+        .chapter-btn {
+            background: #fff; border: 2px solid #fdba74; padding: 18px; border-radius: 12px;
+            cursor: pointer; font-weight: bold; text-align: center; transition: 0.2s;
+            font-size: 1.2rem;
+        }
+        .chapter-btn:hover, .chapter-btn.selected {
+            background: var(--primary); color: white; border-color: var(--primary);
+        }
+
+        .start-btn {
+            margin-top: auto; width: 100%; padding: 16px; border: none; border-radius: 50px;
+            background: var(--primary); color: white; font-size: 1.2rem; font-weight: bold;
+            cursor: pointer; transition: 0.2s;
+        }
+        .start-btn:disabled { background: #cbd5e1; cursor: not-allowed; }
+
+        /* 測驗區 */
+        .progress-bar { height: 8px; background: #e2e8f0; border-radius: 4px; margin-bottom: 20px; overflow: hidden; }
+        .progress-fill { height: 100%; background: var(--primary); width: 0%; transition: 0.3s; }
+
+        .quiz-card {
+            background: #fff; padding: 40px 20px; border-radius: 20px; text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 25px; border: 1px solid #fed7aa;
+        }
+        .q-text { font-size: 2.5rem; font-weight: 800; color: #333; margin-bottom: 10px; }
+        
+        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; }
+        .opt-btn {
+            padding: 20px; border: 2px solid #fdba74; border-radius: 15px; background: white;
+            font-size: 2rem; cursor: pointer; transition: 0.1s; font-family: "KaiTi", serif;
+            font-weight: bold;
+        }
+        .opt-btn:hover { background: #fff7ed; transform: translateY(-2px); }
+        .opt-btn.correct { background: #dcfce7; border-color: var(--success); color: #065f46; }
+        .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
+
+        /* 結果 */
+        .score-display { font-size: 5rem; font-weight: 800; color: var(--primary); margin: 20px 0; }
+        .mistake-item { 
+            text-align: left; padding: 15px; border-bottom: 1px dashed #fdba74; 
+            font-size: 1.2rem;
+        }
+        .correct-char { color: var(--success); font-weight: bold; margin-left: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>國文形音義特訓</h1>
+    </header>
+
+    <!-- 1. 選單 -->
+    <div id="view-menu" class="view-section">
+        <p style="text-align:center; color:#78350f;">請選擇練習回數</p>
+        <div id="chapter-list" class="chapter-list"></div>
+        <button id="btn-start" class="start-btn" onclick="startQuiz()" disabled>開始測驗</button>
+    </div>
+
+    <!-- 2. 測驗中 -->
+    <div id="view-quiz" class="view-section" style="display:none;">
+        <div style="display:flex; justify-content:space-between; font-weight:bold; margin-bottom:10px;">
+            <span id="q-progress">1 / 10</span>
+            <span id="q-score">得分: 0</span>
+        </div>
+        <div class="progress-bar"><div id="bar-fill" class="progress-fill"></div></div>
+
+        <div class="quiz-card">
+            <div id="q-word" class="q-text">題目載入中...</div>
+        </div>
+
+        <div id="options-area" class="options-grid"></div>
+    </div>
+
+    <!-- 3. 結果 -->
+    <div id="view-result" class="view-section" style="display:none; text-align:center;">
+        <h2>測驗結束</h2>
+        <div class="score-display" id="final-score">100</div>
+        
+        <div id="mistake-area" style="margin: 20px 0; max-height: 250px; overflow-y: auto; display:none;">
+            <h3 style="color:#b91c1c;">錯題複習</h3>
+            <div id="mistake-list"></div>
+        </div>
+
+        <button class="start-btn" onclick="location.reload()">回選單</button>
+    </div>
+</div>
+
+<!-- 引入資料檔 -->
+<script src="chinese_data.js"></script>
+
+<script>
+    let selectedRound = null;
+    let quizList = [];
+    let currentIdx = 0;
+    let score = 0;
+    let mistakes = [];
+
+    window.onload = function() {
+        if (typeof chineseData === 'undefined') {
+            alert("錯誤：找不到 chinese_data.js，請確認檔案位置！");
+            return;
+        }
+
+        const menu = document.getElementById('chapter-list');
+        Object.keys(chineseData).forEach(round => {
+            const btn = document.createElement('div');
+            btn.className = 'chapter-btn';
+            btn.innerText = round;
+            btn.onclick = () => selectRound(btn, round);
+            menu.appendChild(btn);
+        });
+    };
+
+    function selectRound(btn, round) {
+        document.querySelectorAll('.chapter-btn').forEach(b => b.classList.remove('selected'));
+        btn.classList.add('selected');
+        selectedRound = round;
+        document.getElementById('btn-start').disabled = false;
+        document.getElementById('btn-start').innerText = `開始測驗 (${round})`;
+    }
+
+    function startQuiz() {
+        if (!selectedRound) return;
+
+        // 1. 取得該回題目
+        // 複製一份資料以免改到原始檔
+        const originalList = chineseData[selectedRound];
+        
+        // 2. 隨機洗牌並取 20 題 (如果題目少於20就全取)
+        let questions = JSON.parse(JSON.stringify(originalList)); // 深拷貝
+        shuffle(questions);
+        quizList = questions.slice(0, 20); 
+
+        // 3. 準備每一題的選項 (在這裡進行選項打亂)
+        quizList.forEach(q => {
+            // q.o 是原始選項陣列，我們把它洗牌
+            q.shuffledOptions = shuffle([...q.o]);
+            // 過濾掉重複的選項 (有些題目原始資料可能有重複字)
+            q.shuffledOptions = [...new Set(q.shuffledOptions)];
+        });
+
+        // 4. 切換畫面
+        document.getElementById('view-menu').style.display = 'none';
+        document.getElementById('view-quiz').style.display = 'block';
+        currentIdx = 0;
+        score = 0;
+        mistakes = [];
+        loadQuestion();
+    }
+
+    function loadQuestion() {
+        if (currentIdx >= quizList.length) {
+            endQuiz();
+            return;
+        }
+
+        const qData = quizList[currentIdx];
+        
+        // 更新進度
+        document.getElementById('q-progress').innerText = `${currentIdx + 1} / ${quizList.length}`;
+        document.getElementById('q-score').innerText = `得分: ${Math.round(score)}`;
+        document.getElementById('bar-fill').style.width = `${((currentIdx) / quizList.length) * 100}%`;
+        
+        // 顯示題目
+        document.getElementById('q-word').innerText = qData.q;
+
+        // 顯示選項
+        const optArea = document.getElementById('options-area');
+        optArea.innerHTML = ''; 
+
+        qData.shuffledOptions.forEach(optChar => {
+            const btn = document.createElement('button');
+            btn.className = 'opt-btn';
+            btn.innerText = optChar;
+            // 去除括號內的註解 (例如 "麟 (筆劃誤)" 只顯示 "麟")，以免提示太明顯
+            // 如果你想保留註解提示，可以把下面這行拿掉
+            // btn.innerText = optChar.split(' ')[0]; 
+
+            btn.onclick = () => checkAnswer(btn, optChar, qData);
+            optArea.appendChild(btn);
+        });
+    }
+
+    function checkAnswer(btn, userAns, qData) {
+        const allBtns = document.querySelectorAll('.opt-btn');
+        allBtns.forEach(b => b.disabled = true);
+
+        // 檢查是否包含正確答案 (因為有時候選項可能有註解文字，用 includes 比較保險)
+        // 但這裡資料已經整理過，直接比對即可
+        // 注意：有些正確答案是 "麟"，選項是 "麟 (筆劃誤)"，這兩個是不一樣的
+        // 我們的正確答案 qData.a 是乾淨的字。
+        
+        // 簡單比對邏輯：檢查按鈕文字是否「包含」正確答案
+        // 或者直接比對。依據資料檔，qData.a 是單字。
+        
+        let isCorrect = (userAns === qData.a);
+
+        if (isCorrect) {
+            btn.classList.add('correct');
+            score += (100 / quizList.length);
+        } else {
+            btn.classList.add('wrong');
+            // 標示正確答案
+            allBtns.forEach(b => {
+                if (b.innerText.includes(qData.a)) b.classList.add('correct');
+            });
+            mistakes.push(qData);
+        }
+
+        setTimeout(() => {
+            currentIdx++;
+            loadQuestion();
+        }, 1000); 
+    }
+
+    function endQuiz() {
+        document.getElementById('view-quiz').style.display = 'none';
+        document.getElementById('view-result').style.display = 'block';
+        document.getElementById('final-score').innerText = Math.round(score);
+
+        if (mistakes.length > 0) {
+            const area = document.getElementById('mistake-area');
+            const list = document.getElementById('mistake-list');
+            area.style.display = 'block';
+            list.innerHTML = '';
+            
+            mistakes.forEach(m => {
+                const div = document.createElement('div');
+                div.className = 'mistake-item';
+                // 將題目中的空格填入正確答案顯示
+                const correctSentence = m.q.replace('「 」', `「${m.a}」`);
+                div.innerHTML = `${m.q} <span class="correct-char">➡ ${m.a}</span>`;
+                list.appendChild(div);
+            });
+        }
+    }
+
+    // 洗牌函式
+    function shuffle(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [array[i], array[j]] = [array[j], array[i]];
+        }
+        return array;
+    }
+</script>
+</body>
+</html>
