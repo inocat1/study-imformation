@@ -177,7 +177,7 @@
             <div class="quick-select">
                 <div class="num-btn" onclick="selectCount(10)">10 題</div>
                 <div class="num-btn" onclick="selectCount(20)">20 題</div>
-                <div class="num-btn" onclick="selectCount(50)">50 題</div>
+                <div class="num-btn" onclick="selectCount(30)">30 題</div>
                 <div class="num-btn active" id="btn-all" onclick="selectCount(0)">全部</div>
             </div>
 
@@ -316,7 +316,7 @@
         // 根據數字找到對應按鈕 (簡單做)
         if(num === 10) document.querySelectorAll('.num-btn')[0].classList.add('active');
         if(num === 20) document.querySelectorAll('.num-btn')[1].classList.add('active');
-        if(num === 50) document.querySelectorAll('.num-btn')[2].classList.add('active');
+        if(num === 30) document.querySelectorAll('.num-btn')[2].classList.add('active');
         if(num === 0) document.getElementById('btn-all').classList.add('active');
     }
 
