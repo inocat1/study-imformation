@@ -1698,56 +1698,30 @@
 ###我看到會疑惑的 
 6. ceaselessly (adv.) 不斷地
 11. foul (adj. / n. / v.) 惡臭的；犯規；弄髒
-18. recruitment (n.) 招聘、招募
-20. comply with (phr.) 遵守、服從
-30. underlying (adj.) 潛在的、基礎的
-34. prone (adj.) 易於...的、俯臥的
-37. phage (n.) 噬菌體
 38. antibiotic (n. / adj.) 抗生素；抗菌的
 39. rug (n.) 地毯
 44. tender (adj. / v. / n.) 溫柔的；提出；投標
 45. succulent (adj. / n.) 多汁的；多肉植物
 46. broiled (adj.) 烤的
-49. tantalize (v.) 逗弄、引誘
-50. compelling (adj.) 引人入勝的、強而有力的
 56. compact (adj. / n. / v.) 緊湊的；協議；壓實
 57. resilience (n.) 韌性、復原力
-60. ethnicities (n.) 種族
-62. period (n. / adj.) 時期、句點；時代的
-74. boundary (n.) 邊界、範圍
 
 ###前面幾回仍然不會的 
 5. acute (adj.) 急性的；劇烈的
 11. adrenaline (n.) 腎上腺素
 19. antibiotics (n.) 抗生素
 25. aristocrat (n.) 貴族
-27. arouse (v.) 激起
-29. ascertain (adj.) 某些；確定的
 30. ascend (v.) 上升；攀登
-33. auction (n.) 拍賣
 38. be intended to (phr.) 旨在
-42. bluntly (adv.) 直言不諱地
-43. boast (v.) 以…自豪
-44. boom (n./v.) 繁榮；蓬勃發展
 51. bureau (n.) 局、處、署
 52. by all means (phr.) 務必；一定
 53. by means of (phr.) 藉由
 56. catastrophic (adj.) 災難性的
-57. cautiously (adv.) 小心地；謹慎地
-58. centerpiece (n.) 最重要的部分
-61. cholesterol (n.) 膽固醇
 63. circulate (v.) 流通；傳播
 64. circumstance (n.) 情況；環境
-65. clinical (adj.) 臨床的
 70. compact (adj./n./v.) 緊湊的；協議；壓實
 71. compensate (v.) 補償
-72. competent (adj.) 有能力的；勝任的
-73. compelling (adj.) 引人入勝的；強而有力的
-74. complication (n.) 併發症；複雜情況
-75. comply with （phr.) 遵守、服從
 76. compliment (v./n.) 讚美
-77. comprise (v.) 包含、構成
-78. compromise (v.) 妥協
 79. conclusive (adj.) 決定性的；確鑿的
 84. conservative (adj.) 保守的
 88. constitution (n.) 憲法
@@ -1755,36 +1729,23 @@
 94. conventional (adj.) 傳統的、常規的
 95. correspondence (n.) 通信
 96. cortex (n.) 皮層
-97. courteous (adj.) 有禮貌的；謙恭的
 98. court (n./v.) 法院；追求
 101. cultivate (v.) 培養；耕種
-105. customary (adj.) 習慣的；慣常的
 106. custody (n.) 監護；拘留
 108. deceptively (adv.) 欺騙地；看似…地
 112. deposit (n.) 存款；押金
 114. detention (n.) 拘留
 115. devastating (adj.) 毀滅性的
-117. diabetes (n.) 糖尿病
 125. drainage (n.) 排水系統
-126. drastically (adv.) 急遽地
 127. dreadful (adj.) 可怕的
-129. duplicate (v.) 複製
 130. dwell (v.) 居住
 131. dysfunction (n.) 功能障礙
 132. elastic (adj.) 有彈性的
-133. elaborate (v./adj.) 闡述；精緻的
-134. embed (v.) 嵌入；插入
 135. enclosure (n.) 圍牆；附件
 136. encyclopedia (n.) 百科全書
 137. endeavor (n./v.) 努力；嘗試
 138. enneagram (n.) 九型人格
 142. escort (v./n.) 護送；陪同
-144. ethnicities (n.) 種族
-148. examine (v.) 檢查；檢驗
-149. exclusive (adj.) 獨有的；專屬的
-151. facilitate (v.) 促進；使容易
-155. first aid (n.) 急救
-158. fossil (n.) 化石
 160. frantically (adv.) 瘋狂地；緊張忙亂地
 162. fuel (v.) 加劇；助長
 163. furnish (v.) 配備；供應
@@ -1794,25 +1755,17 @@
 172. graze (v./n.) 擦傷；放牧
 175. grocery (n.) 雜貨店
 176. gulp (v./n.) 大口吞；吞嚥
-180. hectare (n.) 公頃
 181. hoarse (adj.) 沙啞的
 182. hold on to (phr.) 堅持；抓牢
-188. hurricane (n.) 颶風
-194. illustrate (v.) 說明；舉例說明
-196. implication (n.) 影響；暗示；含意
-197. implicitly (adv.) 含蓄地
 202. incline (v.) 傾向於；使傾斜
 203. inclusive (adj.) 包含的、包容的
 204. inconsistent (adj.) 不一致的
-209. inquire (v.) 詢問
 210. inspection (n.) 檢查；檢驗
 214. intimidate (v.) 威嚇；恐嚇
-221. knock off (phr.) 收工；停止
-222. lavishly (adv.) 奢華地
+222. lavishly (adv.) 奢華的
 225. lease (n./v.) 租約；租賃
 227. let alone (phr.) 更不用說
 228. liability (n.) 責任；負債
-236. mandatory (adj.) 強制的；命令的
 240. melancholy (n./adj.) 憂鬱
 241. merchandise (n.) 商品
 242. merit (n.) 優點；價
@@ -1820,105 +1773,58 @@
 260. nourish (v.) 滋養；培養
 263. odor (n.) 氣味
 264. on account of (prep.) 因為
-265. on a regular basis (phr.) 定期地
-266. on behalf of (phr.) 代表…
 268. on top of that (phr.) 除此之外
-269. optimal (adj.) 最佳的
-274. outlying (adj.) 偏遠的
 278. parallel (adj.) 平行的
 282. period (n./adj.) 期間；時代的
 283. permit (v.) 允許
-285. phage (n.) 噬菌體
 289. picturesque (adj.) 如畫的；生動的
 292. plague (n./v.) 瘟疫；使困擾
-299. power plant (n.) 發電廠
-313. prone (adj.) 易於...的、俯臥的
-318. recurrence (n.) 再發；復發
-320. recruitment (n.) 招聘、招募
 325. reluctant (adj.) 不情願的；勉強的
 329. resort to (phr.) 訴諸於
 333. revenue (n.) 收入；收益
 349. sheer (adj.) 完全的；十足的
 350. shiver (v./n.) 發抖
 352. shrug (v./n.) 聳肩
-354. simultaneously (adv.) 同時地
 356. sinister (adj.) 不祥的；邪惡的
 359. sniff (v./n.) 嗅；吸氣
 360. sober (adj.) 清醒的；冷靜的
 361. solemn (adj.) 莊嚴的；嚴肅的
-365. speculate (v.) 推測；投機
 366. spontaneously (adv.) 自發地
 368. spur (v./n.) 激勵；馬刺
-370. startle (v.) 驚嚇；使嚇一跳
-380. suppress (v.) 抑制；壓制
 381. surpassing (adj.) 卓越的；超越的
 386. take charge of (phr.) 負責…
-388. tantalize (v.) 逗弄、引誘
 391. testimony (n.) 證詞
 405. unprecedented (adj.) 前所未有的
 407. unsurpassed (adj.) 無與倫比的
-412. versatile (adj.) 多才多藝的；多功能的
 413. vertical (adj.) 垂直的
 414. vice (n.) 惡行
 415. vigorous (adj.) 有活力的；精力充沛的
-417. vintage (adj./n.) 經典的；古典的
-418. ward off (phr.) 避開；防止
-424. implement (v./n.) 實施、執行
-425. regard (v./n.) 視為、認為；尊重、關注
-426. hard-wired (adj.) 本能的、天生的
-427. innate (adj.) 天生的、先天的
-428. coined (v.) 創造 (新詞、新說法)
-429. combed (v.) 梳理、仔細搜尋
 430. archer (n.) 弓箭手、射手
 431. strip (v./n.) 剝掉、除去；條狀物
-432. clumsy (adj.) 笨拙的
-433. nun (n.) 修女、尼姑
-434. preservation (n.) 保存、維護
-435. consideration (n.) 考慮、體貼
 436. compromise (v./n.) 妥協、讓步
 437. surreal (adj.) 超現實的、離奇的
 438. mill (n./v.) 磨坊、工廠；磨碎
 439. scenic (adj.) 風景優美的
 442. irritate (v.) 使惱火、激怒
-443. frontier (n.) 邊境、(知識的) 尖端領域
 444. promiscuous (adj.) 雜亂的、(性) 濫交的
-445. on behalf of (phr.) 代表...
-446. in preference to (phr.) 優先於...、而非...
 447. counterpart (n.) 對應的人或物
-448. leap at (phr.) 欣然接受 (機會)
-449. brief (adj./v.) 簡短的；向...簡要介紹
-450. measles (n.) 麻疹
-451. competent (adj.) 有能力的、勝任的
 452. autism (n.) 自閉症
-453. vintage (adj./n.) 經典的、老式的；釀酒年份
-455. mandatory (adj.) 強制性的、義務的
-457. euphemism (n.) 委婉語
 458. imitation (n.) 模仿、仿製品
 459. meticulously (adv.) 一絲不苟地、極細心地
 460. utter (adj./v.) 完全的；說出、發出聲音
 461. auspicious (adj.) 吉利的、幸運的
-463. franchise (n.) 經銷權、加盟店
 464. ostentatious (adj.) 炫耀的、賣弄的
-465. disobey (v.) 不服從、違反
 466. conform (v.) 順應、遵守、符合
-467. divided (adj.) 分裂的、分開的
 468. stir up (phr.) 挑起 (爭端)、激起 (情緒)
 469. curriculum (n.) 課程
 471. fungus (n.) 真菌、菌類
 472. baffled (adj.) 感到困惑的
-473. miraculously (adv.) 奇蹟般地
-474. regenerate (v.) 再生、使新生
-476. beak count (phr.) 鳥喙計數
-477. roam (v.) 漫遊、流浪
 478. collision (n.) 碰撞、衝突
 479. pesticides (n.) 殺蟲劑
-480. meadowlark (n.) 草地鷚
-481. sparrow (n.) 麻雀
 482. vanish (v.) 消失
 483. invasive (adj.) 侵入性的、侵略性的
 484. starling (n.) 椋鳥
 485. hemispheric (adj.) 半球的
-486. unite (v.) 團結、結合
 487. migratory (adj.) 遷徙的
                 `
             ; // ★★★ 請將你的單字資料貼在這裡 ★★★
