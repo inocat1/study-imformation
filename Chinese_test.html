@@ -20,7 +20,8 @@
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
-            font-family: "KaiTi", "BiauKai", "DFKai-SB", serif;
+            /* 優先使用標楷體，若無則使用明體或預設襯線體 */
+            font-family: "KaiTi", "BiauKai", "DFKai-SB", "PMingLiU", serif;
             background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
             color: var(--text);
             margin: 0; padding: 10px;
@@ -49,7 +50,7 @@
             padding: 15px; position: relative;
         }
 
-        h1 { margin: 0; font-size: 1.4rem; letter-spacing: 2px; }
+        h1 { margin: 0; font-size: 1.4rem; letter-spacing: 2px; font-weight: 800; }
 
         .exit-btn {
             position: absolute; right: 15px;
@@ -66,10 +67,12 @@
             flex: 1; text-align: center; padding: 12px;
             font-size: 1.1rem; font-weight: bold; color: #7c2d12;
             cursor: pointer; transition: 0.2s; border-bottom: 3px solid transparent;
+            opacity: 0.6;
         }
         .tab-btn.active {
             background: #fff; color: var(--primary);
             border-bottom: 3px solid var(--primary);
+            opacity: 1;
         }
 
         /* --- 內容區 --- */
@@ -257,7 +260,7 @@
     </div>
 </div>
 
-<!-- 引入資料檔 -->
+<!-- 關鍵：讀取外部資料檔 -->
 <script src="chinese_data.js"></script>
 
 <script>
@@ -270,9 +273,10 @@
     let score = 0;
     let mistakes = [];
 
+    // 初始化：確保資料檔有被讀取
     window.onload = function() {
         if (typeof chineseData === 'undefined') {
-            alert("錯誤：找不到 chinese_data.js");
+            alert("錯誤：找不到 chinese_data.js，請確認檔案已上傳且位於同一資料夾！");
             return;
         }
         renderMenu();
@@ -281,7 +285,7 @@
     // --- 1. 分頁切換邏輯 ---
     function switchTab(mode) {
         currentMode = mode;
-        // 更新 UI
+        // 更新 UI 樣式
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         if (mode === 'shape') {
             document.querySelectorAll('.tab-btn')[0].classList.add('active');
@@ -289,22 +293,20 @@
             document.querySelectorAll('.tab-btn')[1].classList.add('active');
         }
         
-        // 清空已選，重新渲染選單
+        // 清空已選狀態，重新渲染選單
         selectedChapters.clear();
         document.getElementById('btn-to-settings').disabled = true;
         renderMenu();
     }
 
-    // --- 2. 選單邏輯 ---
+    // --- 2. 選單渲染 ---
     function renderMenu() {
         const menu = document.getElementById('chapter-list');
         menu.innerHTML = '';
         
-        // 根據模式篩選章節
+        // 根據模式篩選章節 Key
+        // 邏輯：key 中包含 "一字多義" 字眼的歸類到 meaning 分頁，其餘歸類到 shape 分頁
         Object.keys(chineseData).forEach(round => {
-            // 判斷邏輯：
-            // "一字多義" 模式只顯示包含 "多義" 的章節
-            // "形音義" 模式顯示其他所有章節
             let isMeaning = round.includes("一字多義");
             
             if ((currentMode === 'meaning' && isMeaning) || 
@@ -331,17 +333,22 @@
     }
 
     function selectAllChapters() {
-        const btns = document.querySelectorAll('.chapter-card');
-        // 檢查是否已全選（針對當前顯示的章節）
+        const menu = document.getElementById('chapter-list');
+        const btns = menu.querySelectorAll('.chapter-card');
+        
+        // 檢查當前顯示的章節是否全選了
         let allSelected = true;
+        if (btns.length === 0) allSelected = false; // 沒東西就不算全選
         btns.forEach(btn => {
             if (!btn.classList.contains('selected')) allSelected = false;
         });
 
         if (allSelected) {
             // 全取消
-            selectedChapters.clear();
-            btns.forEach(b => b.classList.remove('selected'));
+            btns.forEach(b => {
+                b.classList.remove('selected');
+                selectedChapters.delete(b.innerText);
+            });
         } else {
             // 全選
             btns.forEach(b => {
@@ -354,22 +361,25 @@
 
     // --- 3. 題數設定與流程 ---
     function goToSettings() {
+        // 計算選中章節的總題數
         poolSize = 0;
         selectedChapters.forEach(round => {
             poolSize += chineseData[round].length;
         });
         document.getElementById('total-pool-count').innerText = poolSize;
         
-        // 隱藏選單，顯示設定
+        // 切換畫面
         document.getElementById('view-chapters').style.display = 'none';
         document.getElementById('view-settings').style.display = 'flex';
-        document.getElementById('tab-bar').style.display = 'none'; // 設定時隱藏分頁
+        document.getElementById('tab-bar').style.display = 'none'; // 設定時隱藏分頁，專注設定
+        document.getElementById('page-title').innerText = "設定題數";
     }
 
     function backToChapters() {
         document.getElementById('view-settings').style.display = 'none';
         document.getElementById('view-chapters').style.display = 'flex';
         document.getElementById('tab-bar').style.display = 'flex';
+        document.getElementById('page-title').innerText = "國文全能特訓";
     }
 
     function selectCount(num) {
@@ -377,6 +387,7 @@
         document.getElementById('custom-count').value = "";
         document.querySelectorAll('.num-btn').forEach(btn => btn.classList.remove('active'));
         
+        // 簡單對應按鈕樣式
         if(num === 10) document.querySelectorAll('.num-btn')[0].classList.add('active');
         if(num === 20) document.querySelectorAll('.num-btn')[1].classList.add('active');
         if(num === 50) document.querySelectorAll('.num-btn')[2].classList.add('active');
@@ -389,24 +400,28 @@
         selectedCount = isNaN(val) ? 0 : val;
     }
 
-    // --- 4. 測驗核心 ---
+    // --- 4. 測驗核心邏輯 ---
     function startQuiz() {
         let pool = [];
         selectedChapters.forEach(round => {
             pool = pool.concat(chineseData[round]);
         });
 
+        // 決定最終題數
         let finalCount = pool.length;
         if (selectedCount > 0 && selectedCount < pool.length) {
             finalCount = selectedCount;
         }
 
-        let questions = JSON.parse(JSON.stringify(pool));
+        // 洗牌並切出題目
+        let questions = JSON.parse(JSON.stringify(pool)); // 深拷貝
         shuffle(questions);
         quizList = questions.slice(0, finalCount);
 
+        // 初始化選項 (打亂順序)
         quizList.forEach(q => {
             q.shuffledOptions = shuffle([...q.o]);
+            // 去除重複選項 (資料處理保險)
             q.shuffledOptions = [...new Set(q.shuffledOptions)];
         });
 
@@ -423,6 +438,7 @@
     }
 
     function loadQuestion() {
+        // 重置介面狀態
         document.getElementById('explanation-area').style.display = 'none';
         document.getElementById('btn-next').style.display = 'none';
         
@@ -433,12 +449,15 @@
 
         const qData = quizList[currentIdx];
         
+        // 更新進度條
         document.getElementById('q-progress').innerText = `${currentIdx + 1} / ${quizList.length}`;
         document.getElementById('q-score').innerText = `得分: ${Math.round(score)}`;
         document.getElementById('bar-fill').style.width = `${((currentIdx) / quizList.length) * 100}%`;
         
+        // 顯示題目
         document.getElementById('q-word').innerText = qData.q;
 
+        // 生成選項
         const optArea = document.getElementById('options-area');
         optArea.innerHTML = ''; 
         qData.shuffledOptions.forEach(optChar => {
@@ -451,9 +470,11 @@
     }
 
     function checkAnswer(btn, userAns, qData) {
+        // 鎖定所有按鈕
         const allBtns = document.querySelectorAll('.opt-btn');
         allBtns.forEach(b => b.disabled = true);
 
+        // 判斷對錯
         let isCorrect = (userAns === qData.a);
 
         if (isCorrect) {
@@ -461,16 +482,18 @@
             score += (100 / quizList.length);
         } else {
             btn.classList.add('wrong');
+            // 標示正確答案
             allBtns.forEach(b => {
                 if (b.innerText === qData.a) b.classList.add('correct');
             });
             mistakes.push(qData);
         }
 
+        // 顯示解析
         showExplanation(qData);
         document.getElementById('btn-next').style.display = 'block';
         
-        // 自動捲動到解析
+        // 自動捲動到解析區方便閱讀
         setTimeout(() => {
             document.querySelector('.container').scrollTo({
                 top: document.querySelector('.container').scrollHeight,
@@ -480,13 +503,13 @@
     }
 
     function showExplanation(qData) {
-        document.getElementById('exp-meaning').innerText = qData.m || "（暫無）";
-        document.getElementById('exp-char').innerText = qData.cm || "（暫無）";
+        document.getElementById('exp-meaning').innerText = qData.m || "（暫無釋義）";
+        document.getElementById('exp-char').innerText = qData.cm || "（暫無字義）";
         
         const srcDiv = document.getElementById('exp-source-row');
-        if (qData.src) {
+        if (qData.src && qData.src.trim() !== "") {
             document.getElementById('exp-source').innerText = qData.src;
-            srcDiv.style.display = 'block';
+            srcDiv.style.display = 'block'; // 有出處才顯示這行
         } else {
             srcDiv.style.display = 'none';
         }
@@ -496,11 +519,12 @@
     function nextQuestion() {
         currentIdx++;
         loadQuestion();
+        // 換題後捲回頂部
         document.querySelector('.container').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
     function quitQuiz() {
-        if(confirm("確定要中途結束測驗嗎？")) {
+        if(confirm("確定要中途結束測驗嗎？(目前進度將不會儲存)")) {
             endQuiz();
         }
     }
@@ -510,13 +534,14 @@
         document.getElementById('view-result').style.display = 'flex';
         document.getElementById('page-title').innerText = "測驗結果";
         document.getElementById('btn-exit').style.display = 'none';
-        document.getElementById('tab-bar').style.display = 'none';
+        document.getElementById('tab-bar').style.display = 'none'; // 結果頁隱藏分頁
         
         document.getElementById('final-score').innerText = Math.round(score);
 
         const area = document.getElementById('mistake-area');
         const list = document.getElementById('mistake-list');
         
+        // 顯示錯題列表
         if (mistakes.length > 0) {
             area.style.display = 'block';
             list.innerHTML = '';
@@ -536,6 +561,7 @@
         }
     }
 
+    // 輔助：洗牌陣列
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
