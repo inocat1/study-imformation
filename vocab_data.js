@@ -1826,5 +1826,485 @@
 484. starling (n.) 椋鳥
 485. hemispheric (adj.) 半球的
 487. migratory (adj.) 遷徙的
+
+###一百題高頻率單字
+1. advanced (v.) 前進/推進
+2. halted (v.) 停止
+3. rendered (v.) 使成為/呈現
+4. reinforced (v.) 增強
+5. regulations (n.) 規定
+6. consensus (n.) 共識
+7. violation (n.) 違反
+8. announcement (n.) 公告/宣布
+9. ventured (v.) 冒險
+10. enhanced (v.) 提升/增強
+11. addressed (v.) 處理/論述
+12. property (n.) 財產
+13. boundary (n.) 邊界
+14. margin (n.) 頁邊空白
+15. shelter (n.) 庇護所
+16. offensive (adj.) 冒犯的/難聞的
+17. infectious (adj.) 傳染性的
+18. absolute (adj.) 絕對的
+19. peculiar (adj.) 奇特的/怪異的
+20. agreeable (adj.) 令人愉快的
+21. compulsory (adj.) 強制的/必修的
+22. eventual (adj.) 最終的
+23. initiated (v.) 發起/創始
+24. disrupted (v.) 干擾/中斷
+25. distinctive (adj.) 獨特的/有特色的
+26. sturdy (adj.) 結實的/堅固的
+27. appealing (adj.) 有吸引力的
+28. affordable (adj.) 負擔得起的
+29. qualification (n.) 資格
+30. contentment (n.) 滿足
+31. devotion (n.) 奉獻/投入
+32. monotony (n.) 單調/無聊
+33. committed (v.) 犯下
+34. accessed (v.) 存取
+35. produced (v.) 引起/產生
+36. hastened (v.) 加速
+37. shifted (v.) 轉移
+38. fortified (v.) 加強/強化
+39. conducted (v.) 執行/進行
+40. dismissed (v.) 解僱/忽略
+41. concealed (v.) 隱藏
+42. revealed (v.) 揭露/顯示
+43. literal (adj.) 字面上的
+44. qualified (adj.) 有資格的
+45. moderate (adj.) 中等的/適度的
+46. constructive (adj.) 建設性的
+47. influential (adj.) 有影響力的
+48. coarse (adj.) 粗糙的
+49. vigorous (adj.) 精力充沛的
+50. portable (adj.) 手提式的
+51. capacity (n.) 能力/容量
+52. depression (n.) 沮喪/蕭條
+53. bankruptcy (n.) 破產
+54. celebration (n.) 慶祝
+55. rigid (adj.) 僵硬的
+56. solitary (adj.) 獨自的/獨處的
+57. contagious (adj.) 具傳染性的
+58. liability (n.) 責任/債務/負擔
+59. generosity (n.) 慷慨
+60. integrity (n.) 正直/誠信/完整性
+61. sincerity (n.) 真誠
+62. resolve (v.) 解決
+63. recall (v.) 回想/想起
+64. counter (v.) 反擊/對抗
+65. indispensable (adj.) 不可或缺的
+66. comprehensible (adj.) 可理解的
+67. permissible (adj.) 可允許的
+68. contemplated (v.) 深思/沉思
+69. acknowledged (v.) 被認可/承認
+70. inquired (v.) 詢問
+71. regulated (v.) 規範/管理
+72. hostile (adj.) 敵對的
+73. barren (adj.) 貧瘠的
+74. minimal (adj.) 最小的/極微的
+75. systematic (adj.) 系統性的
+76. whipped (v.) 鞭打/猛抽
+77. split (v.) 分裂/分開
+78. littered (v.) 亂丟垃圾/散落
+79. dodged (v.) 躲避/閃避
+80. arrays (n.) 陣列/排列
+81. entries (n.) 進入/項目
+82. outlooks (n.) 觀點/前景
+83. illusions (n.) 幻想/錯覺
+84. choke (v.) 哽住/表現失常
+85. disturb (v.) 打擾
+86. enclose (v.) 圍住/隨函附上
+87. inject (v.) 注射
+88. spicy (adj.) 辛辣的
+89. slender (adj.) 苗條的
+90. slight (adj.) 輕微的
+91. slippery (adj.) 滑的
+92. advantage (n.) 優勢
+93. revenge (n.) 報復
+94. remedy (n.) 補救/藥物
+95. credit (n.) 功勞/榮譽/信譽
+96. casual (adj.) 隨意的/非正式的
+97. fragile (adj.) 脆弱的
+98. remote (adj.) 遙遠的
+99. vacant (adj.) 空缺的/閒置的
+100. fluid (n.) 流體/液體
+101. scandal (n.) 醜聞
+102. drought (n.) 乾旱
+103. nuisance (n.) 討厭的人事物
+104. awe (n.) 敬畏/驚嘆
+105. relief (n.) 緩解/寬慰
+106. tribute (n.) 致敬/貢品
+107. fraction (n.) 小部分/分數
+108. seasonal (adj.) 季節性的
+109. persistent (adj.) 持續的/頑固的
+110. errand (n.) 差事/跑腿
+111. resignation (n.) 辭職/順從/辭呈
+112. sensation (n.) 感覺/轟動
+113. innovation (n.) 創新
+114. delicacy (n.) 美味/精緻
+115. approval (n.) 批准/認可
+116. compliments (n.) 讚美
+117. guarantees (n.) 保證
+118. dimensions (n.) 尺寸/維度
+119. resolutions (n.) 決心/解析度
+120. identical (adj.) 完全相同的
+121. indifferent (adj.) 冷漠的
+122. quarrelsome (adj.) 好爭吵的
+123. artistic (adj.) 藝術的
+124. manual (adj.) 手工的/體力的
+125. eligible (adj.) 合格的/符合條件的
+126. noted (adj.) 著名的
+127. ecological (adj.) 生態的
+128. promising (adj.) 有前途的
+129. appropriate (adj.) 適當的
+130. multiple (adj.) 多樣的/多重的
+131. visible (adj.) 可見的
+132. exotic (adj.) 異國情調的
+133. available (adj.) 可取得的/有空的
+134. grim (adj.) 嚴峻的/糟糕的
+135. mature (adj.) 成熟的
+136. vague (adj.) 模糊的
+137. departure (n.) 離開
+138. dispute (n.) 爭執/爭議
+139. culture (n.) 文化
+140. accessory (n.) 配件
+141. monopoly (n.) 壟斷/專賣
+142. ballot (n.) 選票
+143. restored (v.) 恢復
+144. enforced (v.) 執行/強制
+145. chronically (adv.) 長期地/持續地
+146. consistently (adv.) 一致地
+147. randomly (adv.) 隨機地
+148. virtually (adv.) 實際上/幾乎
+149. excessive (adj.) 過度的
+150. unethical (adj.) 不道德的
+151. forceful (adj.) 有力的/強勢的
+152. rehearsed (v.) 演練/排練
+153. diminished (v.) 減少
+154. strangled (v.) 勒死/扼殺
+155. momentum (n.) 動能/氣勢
+156. certificate (n.) 證書
+157. signature (n.) 簽名
+158. frantically (adv.) 瘋狂地
+159. distinctly (adv.) 清楚地
+160. tremendously (adv.) 極大地
+161. contagiously (adv.) 具傳染力地
+162. steady (adj.) 穩定的
+163. routine (adj.) 例行的/日常的
+164. mobile (adj.) 可移動的
+165. conscious (adj.) 有意識的
+166. tokens (n.) 代幣/標記
+167. fragments (n.) 碎片
+168. warranties (n.) 保固/保證
+169. relevantly (adv.) 相關地
+170. decently (adv.) 得體地/體面地
+171. compatibly (adv.) 相容地
+172. realistic (adj.) 現實的
+173. enforcement (n.) 執行/實施
+174. ultimate (adj.) 最終的
+175. enormous (adj.) 巨大的
+176. intimate (adj.) 親密的
+177. shortage (n.) 短缺
+178. ingenuity (n.) 靈巧/足智多謀
+179. readily (adv.) 輕易地/立即/容易地
+180. fairly (adv.) 相當地
+181. merely (adv.) 僅僅
+182. barely (adv.) 幾乎不
+183. outnumbered (v.) 在數量上超過
+184. contradicted (v.) 反駁/矛盾
+185. triggered (v.) 引發
+186. disturbance (n.) 擾亂
+187. salvation (n.) 拯救
+188. remainder (n.) 剩餘部分
+189. strictly (adv.) 嚴格地
+190. variously (adv.) 各種各樣地
+191. recruit (v.) 招募
+192. absorb (v.) 吸收
+193. catastrophe (n.) 災難
+194. prevention (n.) 預防
+195. hysterically (adv.) 歇斯底里地
+196. simultaneously (adv.) 同時地
+197. resistantly (adv.) 抵抗地
+198. conventions (n.) 慣例/大會
+199. intensity (n.) 強度
+200. purchase (n.) 購買
+201. reference (n.) 參考
+202. necessity (n.) 必要性
+203. career (n.) 職業
+204. dilemma (n.) 兩難/困境
+205. scenarios (n.) 情境
+206. fatalities (n.) 死亡人數
+207. barriers (n.) 障礙
+208. occupants (n.) 乘客/佔據者
+209. consent (n.) 同意
+210. preference (n.) 偏好
+211. reliance (n.) 依賴
+212. sensitivity (n.) 敏感度
+213. reflection (n.) 反思/反射
+214. trial (n.) 審判/試驗
+215. route (n.) 路線
+216. quest (n.) 追求/探求
+217. strike (n.) 罷工/打擊
+218. rippled (v.) 起漣漪
+219. shattered (v.) 破碎
+220. mingled (v.) 混合
+221. glistened (v.) 閃耀
+222. legitimate (adj.) 合法的
+223. controversial (adj.) 有爭議的
+224. inclusive (adj.) 包容的
+225. nonmilitant (adj.) 非武裝的
+226. dominantly (adv.) 支配地
+227. legitimately (adv.) 合法地
+228. verbally (adv.) 口頭地
+229. direction (n.) 方向
+230. obstacle (n.) 障礙
+231. aquarium (n.) 水族館
+232. circulation (n.) 循環/發行/流通
+233. graduation (n.) 畢業
+234. instructions (n.) 指示
+235. supervisions (n.) 監督
+236. preparations (n.) 準備
+237. misleading (adj.) 誤導的
+238. artificial (adj.) 人造的
+239. dominant (adj.) 支配性的/占優勢的
+240. absurd (adj.) 荒謬的
+241. flexible (adj.) 有彈性的
+242. optional (adj.) 可選擇的
+243. departed (v.) 離開
+244. resumed (v.) 恢復/重新開始
+245. transported (v.) 運輸
+246. corresponded (v.) 符合/對應
+247. occasional (adj.) 偶爾的
+248. elaborate (adj.) 精心製作的
+249. immediate (adj.) 立即的
+250. fasten (v.) 繫緊
+251. lengthen (v.) 延長
+252. hasten (v.) 加速
+253. strengthen (v.) 增強
+254. coveted (adj.) 夢寐以求的
+255. surpassed (adj.) 超過的
+256. rotated (adj.) 旋轉的
+257. populated (adj.) 人口稠密的
+258. fabulously (adv.) 極好地
+259. recklessly (adv.) 魯莽地
+260. noticeably (adv.) 顯著地
+261. disgracefully (adv.) 丟臉地
+262. circulating (adj.) 流通的/循環的
+263. applauding (adj.) 鼓掌的
+264. flourishing (adj.) 蓬勃發展的
+265. exceeding (adj.) 超過的
+266. actively (adv.) 積極地
+267. earnestly (adv.) 認真地
+268. naturally (adv.) 自然地
+269. jointly (adv.) 共同地/聯合地
+270. ancestors (n.) 祖先
+271. commuters (n.) 通勤者
+272. instructors (n.) 教練/導師
+273. siblings (n.) 兄弟姊妹
+274. crippled (v.) 損壞/癱瘓/使殘廢
+275. accelerated (v.) 加速
+276. emerged (v.) 出現/顯露
+277. flashed (v.) 閃現
+278. rushing (v.) 衝/奔流
+279. floated (v.) 漂浮
+280. obstinate (adj.) 固執的
+281. cautious (adj.) 謹慎的
+282. reputations (n.) 名聲
+283. precautions (n.) 預防措施
+284. destinations (n.) 目的地
+285. motivations (n.) 動機
+286. perception (n.) 知覺/察覺
+287. revival (n.) 復興
+288. morale (n.) 士氣
+289. consolation (n.) 慰藉
+290. contaminated (v.) 污染
+291. eliminated (v.) 消除
+292. represented (v.) 代表
+293. confirmed (v.) 確認
+294. manipulated (v.) 操縱/竄改
+295. penetrated (v.) 滲透/穿透
+296. intensified (v.) 加劇
+
+###常用片語
+1. a slip of tongue (phr.) 一時說錯；失言
+2. a piece of cake (phr.) 極其容易
+3. a castle in the air / a pie in the sky (phr.) 空中樓閣；不切實際夢想
+4. above all (phr.) 尤其；最重要的是…
+5. account for (phr.) 說明；佔多少分量
+6. all thumbs (phr.) 笨拙；笨手笨腳
+7. around the corner (phr.) 即將到來
+8. as ... as possible (phr.) 盡可能
+9. as busy a bee (phr.) 十分忙碌
+10. as follows (phr.) 如下
+11. as usual (phr.) 如往常
+12. as a result (phr.) 因此
+13. as far as N be concerned (phr.) 就…而言
+14. at once (phr.) 立刻
+15. at ease (phr.) 自在
+16. at present (phr.) 目前
+17. at random (phr.) 隨意地
+18. at will (phr.) 任意；隨意
+19. at the thought of (phr.) 一想到
+20. at the cost / expense of (phr.) 犧牲；以…為代價
+21. at the risk of (phr.) 冒…的風險
+22. be on diet (phr.) 節食
+23. be confronted / faced with (phr.) 面對
+24. be fed up with (phr.) 受夠了
+25. be burdened / overloaded with (phr.) 承擔著…
+26. be obliged to (phr.) 有義務去…
+27. be addicted to (phr.) 對…入迷；上癮
+28. be appreciative of (phr.) 感激
+29. be bathed in (phr.) 沉浸在…
+30. be caught / stuck in (phr.) 處於…困境
+31. be dying / eager for (phr.) 渴望
+32. be immersed in (phr.) 沉溺於
+33. devoted / dedicated to (phr.) 致力於…
+34. be Greek to sb. (phr.) 對…一竅不通
+35. be overwhelmed with (phr.) 對…無法承受；被…震撼
+36. be obsessed with (phr.) 對…著迷；負荷著…
+37. be pleasant to the eye / ear / nose (phr.) 賞心悅目 / 悅耳 / 芳香撲鼻
+38. be responsible for (phr.) 負責
+39. bear / keep in mind (phr.) 謹記在心
+40. beat around the bush (phr.) 旁敲側擊；拐彎抹角
+41. break down (phr.) 故障；崩潰；分解
+42. break the ice (phr.) 打破沉默 (冷場)
+43. bump into (phr.) 撞上；不期而遇
+44. burn the midnight oil (phr.) 開夜車；熬夜
+45. burn the candles at both ends (phr.) 十分忙碌
+46. bridge the gap between A and B (phr.) 減少…差距
+47. by leaps and bounds (phr.) 突飛猛進；進展神速
+48. broaden / expand one's horizons (phr.) 開拓視野；增廣見聞
+49. bring out the best in sb. (phr.) 使…把最好的發揮出來
+50. catch on (phr.) 風行…
+51. catch one's eye / draw one's attention (phr.) 吸引…注意
+52. carry out (phr.) 實現
+53. catch / keep up with (phr.) 趕上
+54. clear up (phr.) 澄清；放晴
+55. come across / run across / run into (phr.) 巧遇；不期而遇
+56. come / flash into one's mind (phr.) 突然想起
+57. come into one's view (phr.) 映入眼簾
+58. come into oneself (phr.) 甦醒過來
+59. come up with (phr.) 想出
+60. come down with (phr.) 染上；罹患
+61. cut down on (phr.) 減少
+62. cut in line (phr.) 插隊
+63. compensate for (phr.) 補償；彌補
+64. dawn on sb. (phr.) 開始知曉
+65. deprive sb. of sth. (phr.) 剝奪
+66. drop in on sb. / drop by (phr.) 順道拜訪
+67. due to (phr.) 由於；因為
+68. engage in (phr.) 參與；從事
+69. face the music (phr.) 面對現實
+70. fall behind (phr.) 落後
+71. fall short of (phr.) 不足；未達到
+72. fall victim to (phr.) 成為…犧牲者
+73. fly into a rage / fury (phr.) 勃然大怒
+74. from now on (phr.) 從現在開始
+75. frown on (phr.) 不贊成
+76. from hand to mouth (phr.) 僅足餬囗
+77. from time to time (phr.) 有時
+78. get a bird's eye view of (phr.) 鳥瞰
+79. get along with sb. (phr.) 和…相處
+80. get cold feet (phr.) 害怕
+81. get in one's way (phr.) 擋住…的路
+82. get into trouble (phr.) 惹上麻煩
+83. get on one's nerves (phr.) 使…心煩
+84. get over (phr.) 克服困難；復原
+85. get in touch with sb. (phr.) 保持聯絡
+86. get rid of (phr.) 去除；擺脫
+87. give and take (phr.) 妥協；交換意見；施與受
+88. give rise to (phr.) 產生；造成
+89. give up (phr.) 放棄
+90. go blank (phr.) 一片空白
+91. go too far (phr.) 太過分
+92. go through (phr.) 經歷
+93. hand down (phr.) 流傳給下一代
+94. hand in (phr.) 繳交
+95. hang out (phr.) 閒晃
+96. have in common (phr.) 有…共通點
+97. have butterflies in one's stomach (phr.) 非常緊張
+98. head for (phr.) 前往
+99. hold back (phr.) 抑制；壓抑
+100. hold on to (phr.) 堅持；緊握
+101. hustle and bustle (phr.) 忙碌；熙熙攘攘
+102. in advance (phr.) 事先；預先
+103. in light of (phr.) 有鑑於
+104. in a hurry / in haste (phr.) 匆忙
+105. in addition to (phr.) 除了…之外還有…
+106. in charge of (phr.) 負責
+107. in contrast to (phr.) 與…相較
+108. in full bloom (phr.) 盛開
+109. in detail (phr.) 詳細地
+110. in harmony with (phr.) 與…和諧地
+111. in one's opinion (phr.) 依…之見
+112. in memory of (phr.) 紀念；懷念
+113. in person (phr.) 親自
+114. in particular (phr.) 特別地
+116. keep an eye on (phr.) 留意
+117. let go of (phr.) 放棄；擺脫
+118. leave behind (phr.) 忘了攜帶；遺留
+119. live up to / meet one's expectation (phr.) 達到…期望
+120. look after (phr.) 照顧
+121. look forward to (phr.) 期望
+122. look up to sb. (phr.) 尊敬
+123. look down on sb. (phr.) 輕視
+124. lose one's head (phr.) 失去理智
+125. lose one's temper (phr.) 發脾氣
+126. keep one's fingers crossed (phr.) 雙手合十祈求…
+127. keep one's head (phr.) 保持鎮定
+128. make both ends meet (phr.) 收支平衡
+129. make up one's mind (phr.) 下定決心
+130. make a difference (phr.) 有影響
+131. make use of / take advantage of (phr.) 利用
+132. make up for (phr.) 補償
+133. not to mention (phr.) 更別提了
+134. on purpose (phr.) 故意
+135. on the whole (phr.) 總而言之
+136. out of date (phr.) 過時的
+137. out of order (phr.) 故障
+138. out of the blue (phr.) 出乎意外地
+139. on pins and needles (phr.) 如坐針氈；坐立不安
+140. pass out (phr.) 昏厥
+141. pay off (phr.) 有回報
+142. pay attention to (phr.) 注意
+143. play tricks on sb. (phr.) 捉弄
+144. pose a threat to (phr.) 對…造成威脅
+145. put oneself in one's shoes (phr.) 設身處地為人著想
+146. put sth. into practice (phr.) 付諸實行
+147. put up with (phr.) 容忍
+148. react to (phr.) 對…有反應
+149. regardless of (phr.) 無論；不管
+150. resort to (phr.) 訴諸於
+151. run errands (phr.) 跑腿
+152. run out of (phr.) 用完
+153. run the risk of (phr.) 冒著…風險
+154. save sth. for a rainy day (phr.) 以備不時之需
+155. scare sb. out of one’s wits (phr.) 把…嚇破膽
+156. set a good example (phr.) 樹立好榜樣
+157. shed / cast light on (phr.) 使…明白…
+158. stand up for (phr.) 支持
+159. stand up against (phr.) 對抗
+160. strike a chord with sb. (phr.) 扣人心弦
+161. strike a balance between A and B (phr.) 在A與B之間取得平衡
+162. take N by storm (phr.) 風靡；席捲
+163. take for granted (phr.) 視…為理所當然
+164. take into consideration / account (phr.) 把…列入考慮
+165. take charge of (phr.) 管理
+166. take delight / pleasure in (phr.) 喜愛；享受
+167. take measures (phr.) 採取措施
+168. take pains (phr.) 費盡心力
+169. take place (phr.) 發生
+170. take turns (phr.) 輪流
+171. turn over a new leaf (phr.) 洗心革面；重新做人
+172. turn one's back on sb. (phr.) 不理會
+173. turn one's ear to (phr.) 對…充耳不聞
+174. to one's heart's content (phr.) 令…心滿意足
+175. to the point (phr.) 中肯的；切中要點
+176. to tell the truth (phr.) 老實說
+177. under no circumstances (phr.) 絕不
+178. watch one's tongue (phr.) 小心言語
+179. when it comes to (phr.) 談到
+180. with flying colors (phr.) 順利成功地
+181. with honors / distinction (phr.) 以…優異的成績
                 `
             ; // ★★★ 請將你的單字資料貼在這裡 ★★★
