@@ -64,10 +64,10 @@
             display: flex; background: #ffedd5;
         }
         .tab-btn {
-            flex: 1; text-align: center; padding: 12px;
-            font-size: 1.1rem; font-weight: bold; color: #7c2d12;
+            flex: 1; text-align: center; padding: 12px 5px; /* 稍微縮小內距以容納三個按鈕 */
+            font-size: 1rem; font-weight: bold; color: #7c2d12;
             cursor: pointer; transition: 0.2s; border-bottom: 3px solid transparent;
-            opacity: 0.6;
+            opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .tab-btn.active {
             background: #fff; color: var(--primary);
@@ -123,7 +123,7 @@
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;}
         .opt-btn {
             padding: 15px; border: 2px solid #fdba74; border-radius: 16px; background: white;
-            font-size: 1.4rem; /* 因應一字多義長選項調整字體 */
+            font-size: 1.3rem; /* 適應較長選項 */
             cursor: pointer; transition: 0.1s; font-family: inherit; font-weight: bold;
             display: flex; justify-content: center; align-items: center; text-align: center;
             min-height: 70px; word-break: break-word; /* 自動換行 */
@@ -183,6 +183,7 @@
         <div class="tab-container" id="tab-bar">
             <div class="tab-btn active" onclick="switchTab('shape')">形音義道場</div>
             <div class="tab-btn" onclick="switchTab('meaning')">一字多義道場</div>
+            <div class="tab-btn" onclick="switchTab('idiom')">成語古文道場</div>
         </div>
     </header>
 
@@ -238,8 +239,8 @@
         <!-- 解析區 -->
         <div id="explanation-area" class="explanation-box">
             <div class="exp-row"><span class="exp-tag">釋義</span><span id="exp-meaning"></span></div>
-            <div class="exp-row"><span class="exp-tag">字義</span><span id="exp-char"></span></div>
-            <div class="exp-row" id="exp-source-row"><span class="exp-tag" style="background:#7c3aed;">古文</span><span id="exp-source"></span></div>
+            <div class="exp-row" id="exp-char-row"><span class="exp-tag">字義</span><span id="exp-char"></span></div>
+            <div class="exp-row" id="exp-source-row"><span class="exp-tag" style="background:#7c3aed;">出處</span><span id="exp-source"></span></div>
         </div>
 
         <button id="btn-next" class="action-btn" style="display:none; margin-top:20px;" onclick="nextQuestion()">下一題 ➔</button>
@@ -260,11 +261,11 @@
     </div>
 </div>
 
-<!-- 關鍵：讀取外部資料檔 -->
+<!-- 引入資料檔 -->
 <script src="chinese_data.js"></script>
 
 <script>
-    let currentMode = 'shape'; // 'shape' (形音義) or 'meaning' (一字多義)
+    let currentMode = 'shape'; // 'shape', 'meaning', 'idiom'
     let selectedChapters = new Set();
     let poolSize = 0;
     let selectedCount = 0;
@@ -273,7 +274,6 @@
     let score = 0;
     let mistakes = [];
 
-    // 初始化：確保資料檔有被讀取
     window.onload = function() {
         if (typeof chineseData === 'undefined') {
             alert("錯誤：找不到 chinese_data.js，請確認檔案已上傳且位於同一資料夾！");
@@ -287,10 +287,13 @@
         currentMode = mode;
         // 更新 UI 樣式
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+        
         if (mode === 'shape') {
             document.querySelectorAll('.tab-btn')[0].classList.add('active');
-        } else {
+        } else if (mode === 'meaning') {
             document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        } else {
+            document.querySelectorAll('.tab-btn')[2].classList.add('active');
         }
         
         // 清空已選狀態，重新渲染選單
@@ -305,13 +308,19 @@
         menu.innerHTML = '';
         
         // 根據模式篩選章節 Key
-        // 邏輯：key 中包含 "一字多義" 字眼的歸類到 meaning 分頁，其餘歸類到 shape 分頁
+        // 1. 一字多義：包含 "一字多義"
+        // 2. 成語古文：包含 "成語" 或 "古今義"
+        // 3. 形音義：剩下的都是 (包含 "改錯字", "形近")
         Object.keys(chineseData).forEach(round => {
             let isMeaning = round.includes("一字多義");
+            let isIdiom = round.includes("成語") || round.includes("古今義");
             
-            if ((currentMode === 'meaning' && isMeaning) || 
-                (currentMode === 'shape' && !isMeaning)) {
-                
+            let show = false;
+            if (currentMode === 'meaning' && isMeaning) show = true;
+            else if (currentMode === 'idiom' && isIdiom) show = true;
+            else if (currentMode === 'shape' && !isMeaning && !isIdiom) show = true;
+
+            if (show) {
                 const btn = document.createElement('div');
                 btn.className = 'chapter-card';
                 btn.innerText = round;
@@ -336,21 +345,18 @@
         const menu = document.getElementById('chapter-list');
         const btns = menu.querySelectorAll('.chapter-card');
         
-        // 檢查當前顯示的章節是否全選了
         let allSelected = true;
-        if (btns.length === 0) allSelected = false; // 沒東西就不算全選
+        if (btns.length === 0) allSelected = false; 
         btns.forEach(btn => {
             if (!btn.classList.contains('selected')) allSelected = false;
         });
 
         if (allSelected) {
-            // 全取消
             btns.forEach(b => {
                 b.classList.remove('selected');
                 selectedChapters.delete(b.innerText);
             });
         } else {
-            // 全選
             btns.forEach(b => {
                 b.classList.add('selected');
                 selectedChapters.add(b.innerText);
@@ -361,17 +367,15 @@
 
     // --- 3. 題數設定與流程 ---
     function goToSettings() {
-        // 計算選中章節的總題數
         poolSize = 0;
         selectedChapters.forEach(round => {
             poolSize += chineseData[round].length;
         });
         document.getElementById('total-pool-count').innerText = poolSize;
         
-        // 切換畫面
         document.getElementById('view-chapters').style.display = 'none';
         document.getElementById('view-settings').style.display = 'flex';
-        document.getElementById('tab-bar').style.display = 'none'; // 設定時隱藏分頁，專注設定
+        document.getElementById('tab-bar').style.display = 'none'; 
         document.getElementById('page-title').innerText = "設定題數";
     }
 
@@ -387,7 +391,6 @@
         document.getElementById('custom-count').value = "";
         document.querySelectorAll('.num-btn').forEach(btn => btn.classList.remove('active'));
         
-        // 簡單對應按鈕樣式
         if(num === 10) document.querySelectorAll('.num-btn')[0].classList.add('active');
         if(num === 20) document.querySelectorAll('.num-btn')[1].classList.add('active');
         if(num === 50) document.querySelectorAll('.num-btn')[2].classList.add('active');
@@ -407,25 +410,20 @@
             pool = pool.concat(chineseData[round]);
         });
 
-        // 決定最終題數
         let finalCount = pool.length;
         if (selectedCount > 0 && selectedCount < pool.length) {
             finalCount = selectedCount;
         }
 
-        // 洗牌並切出題目
-        let questions = JSON.parse(JSON.stringify(pool)); // 深拷貝
+        let questions = JSON.parse(JSON.stringify(pool));
         shuffle(questions);
         quizList = questions.slice(0, finalCount);
 
-        // 初始化選項 (打亂順序)
         quizList.forEach(q => {
             q.shuffledOptions = shuffle([...q.o]);
-            // 去除重複選項 (資料處理保險)
             q.shuffledOptions = [...new Set(q.shuffledOptions)];
         });
 
-        // UI 切換
         document.getElementById('view-settings').style.display = 'none';
         document.getElementById('view-quiz').style.display = 'flex';
         document.getElementById('page-title').innerText = "測驗中";
@@ -438,7 +436,6 @@
     }
 
     function loadQuestion() {
-        // 重置介面狀態
         document.getElementById('explanation-area').style.display = 'none';
         document.getElementById('btn-next').style.display = 'none';
         
@@ -449,15 +446,12 @@
 
         const qData = quizList[currentIdx];
         
-        // 更新進度條
         document.getElementById('q-progress').innerText = `${currentIdx + 1} / ${quizList.length}`;
         document.getElementById('q-score').innerText = `得分: ${Math.round(score)}`;
         document.getElementById('bar-fill').style.width = `${((currentIdx) / quizList.length) * 100}%`;
         
-        // 顯示題目
         document.getElementById('q-word').innerText = qData.q;
 
-        // 生成選項
         const optArea = document.getElementById('options-area');
         optArea.innerHTML = ''; 
         qData.shuffledOptions.forEach(optChar => {
@@ -470,11 +464,9 @@
     }
 
     function checkAnswer(btn, userAns, qData) {
-        // 鎖定所有按鈕
         const allBtns = document.querySelectorAll('.opt-btn');
         allBtns.forEach(b => b.disabled = true);
 
-        // 判斷對錯
         let isCorrect = (userAns === qData.a);
 
         if (isCorrect) {
@@ -482,18 +474,15 @@
             score += (100 / quizList.length);
         } else {
             btn.classList.add('wrong');
-            // 標示正確答案
             allBtns.forEach(b => {
                 if (b.innerText === qData.a) b.classList.add('correct');
             });
             mistakes.push(qData);
         }
 
-        // 顯示解析
         showExplanation(qData);
         document.getElementById('btn-next').style.display = 'block';
         
-        // 自動捲動到解析區方便閱讀
         setTimeout(() => {
             document.querySelector('.container').scrollTo({
                 top: document.querySelector('.container').scrollHeight,
@@ -504,12 +493,20 @@
 
     function showExplanation(qData) {
         document.getElementById('exp-meaning').innerText = qData.m || "（暫無釋義）";
-        document.getElementById('exp-char').innerText = qData.cm || "（暫無字義）";
+        
+        // 字義欄位：如果沒資料就隱藏這行，讓介面更乾淨
+        const charRow = document.getElementById('exp-char-row');
+        if (qData.cm && qData.cm.trim() !== "") {
+            document.getElementById('exp-char').innerText = qData.cm;
+            charRow.style.display = 'block';
+        } else {
+            charRow.style.display = 'none';
+        }
         
         const srcDiv = document.getElementById('exp-source-row');
         if (qData.src && qData.src.trim() !== "") {
             document.getElementById('exp-source').innerText = qData.src;
-            srcDiv.style.display = 'block'; // 有出處才顯示這行
+            srcDiv.style.display = 'block';
         } else {
             srcDiv.style.display = 'none';
         }
@@ -519,7 +516,6 @@
     function nextQuestion() {
         currentIdx++;
         loadQuestion();
-        // 換題後捲回頂部
         document.querySelector('.container').scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -534,23 +530,30 @@
         document.getElementById('view-result').style.display = 'flex';
         document.getElementById('page-title').innerText = "測驗結果";
         document.getElementById('btn-exit').style.display = 'none';
-        document.getElementById('tab-bar').style.display = 'none'; // 結果頁隱藏分頁
+        document.getElementById('tab-bar').style.display = 'none'; 
         
         document.getElementById('final-score').innerText = Math.round(score);
 
         const area = document.getElementById('mistake-area');
         const list = document.getElementById('mistake-list');
         
-        // 顯示錯題列表
         if (mistakes.length > 0) {
             area.style.display = 'block';
             list.innerHTML = '';
             mistakes.forEach(m => {
                 const div = document.createElement('div');
                 div.className = 'mistake-item';
+                // 處理題目中的填空顯示
+                let displayQ = m.q;
+                if(displayQ.includes('「 」')) {
+                    displayQ = displayQ.replace('「 」', `「<span class="correct-char">${m.a}</span>」`);
+                } else {
+                    displayQ += ` <span class="correct-char">➡ ${m.a}</span>`;
+                }
+
                 div.innerHTML = `
                     <div style="font-weight:bold; margin-bottom:5px; font-size:1.2rem;">
-                        ${m.q.replace('「 」', `「<span class="correct-char">${m.a}</span>」`)}
+                        ${displayQ}
                     </div>
                     <div style="font-size:0.95rem; color:#555;">釋義：${m.m || ''}</div>
                 `;
@@ -561,7 +564,6 @@
         }
     }
 
-    // 輔助：洗牌陣列
     function shuffle(array) {
         for (let i = array.length - 1; i > 0; i--) {
             const j = Math.floor(Math.random() * (i + 1));
