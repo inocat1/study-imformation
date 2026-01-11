@@ -450,7 +450,7 @@
         document.getElementById('q-score').innerText = `得分: ${Math.round(score)}`;
         document.getElementById('bar-fill').style.width = `${((currentIdx) / quizList.length) * 100}%`;
         
-        document.getElementById('q-word').innerText = qData.q;
+        document.getElementById('q-word').innerHTML = qData.q;
 
         const optArea = document.getElementById('options-area');
         optArea.innerHTML = ''; 
