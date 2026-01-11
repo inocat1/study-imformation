@@ -1,3 +1,6 @@
+// 檔案名稱：chinese_data.js
+// 請確認開頭是 const chineseData = { ...
+
 const chineseData = {
     // ==========================================
     // 第一部分：形音義 (改錯字)
