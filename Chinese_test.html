@@ -59,15 +59,29 @@
             font-size: 0.85rem; display: none;
         }
 
-        /* 分頁標籤列 */
+        /* 分頁標籤列 - 修改為可滑動以容納更多按鈕 */
         .tab-container {
-            display: flex; background: #ffedd5;
+            display: flex; 
+            background: #ffedd5;
+            overflow-x: auto; /* 如果手機螢幕太窄，允許左右滑動 */
+            white-space: nowrap;
         }
+        
+        /* 隱藏卷軸條美化 */
+        .tab-container::-webkit-scrollbar { display: none; }
+
         .tab-btn {
-            flex: 1; text-align: center; padding: 12px 5px; /* 稍微縮小內距以容納三個按鈕 */
-            font-size: 1rem; font-weight: bold; color: #7c2d12;
-            cursor: pointer; transition: 0.2s; border-bottom: 3px solid transparent;
-            opacity: 0.6; white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            flex: 1; 
+            text-align: center; 
+            padding: 12px 10px;
+            font-size: 1rem; 
+            font-weight: bold; 
+            color: #7c2d12;
+            cursor: pointer; 
+            transition: 0.2s; 
+            border-bottom: 3px solid transparent;
+            opacity: 0.6;
+            min-width: 80px; /* 確保按鈕不會縮太小 */
         }
         .tab-btn.active {
             background: #fff; color: var(--primary);
@@ -118,15 +132,15 @@
             box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border: 1px solid #fed7aa;
             display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 120px;
         }
-        .q-text { font-size: 1.8rem; font-weight: 800; color: #333; line-height: 1.5; }
+        .q-text { font-size: 1.5rem; font-weight: 800; color: #333; line-height: 1.5; } /* 稍微調小字體以適應長題目 */
         
-        .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-bottom: 15px;}
+        .options-grid { display: grid; grid-template-columns: 1fr; gap: 12px; margin-bottom: 15px;} /* 改成單欄顯示長選項 */
         .opt-btn {
             padding: 15px; border: 2px solid #fdba74; border-radius: 16px; background: white;
-            font-size: 1.3rem; /* 適應較長選項 */
+            font-size: 1.2rem; 
             cursor: pointer; transition: 0.1s; font-family: inherit; font-weight: bold;
             display: flex; justify-content: center; align-items: center; text-align: center;
-            min-height: 70px; word-break: break-word; /* 自動換行 */
+            min-height: 60px; word-break: break-word; /* 自動換行 */
         }
         .opt-btn:active { background: #fff7ed; transform: scale(0.95); }
         .opt-btn.correct { background: #dcfce7; border-color: var(--success); color: #065f46; }
@@ -179,11 +193,12 @@
             <button id="btn-exit" class="exit-btn" onclick="quitQuiz()">退出</button>
         </div>
         
-        <!-- 分頁切換區 (Tab) -->
+        <!-- 分頁切換區 (Tab) - 新增第四個分頁 -->
         <div class="tab-container" id="tab-bar">
             <div class="tab-btn active" onclick="switchTab('shape')">形音義道場</div>
             <div class="tab-btn" onclick="switchTab('meaning')">一字多義道場</div>
             <div class="tab-btn" onclick="switchTab('idiom')">成語古文道場</div>
+            <div class="tab-btn" onclick="switchTab('guoxue')">國學常識道場</div>
         </div>
     </header>
 
@@ -231,6 +246,7 @@
         <div class="progress-bar"><div id="bar-fill" class="progress-fill"></div></div>
 
         <div class="quiz-card">
+            <!-- 這裡用 innerHTML 以支援 <br> 換行 -->
             <div id="q-word" class="q-text"></div>
         </div>
 
@@ -265,7 +281,7 @@
 <script src="chinese_data.js"></script>
 
 <script>
-    let currentMode = 'shape'; // 'shape', 'meaning', 'idiom'
+    let currentMode = 'shape'; // 'shape', 'meaning', 'idiom', 'guoxue'
     let selectedChapters = new Set();
     let poolSize = 0;
     let selectedCount = 0;
@@ -288,13 +304,10 @@
         // 更新 UI 樣式
         document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
         
-        if (mode === 'shape') {
-            document.querySelectorAll('.tab-btn')[0].classList.add('active');
-        } else if (mode === 'meaning') {
-            document.querySelectorAll('.tab-btn')[1].classList.add('active');
-        } else {
-            document.querySelectorAll('.tab-btn')[2].classList.add('active');
-        }
+        if (mode === 'shape') document.querySelectorAll('.tab-btn')[0].classList.add('active');
+        else if (mode === 'meaning') document.querySelectorAll('.tab-btn')[1].classList.add('active');
+        else if (mode === 'idiom') document.querySelectorAll('.tab-btn')[2].classList.add('active');
+        else if (mode === 'guoxue') document.querySelectorAll('.tab-btn')[3].classList.add('active');
         
         // 清空已選狀態，重新渲染選單
         selectedChapters.clear();
@@ -308,17 +321,21 @@
         menu.innerHTML = '';
         
         // 根據模式篩選章節 Key
-        // 1. 一字多義：包含 "一字多義"
-        // 2. 成語古文：包含 "成語" 或 "古今義"
-        // 3. 形音義：剩下的都是 (包含 "改錯字", "形近")
+        // 邏輯關鍵字：
+        // 1. 國學：包含 "國學"
+        // 2. 一字多義：包含 "一字多義"
+        // 3. 成語古文：包含 "成語" 或 "古今義"
+        // 4. 形音義：剩下的
         Object.keys(chineseData).forEach(round => {
+            let isGuoxue = round.includes("國學");
             let isMeaning = round.includes("一字多義");
             let isIdiom = round.includes("成語") || round.includes("古今義");
             
             let show = false;
-            if (currentMode === 'meaning' && isMeaning) show = true;
+            if (currentMode === 'guoxue' && isGuoxue) show = true;
+            else if (currentMode === 'meaning' && isMeaning) show = true;
             else if (currentMode === 'idiom' && isIdiom) show = true;
-            else if (currentMode === 'shape' && !isMeaning && !isIdiom) show = true;
+            else if (currentMode === 'shape' && !isMeaning && !isIdiom && !isGuoxue) show = true;
 
             if (show) {
                 const btn = document.createElement('div');
@@ -419,7 +436,9 @@
         shuffle(questions);
         quizList = questions.slice(0, finalCount);
 
+        // 初始化選項
         quizList.forEach(q => {
+            // 國學常識題的選項已經包含答案，直接洗牌即可
             q.shuffledOptions = shuffle([...q.o]);
             q.shuffledOptions = [...new Set(q.shuffledOptions)];
         });
@@ -450,6 +469,7 @@
         document.getElementById('q-score').innerText = `得分: ${Math.round(score)}`;
         document.getElementById('bar-fill').style.width = `${((currentIdx) / quizList.length) * 100}%`;
         
+        // 使用 innerHTML 支援換行標籤 <br>
         document.getElementById('q-word').innerHTML = qData.q;
 
         const optArea = document.getElementById('options-area');
@@ -494,7 +514,6 @@
     function showExplanation(qData) {
         document.getElementById('exp-meaning').innerText = qData.m || "（暫無釋義）";
         
-        // 字義欄位：如果沒資料就隱藏這行，讓介面更乾淨
         const charRow = document.getElementById('exp-char-row');
         if (qData.cm && qData.cm.trim() !== "") {
             document.getElementById('exp-char').innerText = qData.cm;
@@ -543,10 +562,11 @@
             mistakes.forEach(m => {
                 const div = document.createElement('div');
                 div.className = 'mistake-item';
-                // 處理題目中的填空顯示
-                let displayQ = m.q;
-                if(displayQ.includes('「 」')) {
-                    displayQ = displayQ.replace('「 」', `「<span class="correct-char">${m.a}</span>」`);
+                
+                // 處理題目顯示：支援換行，並填入答案
+                let displayQ = m.q.replace(/<br>/g, ' '); // 在列表顯示時把換行拿掉
+                if(displayQ.includes('「 」') || displayQ.includes('___')) {
+                    displayQ = displayQ.replace(/「 」|___/g, `「<span class="correct-char">${m.a}</span>」`);
                 } else {
                     displayQ += ` <span class="correct-char">➡ ${m.a}</span>`;
                 }
