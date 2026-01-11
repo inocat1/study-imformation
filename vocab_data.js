@@ -2306,5 +2306,598 @@
 179. when it comes to (phr.) 談到
 180. with flying colors (phr.) 順利成功地
 181. with honors / distinction (phr.) 以…優異的成績
+
+###學測112
+1.	chewing gum (n. phr.) 口香糖
+2.	passenger (n.) 乘客
+3.	remove (v.) 去除
+4.	sticky (adj.) 黏的
+5.	greasy (adj.) 油膩的
+6.	clumsy (adj.) 笨拙的
+7.	mighty (adj.) 強大的
+8.	model (n.) 模特兒
+9.	adopt (v.) 採取
+10.	elegant (adj.) 優雅的
+11.	clap (v./n.) 拍手
+12.	toss (v./n.) 扔；拋
+13.	pose (n./v.) 姿勢；擺姿勢
+14.	snap (v./n.) 拍照；啪一聲折斷
+15.	trace (v.) 追溯
+16.	arrival (n.) 到達
+17.	siblings (n.) 親兄弟姊妹
+18.	commuters (n.) 通勤者
+19.	ancestors (n.) 祖先
+20.	instructors (n.) 講師；教練
+21.	rushed (v.) 趕緊
+22.	only to (phr.) 結果卻
+23.	stock (n.) 庫存
+24.	blank (adj.) 空白的
+25.	bare (adj.) 空的；赤裸的
+26.	hollow (adj.) 空心的
+27.	queer (adj.) 古怪的
+28.	in person (phr.) 親自
+29.	apology (n.) 道歉
+30.	liability (n.) 責任；義務
+31.	generosity (n.) 慷慨
+32.	integrity (n.) 正直；誠信
+33.	sincerity (n.) 真誠
+34.	astonishing (adj.) 令人驚訝的
+35.	vividly (adv.) 生動地；清晰地
+36.	resolve (v./n.) 解決；決心
+37.	fraction (n.) 小部分；分數
+38.	privilege (n.) 特權
+39.	recall (n./v.) 回憶
+40.	evidence (n.) 證據
+41.	claims (n.) 主張；聲稱
+42.	provoke (v.) 挑釁；煽動
+43.	counter (v.) 反駁；抵銷
+44.	expose (v.) 揭露
+45.	convert (v.) 轉變
+46.	Corrupt (adj.) 貪腐的
+47.	officials (n.) 官員
+48.	misguided (adj.) 被誤導的
+49.	enormous (adj.) 巨大的
+50.	crippled (v.) 嚴重削弱；使殘廢
+51.	accelerated (v.) 加速
+52.	rendered (v.) 使變得；提供
+53.	ventured (v.) 冒險
+54.	record (adj.) 創紀錄的
+55.	stadium (n.) 體育場
+56.	choked (v.) 堵塞
+57.	disturbed (v.) 打擾
+58.	enclosed (v.) 圍住；隨函附上
+59.	injected (v.) 注射
+60.	unbiased (adj.) 不偏不倚的
+61.	political ideology (n. phr.) 政治意識形態
+62.	undoubtedly (adv.) 毫無疑問地
+63.	roughly (adv.) 大約地；粗糙地
+64.	understandably (adv.) 合乎情理地
+65.	supposedly (adv.) 據稱
+66.	network (n.) 網絡
+67.	cracks (n.) 裂縫
+68.	gaps (n.) 縫隙
+69.	outermost (adj.) 最外層的
+70.	edges (n.) 邊緣
+71.	precisely (adv.) 精確地
+72.	jigsaw puzzle (n. phr.) 拼圖
+73.	branch (n.) 樹枝
+74.	phenomenon (n.) 現象
+75.	discussing (v.) 討論
+76.	proposing (v.) 提出；建議
+77.	treetops (n.) 樹冠
+78.	collide (v.) 碰撞
+79.	maintain (v.) 維持
+80.	resources (n.) 資源
+81.	nutrients (n.) 養分
+82.	intense (adj.) 劇烈的
+83.	struggle (n./v.) 掙扎；競爭
+84.	resulting from (phr.) 起因於
+85.	allow (v.) 允許
+86.	enhance (v.) 增強
+87.	limit (v.) 限制
+88.	spread (n./v.) 擴張；蔓延
+89.	potentially (adv.) 潛在地
+90.	transmission (n.) 傳播
+91.	decades (n.) 數十年
+92.	investigation (n.) 調查
+93.	consensus (n.) 共識
+94.	mysterious (adj.) 神秘的
+95.	universal (adj.) 普遍的
+96.	productive (adj.) 多產的；有成效的
+97.	conventional (adj.) 傳統的
+98.	multiple (adj.) 多樣的
+99.	reliance on (phr.) 依賴
+100.	exposure to (phr.) 暴露於
+101.	sensitivity to (phr.) 對...敏感
+102.	reflection on (phr.) 反射；深思
+103.	Despite (prep.) 儘管
+104.	Gravity (n.) 重力；地心引力
+105.	agenda (n.) 議程；待辦事項
+106.	overcome (v.) 克服
+107.	rocket (n.) 火箭
+108.	affects (v.) 影響
+109.	astronauts (n.) 太空人
+110.	evolved (v.) 進化
+111.	exist (v.) 存在；生存
+112.	weightlessness (n.) 無重量狀態
+113.	microgravity (n.) 微重力
+114.	fluids (n.) 流體；液體
+115.	absence (n.) 缺乏
+116.	upper (adj.) 上方的
+117.	resembling (v.) 像；與...相似
+118.	effect (n.) 影響；效果
+119.	nausea (n.) 噁心；反胃
+120.	syndrome (n.) 症候群
+121.	figure out (phr. v.) 弄清楚；想出
+122.	physical (adj.) 身體的；物理的
+123.	perceptual (adj.) 感知的；知覺的
+124.	mental (adj.) 心理的；精神的
+125.	external (adj.) 外部的
+126.	redistribute (v.) 重新分配
+127.	contagious (adj.) 具傳染性的
+128.	unusual (adj.) 不尋常的
+129.	severe (adj.) 嚴重的
+130.	aggressive (adj.) 挑釁的；積極進取的
+131.	varied with (phr.) 隨...而改變
+132.	transferred from (phr.) 從...轉移
+133.	brought about (phr.) 導致；引起
+134.	accompanied by (phr.) 伴隨著
+135.	sustain (v.) 維持；支撐
+136.	plain (adj.) 純的；平易的
+137.	contains (v.) 包含
+138.	calories (n.) 卡路里
+139.	bound (adj.) 受約束的；注定的
+140.	sweats (v./n.) 流汗
+141.	replace (v.) 取代；更換
+142.	get rid of (phr. v.) 擺脫；去除
+143.	urine (n.) 尿液
+144.	amounts (n.) 量
+145.	stimulate (v.) 刺激；激發
+146.	carbohydrates (n.) 碳水化合物
+147.	functional (adj.) 功能性的；實用的
+148.	restoring (v.) 恢復
+149.	maintaining (v.) 維持
+150.	normal (adj.) 正常的
+151.	average (adj./n.) 平均的；一般的
+152.	secret (n./adj.) 秘密
+153.	significant (adj.) 顯著的；重大的
+154.	consciousness (n.) 意識；清醒
+155.	take in (phr. v.) 攝取；吸收
+156.	in one go (phr.) 一口氣；一次地
+157.	absorption (n.) 吸收
+158.	effective (adj.) 有效的
+159.	alert (adj./n.) 警覺的
+160.	option (n.) 選項；選擇
+161.	combat (v./n.) 戰鬥；對抗
+162.	status (n.) 狀態；地位 
+163.	senses (n.) 感官
+164.	intermix (v.) 混合
+165.	trigger (v.) 觸發；引起
+166.	sensation (n.) 感覺；知覺
+167.	tongue (n.) 舌頭
+168.	evoked (v.) 喚起；引起
+169.	persistently (adv.) 持續地；堅持地
+170.	compelling (adj.) 令人信服的；強有力的
+171.	brain scans (n. phr.) 大腦掃描
+172.	processing (v./n.) 處理
+173.	brain (n.) 大腦
+174.	certain (adj.) 特定的；某些
+175.	inherited (v.) 遺傳；繼承
+176.	acquired (v.) 後天習得的；獲得
+177.	genetic (adj.) 基因的；遺傳學的
+178.	gene (n.) 基因
+179.	identified (v.) 識別；確認
+180.	flavors (n.) 口味；味道
+181.	more often than not (phr.) 往往；多半
+182.	rare (adj.) 罕見的
+183.	population (n.) 人口；群體
+184.	associate (v.) 聯想；聯繫
+185.	further (adv./v.) 進一步地；促進
+186.	infancy (n.) 嬰兒期；初期
+187.	consistency (n.) 一致性
+188.	meanwhile (adv.) 同時
+189.	shape (v.) 塑造；形成
+190.	be accused of (phr.) 被指控；被譴責
+
+
+###學測113
+1.	desire (v.) 渴望
+2.	figure (n.) 身材；體態
+3.	maintain (v.) 維持
+4.	spicy (adj.) 辛辣的
+5.	slender (adj.) 苗條的
+6.	slight (adj.) 輕微的；纖瘦的
+7.	slippery (adj.) 滑的
+8.	emerging (v-ing.) 浮現；出現
+9.	flashing (v-ing.) 閃爍
+10.	floating (v-ing.) 漂浮
+11.	due (adj.) 預期的；到期的
+12.	roasting (adj.) 極熱的
+13.	heat (n.) 熱氣
+14.	humidity (n.) 濕度
+15.	sticky (adj.) 黏糊的
+16.	cool off (phr.) 消暑；降溫
+17.	density (n.) 密度
+18.	atmosphere (n.) 大氣；氣氛
+19.	stand (v.) 經受；忍受
+20.	military (n./adj.) 軍事（的）
+21.	forceful (adj.) 強有力的
+22.	realistic (adj.) 現實的
+23.	compulsory (adj.) 強制性的；義務的
+24.	distinctive (adj.) 獨特的；有特色的
+25.	complained (v.) 抱怨
+26.	advantage (n.) 優勢；利益
+27.	credit (n.) 功勞；信譽
+28.	located (adj.) 位於...的
+29.	transport (n.) 交通運輸
+30.	proposes (v.) 提議
+31.	contains (v.) 包含
+32.	confirms (v.) 確認
+33.	supplies (n.) 供應量；物資
+34.	critically (adv.) 嚴重地
+35.	appeal (n./v.) 呼籲；吸引力
+36.	approach (n.) 方法；途徑
+37.	operation (n.) 手術；運作
+38.	observation (n.) 觀察
+39.	eligibly (adv.) 合格地
+40.	randomly (adv.) 隨機地
+41.	mystery (n.) 神祕
+42.	data (n.) 數據；資料
+43.	referred to as (phr.) 被稱為
+44.	inquiries (n.) 查詢；詢問
+45.	assigned (v.) 指派；分配
+46.	evaluating (v-ing.) 評估
+47.	standard procedures (n. phr.) 標準程序
+48.	checklist (n.) 核對清單
+49.	directions (n.) 指示；說明
+50.	consistency (n.) 一致性
+51.	pretend (v.) 假裝
+52.	arguing (v-ing.) 爭論
+53.	identify (v.) 辨識；找出
+54.	thereby (adv.) 從而；因此
+55.	enhance (v.) 提升；增進
+56.	gain (v.) 獲得
+57.	competitive edge (n. phr.) 競爭優勢
+58.	call for (phr.) 要求；呼籲
+59.	pose as (phr.) 冒充；假扮
+60.	attend to (phr.) 照顧；處理
+61.	engage in (phr.) 從事；參與
+62.	keen competitions (n. phr.) 激烈競爭
+63.	financial hardship (n. phr.) 經濟困難
+64.	racial conflicts (n. phr.) 種族衝突
+65.	personal bias (n. phr.) 個人偏見
+66.	improvement (n.) 改進；進步
+67.	management (n.) 管理
+68.	groans (v.) 呻吟；抱怨
+69.	reluctantly (adv.) 不情願地
+70.	adjustable (adj.) 可調節的
+71.	relatively (adv.) 相對地
+72.	unreliable (adj.) 不可靠的
+73.	equipped with (phr.) 配備有...
+74.	tap (v.) 輕敲
+75.	familiar presences (n. phr.) 熟悉的存在
+76.	alleys (n.) 巷弄
+77.	remained (v.) 維持；依然
+78.	dismissed (v.) 解散；屏棄
+79.	declined (v.) 下降；衰退
+80.	match (v.) 相配；比得上 
+81.	hilltop (n.) 山頂
+82.	tsunami (n.) 海嘯
+83.	white (adj.) 白色的
+84.	booth (n.) 亭子；小隔間
+85.	claimed (v.) 奪走（生命）
+86.	private (adj.) 私人的；隱密的
+87.	navigate (v.) 渡過；導航
+88.	positioned (v.) 安置；放置
+89.	relative (n.) 親戚
+90.	dial (n./v.) 撥號盤；撥號
+91.	disconnected (adj.) 切斷的；沒接通的
+92.	stated (v.) 陳述；聲明
+93.	interview (n.) 採訪；面試
+94.	soulful (adj.) 深情的；充滿情感的
+95.	renders (v.) 使成為；賦予
+96.	grieving (adj./v-ing.) 悲痛的；哀悼的
+97.	process (n.) 過程
+98.	devastating (adj.) 毀滅性的
+99.	gradually (adv.) 逐漸地
+100.	resembling (v-ing.) 像；與...相似
+101.	coping with (phr.) 應對；處理
+102.	sorrow (n.) 悲傷
+103.	departed (adj.) 過世的
+104.	mechanism (n.) 機制
+105.	manageable (adj.) 可處理的；可控制的
+106.	fateful (adj.) 決定性的；命運攸關的
+107.	brought forth (phr.) 產生；提出 
+108.	surgeon (n.) 外科醫生
+109.	twisted (v.) 扭傷；扭轉
+110.	agonizing (adj.) 極其痛苦的
+111.	barely (adv.) 幾乎不；僅僅
+112.	aspirin (n.) 阿斯匹靈（止痛藥）
+113.	sprained (v.) 扭傷（關節、韌帶）
+114.	approach (n.) 方法；途徑
+115.	outdated (adj.) 過時的；老舊的
+116.	counterproductive (adj.) 適得其反的
+117.	consult (v.) 諮詢；請教
+118.	treatment (n.) 治療
+119.	caution (v.) 警告；提醒
+120.	necessary (adj.) 必要的
+121.	distances (n.) 距離
+122.	engage in (phr.) 從事；進行
+123.	consensus (n.) 共識
+124.	moderate (adj.) 適度的；溫和的
+125.	speed (v.) 加速
+126.	healing (n.) 癒合；康復
+127.	despite (prep.) 儘管
+128.	accurate (adj.) 準確的；精確的
+129.	diagnosis (n.) 診斷
+130.	ruled out (phr.) 排除
+131.	instead of (phr.) 代替；而不是
+
+
+###學測114
+1.	leaking faucet (n. phr.) 漏水的水龍頭
+2.	border (n.) 邊緣；邊界
+3.	timer (n.) 定時器
+4.	container (n.) 容器
+5.	marker (n.) 標記
+6.	a variety of fresh seasonal (adj. phr.) 各種新鮮季節性的
+7.	produce (n.) 農產品
+8.	fashion (n.) 時尚
+9.	brand (n.) 品牌
+10.	trend (n.) 趨勢
+11.	passed by (v. phr.) 流逝
+12.	memories (n.) 回憶
+13.	recall (v.) 回想
+14.	blurring (adj.) 模糊的
+15.	trimming (n.) 修剪
+16.	draining (adj.) 耗盡體力的
+17.	glaring (adj.) 刺眼的；明顯的
+18.	remarks (n.) 言論
+19.	occasions (n.) 場合
+20.	excessive (adj.) 過度的
+21.	furious (adj.) 狂怒的
+22.	offensive (adj.) 冒犯的
+23.	stubborn (adj.) 頑固的
+24.	satisfied (adj.) 滿意的
+25.	revised (v.) 修訂
+26.	text (n.) 正文
+27.	brush (n.) 刷子；畫筆
+28.	draft (n.) 草稿
+29.	plot (n.) 情節
+30.	coating of dust (n. phr.) 一層灰塵
+31.	damp wood (n. phr.) 潮濕的木頭
+32.	casual (adj.) 隨意的
+33.	fragile (adj.) 易碎的
+34.	remote (adj.) 偏遠的
+35.	vacant (adj.) 空著的
+36.	courage (n.) 勇氣
+37.	escape (v.) 逃脫
+38.	gigantic (adj.) 巨大的
+39.	exclusive (adj.) 獨家的
+40.	multiple (adj.) 多個的
+41.	enormous (adj.) 龐大的
+42.	Publicly financed (adj. phr.) 公費資助的
+43.	delayed (v./adj.) 延期
+44.	resources (n.) 資源
+45.	halted (v.) 停止
+46.	hatched (v.) 策劃
+47.	possessed (v.) 擁有
+48.	reinforced (v.) 加強
+49.	President (n.) 校長；總統
+50.	ceremony (n.) 典禮
+51.	presence (n.) 出席
+52.	praised (v.) 稱讚
+53.	graced (v.) 使增色；光臨
+54.	addressed (v.) 演說；處理
+55.	credited (v.) 歸功於
+56.	sued (v.) 控告
+57.	colleagues (n.) 同事
+58.	verbally (adv.) 言語上地
+59.	dominantly (adv.) 佔優勢地
+60.	legitimately (adv.) 合法正當地
+61.	relevantly (adv.) 相關地
+62.	academic (adj.) 學術的
+63.	innovation (n.) 創新
+64.	was supposed to (v. phr.) 應該；預期
+65.	discussion (n.) 討論
+66.	participants (n.) 參與者
+67.	intimate (adj.) 親密的；私密的
+68.	recording (v-ing/n.) 記錄
+69.	periodically (adv.) 定期地；週期性地
+70.	subsequent (adj.) 隨後的；後來的
+71.	emerging (v-ing/adj.) 浮現的；新興的
+72.	Over the course of (prep. phr.) 在…過程中
+73.	collective (adj.) 集體的；共同的
+74.	transformed (v.) 改變；轉化
+75.	scope (n.) 範圍
+76.	quality (n.) 品質
+77.	approach (n.) 方法
+78.	applied (v./adj.) 應用；實用的
+79.	multi- (prefix) 多個的
+80.	cooperative (adj.) 合作的
+81.	institutions (n.) 機構
+82.	spread (v./n.) 傳播；伸展
+83.	facilitated (v.) 促進；使便利
+84.	disrupted (v.) 打斷；中斷
+85.	disclosed (v.) 揭露；公開
+86.	fulfilled (v.) 履行；實現
+87.	circulate (v.) 循環；流通
+88.	emphasize (v.) 強調
+89.	preserve (v.) 保存；維護
+90.	made up for (v. phr.) 補償；彌補
+91.	kept track of (v. phr.) 追蹤；記錄
+92.	gave rise to (v. phr.) 引起；導致
+93.	further (adv./adj.) 進一步地
+94.	thus (adv.) 因此
+95.	motion sickness (n. phr.) 暈車/船/機
+96.	progressing (v-ing) 進展；發展
+97.	dizziness (n.) 暈眩
+98.	nausea (n.) 噁心；反胃
+99.	vomiting (n.) 嘔吐
+100.	occurs (v.) 發生
+101.	signals (n.) 信號
+102.	receives (v.) 接收
+103.	brain (n.) 大腦
+104.	stationary (adj.) 靜止的
+105.	conflicting (adj.) 衝突的；矛盾的
+106.	detects (n./v.) 偵測到
+107.	microscope (n.) 顯微鏡
+108.	reserve (v.) 預訂；保留
+109.	row (n.) 排；列
+110.	forward (adj.) 前方的
+111.	distance (n.) 距離
+112.	vehicle (n.) 車輛；交通工具
+113.	crash (v./n.) 撞擊；墜毀
+114.	flush (v./n.) 臉紅；沖水
+115.	burst (v./n.) 爆發；破裂
+116.	strike (v./n.) 擊打；罷工
+117.	match (v.) 相配；符合
+118.	cued (v.) 提示
+119.	preventive measures (n. phr.) 預防措施
+120.	potential (adj.) 潛在的
+121.	advantages (n.) 優點；優勢
+122.	as well (adv. phr.) 也；同樣地
+123.	by far (adv. phr.) 顯然地；大大地
+124.	was supposed to (v. phr.) 應該；預期
+125.	discussion (n.) 討論
+126.	participants (n.) 參與者
+127.	intimate (adj.) 親密的；私密的
+128.	recording (v-ing/n.) 記錄
+129.	periodically (adv.) 定期地；週期性地
+130.	subsequent (adj.) 隨後的；後來的
+131.	emerging (v-ing/adj.) 浮現的；新興的
+132.	Over the course of (prep. phr.) 在…過程中
+133.	collective (adj.) 集體的；共同的
+134.	transformed (v.) 改變；轉化
+135.	scope (n.) 範圍
+136.	quality (n.) 品質
+137.	approach (n.) 方法
+138.	applied (v./adj.) 應用；實用的
+139.	multi- (prefix) 多個的
+140.	cooperative (adj.) 合作的
+141.	institutions (n.) 機構
+142.	spread (v./n.) 傳播；伸展
+143.	facilitated (v.) 促進；使便利
+144.	disrupted (v.) 打斷；中斷
+145.	disclosed (v.) 揭露；公開
+146.	fulfilled (v.) 履行；實現
+147.	circulate (v.) 循環；流通
+148.	emphasize (v.) 強調
+149.	preserve (v.) 保存；維護
+150.	made up for (v. phr.) 補償；彌補
+151.	kept track of (v. phr.) 追蹤；記錄
+152.	gave rise to (v. phr.) 引起；導致
+153.	further (adv./adj.) 進一步地
+154.	thus (adv.) 因此
+155.	motion sickness (n. phr.) 暈車/船/機
+156.	progressing (v-ing) 進展；發展
+157.	dizziness (n.) 暈眩
+158.	nausea (n.) 噁心；反胃
+159.	vomiting (n.) 嘔吐
+160.	occurs (v.) 發生
+161.	signals (n.) 信號
+162.	receives (v.) 接收
+163.	brain (n.) 大腦
+164.	stationary (adj.) 靜止的
+165.	conflicting (adj.) 衝突的；矛盾的
+166.	detects (n./v.) 偵測到
+167.	microscope (n.) 顯微鏡
+168.	reserve (v.) 預訂；保留
+169.	row (n.) 排；列
+170.	forward (adj.) 前方的
+171.	distance (n.) 距離
+172.	vehicle (n.) 車輛；交通工具
+173.	crash (v./n.) 撞擊；墜毀
+174.	flush (v./n.) 臉紅；沖水
+175.	burst (v./n.) 爆發；破裂
+176.	strike (v./n.) 擊打；罷工
+177.	match (v.) 相配；符合
+178.	cued (v.) 提示
+179.	preventive measures (n. phr.) 預防措施
+180.	potential (adj.) 潛在的
+181.	advantages (n.) 優點；優勢
+182.	as well (adv. phr.) 也；同樣地
+183.	by far (adv. phr.) 顯然地；大大地
+184.	cathedrals (n.) 大教堂
+185.	Europe (n.) 歐洲
+186.	Located (adj.) 位於...的
+187.	medieval (adj.) 中世紀的
+188.	intricate (adj.) 複雜精細的
+189.	architecture (n.) 建築
+190.	stained glass (n. phr.) 彩繪玻璃
+191.	Mounted (v./adj.) 安裝好的；架設好的
+192.	documented (v./adj.) 有紀錄的
+193.	vary (v.) 變化；不同
+194.	weighs (v.) 重量為
+195.	Revolution (n.) 革命
+196.	melted (v./adj.) 熔化了的
+197.	recast (v.) 重鑄
+198.	replaced (v.) 替換
+199.	renowned (adj.) 著名的
+200.	prayer (n.) 祈禱
+201.	signal (v.) 發信號
+202.	emergency (n.) 緊急狀況
+203.	invasions (n.) 入侵
+204.	mourning (n.) 哀悼
+205.	royal (adj.) 皇室的
+206.	funerals (n.) 葬禮
+207.	devastating (adj.) 毀滅性的
+208.	complex (adj.) 複雜的
+209.	time-consuming (adj.) 費時的
+210.	monument (n.) 紀念碑；古蹟
+211.	reference (n.) 參考
+212.	bearing (n.) 關係；方位
+213.	retained (v.) 保留
+214.	faithful (adj.) 忠實的
+215.	survived (v.) 倖存
+216.	restoration (n.) 修復
+217.	noted (adj.) 有名的
+218.	silent (adj.) 沉默的；無聲的 
+219.	capsule (n.) 膠囊
+220.	affordable (adj.) 負擔得起的
+221.	accommodation (n.) 住宿
+222.	initially (adv.) 最初地
+223.	meant for (v. phr.) 為了…而設計
+224.	districts (n.) 區域
+225.	populated (adj.) 人口稠密的
+226.	roughly (adv.) 大約
+227.	length (n.) 長度
+228.	width (n.) 寬度
+229.	sufficient (adj.) 足夠的
+230.	crawl (v.) 爬行
+231.	metal (n.) 金屬
+232.	rigid (adj.) 堅硬的
+233.	material (n.) 材料
+234.	equipped (v./adj.) 配備有
+235.	options (n.) 選項
+236.	minimalist (adj.) 極簡主義的
+237.	efficient (adj.) 有效率的
+238.	essential (adj.) 基本的
+239.	elements (n.) 元素
+240.	Chains (n.) 連鎖店
+241.	emerged (v.) 出現
+242.	bare (adj.) 空無一物的
+243.	feature (v.) 以…為特色
+244.	interior (adj./n.) 內部的
+245.	appeals to (v. phr.) 吸引
+246.	digitally (adv.) 數位地
+247.	facilities (n.) 設施
+248.	charging (v-ing/n.) 充電
+249.	position (n.) 位置；姿勢
+250.	budget-conscious (adj.) 有預算意識的
+251.	option (n.) 選擇
+252.	suitable (adj.) 合適的
+253.	air conditioning (n. phr.) 空調
+254.	reservation (n.) 預訂
+255.	In response to (prep. phr.) 回應
+256.	demands (n.) 需求
+257.	wave (n.) 浪潮
+258.	transmit (v.) 傳送
+259.	chambers (n.) 房間；室
+260.	stacked (v./adj.) 堆疊的
+261.	upper (adj.) 上層的
+262.	ladder (n.) 梯子
+263.	lodging (n.) 住宿
+264.	commerce (n.) 商業      
                 `
             ; // ★★★ 請將你的單字資料貼在這裡 ★★★
