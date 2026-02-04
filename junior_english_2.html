@@ -3,356 +3,370 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>英語單字特訓 B2 & 過去式</title>
+    <title>英語單字特訓基地</title>
     <style>
         :root {
-            --primary: #4f46e5;       /* 靛藍色 */
-            --primary-light: #e0e7ff; 
-            --active-tab: #3730a3;
-            --bg-gradient-1: #eef2ff;
-            --bg-gradient-2: #c7d2fe;
-            --text: #1e293b;
-            --success: #059669;
-            --error: #dc2626;
+            --bg: #f3f4f6;
+            --card-bg: #ffffff;
+            --text: #1f2937;
+            --blue: #2563eb;
+            --blue-light: #dbeafe;
+            --purple: #9333ea;
+            --purple-light: #f3e8ff;
+            --gray: #6b7280;
+            --success: #10b981;
+            --error: #ef4444;
         }
 
         * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, var(--bg-gradient-1) 0%, var(--bg-gradient-2) 100%);
+            background-color: var(--bg);
             color: var(--text);
-            margin: 0; padding: 15px;
-            min-height: 100vh; display: flex; justify-content: center; align-items: flex-start;
+            margin: 0; padding: 20px 10px;
+            display: flex; justify-content: center; min-height: 100vh;
         }
 
         .container {
-            width: 100%; max-width: 600px;
-            background: rgba(255, 255, 255, 0.98);
+            width: 100%; max-width: 650px;
+            background: var(--card-bg);
             border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            overflow: hidden; position: relative;
-            min-height: 85vh; display: flex; flex-direction: column;
-            border: 1px solid #a5b4fc;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            padding: 25px;
+            display: flex; flex-direction: column;
+            min-height: 80vh;
         }
 
-        /* Header */
-        header {
-            background: #fff; border-bottom: 1px solid #e0e7ff;
-            position: sticky; top: 0; z-index: 10;
-        }
+        /* --- Header --- */
+        header { text-align: center; margin-bottom: 20px; border-bottom: 2px solid #f3f4f6; padding-bottom: 15px; }
+        h1 { margin: 0; font-size: 1.8rem; color: #111; letter-spacing: 1px; }
+        .subtitle { color: var(--gray); font-size: 0.9rem; margin-top: 5px; }
+        .back-link { display: block; margin-top: 10px; color: var(--gray); text-decoration: none; font-weight: bold; font-size: 0.9rem;}
 
-        .top-bar {
-            display: flex; justify-content: space-between; align-items: center;
-            padding: 15px; 
+        /* --- Section Styles --- */
+        .section-group { margin-bottom: 30px; }
+        .section-title { 
+            display: flex; align-items: center; font-size: 1.2rem; font-weight: 800; margin-bottom: 15px; 
         }
-
-        .back-btn {
-            text-decoration: none; font-size: 1.2rem; color: var(--text);
-        }
-
-        h1 { margin: 0; font-size: 1.3rem; font-weight: 800; color: var(--primary); }
-
-        /* Tabs */
-        .tab-container { display: flex; background: #e0e7ff; }
-        .tab-btn {
-            flex: 1; text-align: center; padding: 12px;
-            font-size: 1rem; font-weight: bold; color: #6366f1;
-            cursor: pointer; transition: 0.2s; border-bottom: 3px solid transparent;
-        }
-        .tab-btn.active {
-            background: #fff; color: var(--primary);
-            border-bottom: 3px solid var(--primary);
-        }
-
-        /* Content */
-        .view-section { padding: 20px; flex: 1; display: flex; flex-direction: column; overflow-y: auto; }
+        .bar { width: 6px; height: 24px; margin-right: 10px; border-radius: 3px; }
         
-        /* List Mode */
-        .word-list { display: grid; gap: 10px; }
-        .word-card {
-            background: #fff; padding: 15px; border-radius: 12px;
-            border-left: 5px solid var(--primary);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        /* 藍色系 (過去式) */
+        .theme-blue .bar { background-color: var(--blue); }
+        .theme-blue .section-title { color: var(--blue); }
+        .theme-blue .mode-box { background: #f8fafc; border: 1px solid #e2e8f0; }
+        .theme-blue .action-btn { background: var(--blue); color: white; }
+        .theme-blue .action-btn:active { background: #1d4ed8; }
+
+        /* 紫色系 (B2) */
+        .theme-purple .bar { background-color: var(--purple); }
+        .theme-purple .section-title { color: var(--purple); }
+        .theme-purple .mode-box { background: #faf5ff; border: 1px solid #f3e8ff; }
+        .theme-purple .action-btn { background: var(--purple); color: white; }
+        .theme-purple .action-btn:active { background: #7e22ce; }
+
+        /* --- Mode Box --- */
+        .mode-box {
+            border-radius: 12px; padding: 15px; margin-bottom: 15px;
+        }
+        .mode-header { font-size: 1rem; font-weight: bold; color: #4b5563; margin-bottom: 10px; display: flex; align-items: center; }
+        .icon { margin-right: 8px; }
+
+        .btn-grid { display: grid; gap: 10px; }
+        .action-btn {
+            width: 100%; padding: 12px; border: none; border-radius: 8px;
+            font-size: 1rem; font-weight: bold; cursor: pointer; transition: transform 0.1s;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .action-btn:active { transform: scale(0.98); }
+
+        /* --- Views (Hidden by default) --- */
+        .view-section { display: none; flex: 1; flex-direction: column; }
+        .view-section.active { display: flex; animation: fadeIn 0.3s; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(5px); } to { opacity: 1; transform: translateY(0); } }
+
+        /* --- List View --- */
+        .word-list { display: grid; gap: 10px; padding-bottom: 20px; }
+        .word-item { 
+            background: white; padding: 15px; border-radius: 10px; border: 1px solid #e5e7eb;
             display: flex; justify-content: space-between; align-items: center;
         }
-        .wc-main { font-weight: bold; font-size: 1.1rem; color: #333; }
-        .wc-sub { color: #64748b; font-size: 0.95rem; }
+        .wi-main { font-weight: bold; font-size: 1.1rem; color: #111; }
+        .wi-sub { color: #666; font-size: 0.95rem; }
 
-        /* Quiz Mode */
-        .quiz-box { text-align: center; margin-top: 20px; }
-        .q-card {
-            background: #fff; padding: 30px 20px; border-radius: 16px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px;
-            border: 2px solid #e0e7ff; min-height: 120px;
-            display: flex; flex-direction: column; justify-content: center; align-items: center;
+        /* --- Setup View --- */
+        .setup-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin: 20px 0; }
+        .setup-btn {
+            padding: 20px; border: 2px solid #e5e7eb; background: white; border-radius: 12px;
+            font-size: 1.2rem; font-weight: bold; color: var(--text); cursor: pointer;
         }
-        .q-text { font-size: 2rem; font-weight: 800; color: var(--primary); margin-bottom: 5px;}
-        .q-hint { font-size: 1rem; color: #64748b; font-style: italic; }
+        .setup-btn:hover { background: #f9fafb; }
+
+        /* --- Quiz View --- */
+        .quiz-status { display: flex; justify-content: space-between; color: var(--gray); font-weight: bold; margin-bottom: 10px; }
+        .progress-bar { height: 8px; background: #e5e7eb; border-radius: 4px; overflow: hidden; margin-bottom: 20px; }
+        .progress-fill { height: 100%; background: var(--text); width: 0%; transition: 0.3s; }
+
+        .q-card {
+            background: white; padding: 40px 20px; border-radius: 16px; text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05); margin-bottom: 20px; border: 2px solid #e5e7eb;
+        }
+        .q-text { font-size: 2.2rem; font-weight: 800; color: #111; margin-bottom: 5px; }
+        .q-hint { color: var(--gray); font-size: 1rem; }
 
         .options-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .opt-btn {
-            padding: 15px; border: 2px solid #e0e7ff; border-radius: 12px; background: white;
-            font-size: 1.1rem; cursor: pointer; transition: 0.1s; font-weight: bold; color: #4b5563;
+            padding: 15px; border: 2px solid #e5e7eb; border-radius: 12px; background: white;
+            font-size: 1.1rem; font-weight: bold; color: var(--text); cursor: pointer;
             min-height: 60px; display: flex; align-items: center; justify-content: center;
-            word-break: break-word;
         }
-        .opt-btn:active { transform: scale(0.98); background: #f5f3ff; }
+        .opt-btn:active { background: #f3f4f6; }
         .opt-btn.correct { background: #d1fae5; border-color: var(--success); color: #065f46; }
         .opt-btn.wrong { background: #fee2e2; border-color: var(--error); color: #991b1b; }
 
-        .action-btn {
-            width: 100%; padding: 15px; border: none; border-radius: 30px;
-            background: var(--primary); color: white; font-size: 1.1rem; font-weight: bold;
-            cursor: pointer; margin-top: 20px; box-shadow: 0 4px 10px rgba(79, 70, 229, 0.3);
-        }
+        /* --- Result View --- */
+        .result-box { text-align: center; margin: 30px 0; }
+        .final-score { font-size: 5rem; font-weight: 800; color: var(--text); line-height: 1; }
+        .mistake-area { margin-top: 20px; text-align: left; }
+        .mistake-item { padding: 10px; border-bottom: 1px dashed #e5e7eb; color: var(--error); }
 
-        /* Result */
-        .score-display { font-size: 4rem; font-weight: 800; color: var(--primary); margin: 20px 0; text-align: center; }
-        .mistake-list { margin-top: 20px; border-top: 1px dashed #cbd5e1; padding-top: 10px; }
-        .mistake-item { padding: 10px; border-bottom: 1px solid #f1f5f9; color: #dc2626; }
-
-        /* Floating Switch */
-        .mode-switch {
-            position: absolute; bottom: 20px; right: 20px;
-            background: #fff; padding: 10px 20px; border-radius: 50px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1); font-weight: bold;
-            color: var(--primary); cursor: pointer; border: 2px solid var(--primary);
+        /* 通用按鈕 */
+        .nav-btn {
+            width: 100%; padding: 15px; border-radius: 12px; border: none;
+            background: #374151; color: white; font-size: 1.1rem; font-weight: bold;
+            cursor: pointer; margin-top: 10px;
         }
+        .nav-btn.secondary { background: white; color: #374151; border: 1px solid #d1d5db; }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <header>
-        <div class="top-bar">
-            <a href="index.html" class="back-btn">⬅ 回首頁</a>
-            <h1>呂禹杰 B2 & 過去式</h1>
-            <div style="width: 24px;"></div>
-        </div>
-        <div class="tab-container">
-            <div class="tab-btn active" onclick="switchTab('past')">不規則過去式</div>
-            <div class="tab-btn" onclick="switchTab('b2')">B2 單字複習</div>
-        </div>
-    </header>
+    
+    <!-- 首頁選單 -->
+    <div id="view-home" class="view-section active">
+        <header>
+            <h1>單字特訓基地</h1>
+            <div class="subtitle">不規則過去式 & B2 單字表</div>
+            <a href="index.html" class="back-link">⬅ 回到主首頁</a>
+        </header>
 
-    <!-- 列表模式 (Study) -->
-    <div id="view-study" class="view-section">
-        <div id="word-list" class="word-list"></div>
+        <!-- 區塊 1: 過去式 (藍色) -->
+        <div class="section-group theme-blue">
+            <div class="section-title">
+                <div class="bar"></div>
+                不規則過去式變化 (47字)
+            </div>
+            
+            <div class="mode-box">
+                <div class="mode-header"><span class="icon">📖</span> 單字卡模式</div>
+                <div class="btn-grid">
+                    <button class="action-btn" onclick="showList('past')">查看完整列表</button>
+                </div>
+            </div>
+
+            <div class="mode-box">
+                <div class="mode-header"><span class="icon">📝</span> 測驗模式 (四選一)</div>
+                <div class="btn-grid">
+                    <button class="action-btn" onclick="setupQuiz('past')">開始測驗</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- 區塊 2: B2 單字 (紫色) -->
+        <div class="section-group theme-purple">
+            <div class="section-title">
+                <div class="bar"></div>
+                呂禹杰 B2 單字複習 (73字)
+            </div>
+            
+            <div class="mode-box">
+                <div class="mode-header"><span class="icon">📖</span> 單字卡模式</div>
+                <div class="btn-grid">
+                    <button class="action-btn" onclick="showList('b2')">查看完整列表</button>
+                </div>
+            </div>
+
+            <div class="mode-box">
+                <div class="mode-header"><span class="icon">📝</span> 測驗模式 (四選一)</div>
+                <div class="btn-grid">
+                    <button class="action-btn" onclick="setupQuiz('b2')">開始測驗</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- 測驗模式 (Quiz) -->
-    <div id="view-quiz" class="view-section" style="display:none;">
-        <div style="display:flex; justify-content:space-between; font-weight:bold; color:#64748b; margin-bottom:10px;">
+    <!-- 列表檢視 -->
+    <div id="view-list" class="view-section">
+        <header>
+            <h1 id="list-title">單字列表</h1>
+            <button class="nav-btn secondary" onclick="goHome()">回選單</button>
+        </header>
+        <div id="word-list-container" class="word-list"></div>
+    </div>
+
+    <!-- 設定題數 -->
+    <div id="view-setup" class="view-section">
+        <header>
+            <h1>設定測驗題數</h1>
+            <div class="subtitle" id="setup-subtitle">範圍：</div>
+        </header>
+        <div class="setup-grid">
+            <button class="setup-btn" onclick="startQuiz(5)">5 題</button>
+            <button class="setup-btn" onclick="startQuiz(10)">10 題</button>
+            <button class="setup-btn" onclick="startQuiz(20)">20 題</button>
+            <button class="setup-btn" onclick="startQuiz(0)">全部</button>
+        </div>
+        <button class="nav-btn secondary" onclick="goHome()">取消</button>
+    </div>
+
+    <!-- 測驗進行中 -->
+    <div id="view-quiz" class="view-section">
+        <div class="quiz-status">
             <span id="q-progress">1 / 10</span>
             <span id="q-score">Score: 0</span>
         </div>
-        <div style="height:6px; background:#e0e7ff; border-radius:3px; margin-bottom:20px;">
-            <div id="bar-fill" style="height:100%; background:var(--primary); width:0%; transition:0.3s;"></div>
-        </div>
+        <div class="progress-bar"><div id="bar-fill" class="progress-fill"></div></div>
 
         <div class="q-card">
-            <div id="q-text" class="q-text"></div>
+            <div id="q-text" class="q-text">Word</div>
             <div id="q-hint" class="q-hint"></div>
         </div>
 
         <div id="options-area" class="options-grid"></div>
     </div>
 
-    <!-- 結果模式 -->
-    <div id="view-result" class="view-section" style="display:none;">
-        <h2 style="text-align:center; color:#333;">測驗結束</h2>
-        <div class="score-display" id="final-score">100</div>
-        <button class="action-btn" onclick="restartQuiz()">再測一次</button>
-        <button class="action-btn" style="background:#fff; color:#64748b; border:1px solid #cbd5e1;" onclick="switchMode('study')">回列表</button>
-        <div id="mistake-area" class="mistake-list"></div>
+    <!-- 結果頁 -->
+    <div id="view-result" class="view-section">
+        <div class="result-box">
+            <h2>測驗結束</h2>
+            <div class="final-score" id="final-score">100</div>
+            <p style="color:#666">本次得分</p>
+        </div>
+        <button class="nav-btn" onclick="goHome()">回選單</button>
+        <div id="mistake-area" class="mistake-area"></div>
     </div>
 
-    <button id="mode-btn" class="mode-switch" onclick="toggleMode()">開始測驗</button>
 </div>
 
 <script>
     // ================= 資料庫 =================
-    // 這裡直接內嵌資料，方便你使用
     const vocabData = {
         "past": [
-            { q: "become", a: "became", m: "變成" },
-            { q: "begin", a: "began", m: "開始" },
-            { q: "bring", a: "brought", m: "帶來" },
-            { q: "break", a: "broke", m: "折斷; 破壞" },
-            { q: "buy", a: "bought", m: "買" },
-            { q: "catch", a: "caught", m: "抓住" },
-            { q: "come", a: "came", m: "來" },
-            { q: "cut", a: "cut", m: "切" },
-            { q: "draw", a: "drew", m: "畫畫" },
-            { q: "drink", a: "drank", m: "喝" },
-            { q: "drive", a: "drove", m: "駕駛" },
-            { q: "fall", a: "fell", m: "掉落" },
-            { q: "feed", a: "fed", m: "餵" },
-            { q: "feel", a: "felt", m: "感覺" },
-            { q: "fight", a: "fought", m: "打架" },
-            { q: "find", a: "found", m: "發現" },
-            { q: "fly", a: "flew", m: "飛" },
-            { q: "forget", a: "forgot", m: "忘記" },
-            { q: "get", a: "got", m: "得到" },
-            { q: "give", a: "gave", m: "給" },
-            { q: "hear", a: "heard", m: "聽到" },
-            { q: "hurt", a: "hurt", m: "傷害" },
-            { q: "keep", a: "kept", m: "保持" },
-            { q: "know", a: "knew", m: "知道" },
-            { q: "leave", a: "left", m: "離開" },
-            { q: "lose", a: "lost", m: "失去; 輸了" },
-            { q: "make", a: "made", m: "製作" },
-            { q: "meet", a: "met", m: "遇見; 碰到" },
-            { q: "pay", a: "paid", m: "付錢" },
-            { q: "put", a: "put", m: "放" },
-            { q: "ride", a: "rode", m: "騎" },
-            { q: "say", a: "said", m: "說" },
-            { q: "sell", a: "sold", m: "賣" },
-            { q: "sing", a: "sang", m: "唱" },
-            { q: "sit", a: "sat", m: "坐" },
-            { q: "sleep", a: "slept", m: "睡覺" },
-            { q: "speak", a: "spoke", m: "講(語言)" },
-            { q: "spend", a: "spent", m: "花費" },
-            { q: "stand", a: "stood", m: "站" },
-            { q: "swim", a: "swam", m: "游泳" },
-            { q: "teach", a: "taught", m: "教書" },
-            { q: "tell", a: "told", m: "告訴" },
-            { q: "think", a: "thought", m: "想" },
-            { q: "understand", a: "understood", m: "了解" },
-            { q: "wake", a: "woke", m: "醒來" },
-            { q: "wear", a: "wore", m: "穿; 戴" },
-            { q: "write", a: "wrote", m: "寫" }
+            { q: "become", a: "became", m: "變成" }, { q: "begin", a: "began", m: "開始" }, { q: "bring", a: "brought", m: "帶來" },
+            { q: "break", a: "broke", m: "折斷; 破壞" }, { q: "buy", a: "bought", m: "買" }, { q: "catch", a: "caught", m: "抓住" },
+            { q: "come", a: "came", m: "來" }, { q: "cut", a: "cut", m: "切" }, { q: "draw", a: "drew", m: "畫畫" },
+            { q: "drink", a: "drank", m: "喝" }, { q: "drive", a: "drove", m: "駕駛" }, { q: "fall", a: "fell", m: "掉落" },
+            { q: "feed", a: "fed", m: "餵" }, { q: "feel", a: "felt", m: "感覺" }, { q: "fight", a: "fought", m: "打架" },
+            { q: "find", a: "found", m: "發現" }, { q: "fly", a: "flew", m: "飛" }, { q: "forget", a: "forgot", m: "忘記" },
+            { q: "get", a: "got", m: "得到" }, { q: "give", a: "gave", m: "給" }, { q: "hear", a: "heard", m: "聽到" },
+            { q: "hurt", a: "hurt", m: "傷害" }, { q: "keep", a: "kept", m: "保持" }, { q: "know", a: "knew", m: "知道" },
+            { q: "leave", a: "left", m: "離開" }, { q: "lose", a: "lost", m: "失去; 輸了" }, { q: "make", a: "made", m: "製作" },
+            { q: "meet", a: "met", m: "遇見; 碰到" }, { q: "pay", a: "paid", m: "付錢" }, { q: "put", a: "put", m: "放" },
+            { q: "ride", a: "rode", m: "騎" }, { q: "say", a: "said", m: "說" }, { q: "sell", a: "sold", m: "賣" },
+            { q: "sing", a: "sang", m: "唱" }, { q: "sit", a: "sat", m: "坐" }, { q: "sleep", a: "slept", m: "睡覺" },
+            { q: "speak", a: "spoke", m: "講(語言)" }, { q: "spend", a: "spent", m: "花費" }, { q: "stand", a: "stood", m: "站" },
+            { q: "swim", a: "swam", m: "游泳" }, { q: "teach", a: "taught", m: "教書" }, { q: "tell", a: "told", m: "告訴" },
+            { q: "think", a: "thought", m: "想" }, { q: "understand", a: "understood", m: "了解" }, { q: "wake", a: "woke", m: "醒來" },
+            { q: "wear", a: "wore", m: "穿; 戴" }, { q: "write", a: "wrote", m: "寫" }
         ],
         "b2": [
-            { q: "history", a: "歷史" }, { q: "still", a: "仍然；還" }, { q: "have to", a: "必須" },
-            { q: "science", a: "科學" }, { q: "report", a: "報告" }, { q: "be good at", a: "擅長" },
-            { q: "Come on!", a: "拜託；別這樣" }, { q: "lesson", a: "課" }, { q: "computer", a: "電腦" },
-            { q: "chess", a: "西洋棋" }, { q: "church", a: "教堂" }, { q: "noon", a: "中午" },
-            { q: "curious", a: "好奇的" }, { q: "taste", a: "品嚐" }, { q: "by the way", a: "對了；順便一提" },
-            { q: "beauty", a: "美麗" }, { q: "once", a: "一次" }, { q: "twice", a: "兩次" },
-            { q: "dig", a: "挖" }, { q: "hole", a: "洞" }, { q: "naughty", a: "頑皮的" },
-            { q: "run after", a: "追逐" }, { q: "festival", a: "節日" }, { q: "full", a: "完整的" },
-            { q: "around the corner", a: "即將來臨" }, { q: "colorful", a: "繽紛的" }, { q: "powder", a: "粉末" },
-            { q: "each other", a: "互相；彼此" }, { q: "clothes", a: "衣物" }, { q: "health", a: "健康" },
-            { q: "thing", a: "事物；東西" }, { q: "in common", a: "共同處" }, { q: "mark", a: "標誌" },
-            { q: "peace", a: "平靜" }, { q: "underwear", a: "內衣" }, { q: "celebration", a: "慶祝活動" },
-            { q: "much", a: "很多" }, { q: "piece", a: "張；片" }, { q: "screen", a: "篩子" },
-            { q: "bucket", a: "桶子" }, { q: "slice", a: "片" }, { q: "useful", a: "有用的" },
-            { q: "mean", a: "意思是" }, { q: "power", a: "動力" }, { q: "gas", a: "汽油" },
-            { q: "human", a: "人類的" }, { q: "tank", a: "槽" }, { q: "stinky", a: "臭的" },
-            { q: "know", a: "知道" }, { q: "letter", a: "信件" }, { q: "waste", a: "浪費" },
-            { q: "principal", a: "校長" }, { q: "fight", a: "對抗" }, { q: "charity", a: "慈善機構" },
-            { q: "carry", a: "提；攜帶" }, { q: "else", a: "其他的" }, { q: "scan", a: "掃描" },
-            { q: "chat", a: "聊天" }, { q: "awesome", a: "很棒的" }, { q: "snowy", a: "下雪的" },
-            { q: "rainy", a: "下雨的" }, { q: "cloudy", a: "多雲的" }, { q: "windy", a: "風大的" },
-            { q: "spring", a: "春天" }, { q: "summer", a: "夏天" }, { q: "fall", a: "秋天" },
-            { q: "winter", a: "冬天" }, { q: "warm", a: "溫暖的" }, { q: "plan", a: "規劃；打算" },
-            { q: "build", a: "建造" }, { q: "taste", a: "體驗；品嚐" }, { q: "gone", a: "消失的" },
-            { q: "salty", a: "鹹的" }
+            { q: "history", a: "歷史" }, { q: "still", a: "仍然；還" }, { q: "have to", a: "必須" }, { q: "science", a: "科學" },
+            { q: "report", a: "報告" }, { q: "be good at", a: "擅長" }, { q: "Come on!", a: "拜託；別這樣" }, { q: "lesson", a: "課" },
+            { q: "computer", a: "電腦" }, { q: "chess", a: "西洋棋" }, { q: "church", a: "教堂" }, { q: "noon", a: "中午" },
+            { q: "curious", a: "好奇的" }, { q: "taste", a: "品嚐" }, { q: "by the way", a: "對了；順便一提" }, { q: "beauty", a: "美麗" },
+            { q: "once", a: "一次" }, { q: "twice", a: "兩次" }, { q: "dig", a: "挖" }, { q: "hole", a: "洞" }, { q: "naughty", a: "頑皮的" },
+            { q: "run after", a: "追逐" }, { q: "festival", a: "節日" }, { q: "full", a: "完整的" }, { q: "around the corner", a: "即將來臨" },
+            { q: "colorful", a: "繽紛的" }, { q: "powder", a: "粉末" }, { q: "each other", a: "互相；彼此" }, { q: "clothes", a: "衣物" },
+            { q: "health", a: "健康" }, { q: "thing", a: "事物；東西" }, { q: "in common", a: "共同處" }, { q: "mark", a: "標誌" },
+            { q: "peace", a: "平靜" }, { q: "underwear", a: "內衣" }, { q: "celebration", a: "慶祝活動" }, { q: "much", a: "很多" },
+            { q: "piece", a: "張；片" }, { q: "screen", a: "篩子" }, { q: "bucket", a: "桶子" }, { q: "slice", a: "片" },
+            { q: "useful", a: "有用的" }, { q: "mean", a: "意思是" }, { q: "power", a: "動力" }, { q: "gas", a: "汽油" },
+            { q: "human", a: "人類的" }, { q: "tank", a: "槽" }, { q: "stinky", a: "臭的" }, { q: "know", a: "知道" },
+            { q: "letter", a: "信件" }, { q: "waste", a: "浪費" }, { q: "principal", a: "校長" }, { q: "fight", a: "對抗" },
+            { q: "charity", a: "慈善機構" }, { q: "carry", a: "提；攜帶" }, { q: "else", a: "其他的" }, { q: "scan", a: "掃描" },
+            { q: "chat", a: "聊天" }, { q: "awesome", a: "很棒的" }, { q: "snowy", a: "下雪的" }, { q: "rainy", a: "下雨的" },
+            { q: "cloudy", a: "多雲的" }, { q: "windy", a: "風大的" }, { q: "spring", a: "春天" }, { q: "summer", a: "夏天" },
+            { q: "fall", a: "秋天" }, { q: "winter", a: "冬天" }, { q: "warm", a: "溫暖的" }, { q: "plan", a: "規劃；打算" },
+            { q: "build", a: "建造" }, { q: "taste", a: "體驗；品嚐" }, { q: "gone", a: "消失的" }, { q: "salty", a: "鹹的" }
         ]
     };
 
     // ================= 程式邏輯 =================
-    let currentTab = 'past'; // 'past' or 'b2'
-    let isQuizMode = false;
+    let activeCategory = '';
     let quizList = [];
     let currentIdx = 0;
     let score = 0;
     let mistakes = [];
 
-    // 初始化
-    window.onload = () => {
-        renderList();
-    };
-
-    function switchTab(tab) {
-        currentTab = tab;
-        document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-        if(tab === 'past') document.querySelectorAll('.tab-btn')[0].classList.add('active');
-        else document.querySelectorAll('.tab-btn')[1].classList.add('active');
-
-        // 如果在測驗中，切換 Tab 會重置回列表
-        if (isQuizMode) toggleMode();
-        else renderList();
+    // 切換視圖
+    function switchView(viewId) {
+        document.querySelectorAll('.view-section').forEach(v => v.classList.remove('active'));
+        document.getElementById(viewId).classList.add('active');
     }
 
-    function toggleMode() {
-        isQuizMode = !isQuizMode;
-        const btn = document.getElementById('mode-btn');
-        const studyView = document.getElementById('view-study');
-        const quizView = document.getElementById('view-quiz');
-        const resultView = document.getElementById('view-result');
-
-        if (isQuizMode) {
-            btn.innerText = "回到列表";
-            btn.style.background = "#fff";
-            btn.style.color = "var(--primary)";
-            studyView.style.display = "none";
-            resultView.style.display = "none";
-            quizView.style.display = "block";
-            startQuiz();
-        } else {
-            btn.innerText = "開始測驗";
-            btn.style.background = "var(--primary)";
-            btn.style.color = "#fff";
-            studyView.style.display = "block";
-            quizView.style.display = "none";
-            resultView.style.display = "none";
-        }
+    function goHome() {
+        switchView('view-home');
     }
 
-    function switchMode(mode) {
-        if(mode === 'study') {
-            if(isQuizMode) toggleMode();
-        }
-    }
-
-    // 渲染單字列表
-    function renderList() {
-        const listDiv = document.getElementById('word-list');
+    // --- 1. 列表模式 ---
+    function showList(category) {
+        activeCategory = category;
+        const listDiv = document.getElementById('word-list-container');
         listDiv.innerHTML = "";
-        const data = vocabData[currentTab];
+        
+        const titleMap = { 'past': '不規則過去式列表', 'b2': 'B2 單字列表' };
+        document.getElementById('list-title').innerText = titleMap[category];
 
+        const data = vocabData[category];
         data.forEach(item => {
             const div = document.createElement('div');
-            div.className = 'word-card';
-            // 過去式: 顯示 become -> became
-            // B2: 顯示 history -> 歷史
-            if (currentTab === 'past') {
-                div.innerHTML = `
-                    <div>
-                        <div class="wc-main">${item.q} ⮕ ${item.a}</div>
-                        <div class="wc-sub">${item.m}</div>
-                    </div>
-                `;
+            div.className = 'word-item';
+            if (category === 'past') {
+                div.innerHTML = `<div class="wi-main">${item.q} ⮕ ${item.a}</div><div class="wi-sub">${item.m}</div>`;
             } else {
-                div.innerHTML = `
-                    <div class="wc-main">${item.q}</div>
-                    <div class="wc-sub">${item.a}</div>
-                `;
+                div.innerHTML = `<div class="wi-main">${item.q}</div><div class="wi-sub">${item.a}</div>`;
             }
             listDiv.appendChild(div);
         });
+        switchView('view-list');
     }
 
-    // 開始測驗
-    function startQuiz() {
-        const data = vocabData[currentTab];
-        // 隨機選 20 題 (如果夠多)
-        let pool = JSON.parse(JSON.stringify(data));
+    // --- 2. 測驗設定 ---
+    function setupQuiz(category) {
+        activeCategory = category;
+        const titleMap = { 'past': '不規則過去式', 'b2': 'B2 單字' };
+        document.getElementById('setup-subtitle').innerText = `範圍：${titleMap[category]}`;
+        switchView('view-setup');
+    }
+
+    // --- 3. 開始測驗 ---
+    function startQuiz(count) {
+        let pool = JSON.parse(JSON.stringify(vocabData[activeCategory]));
         pool = shuffle(pool);
-        quizList = pool.slice(0, 20);
         
+        if (count > 0 && count < pool.length) {
+            quizList = pool.slice(0, count);
+        } else {
+            quizList = pool;
+        }
+
         currentIdx = 0;
         score = 0;
         mistakes = [];
+        
+        // 設定進度條顏色 (根據分類)
+        const barFill = document.getElementById('bar-fill');
+        if (activeCategory === 'past') barFill.style.background = 'var(--blue)';
+        else barFill.style.background = 'var(--purple)';
+
         loadQuestion();
+        switchView('view-quiz');
     }
 
     function loadQuestion() {
         if (currentIdx >= quizList.length) {
-            showResult();
+            endQuiz();
             return;
         }
 
@@ -361,27 +375,24 @@
         document.getElementById('q-score').innerText = `Score: ${Math.round(score)}`;
         document.getElementById('bar-fill').style.width = `${(currentIdx / quizList.length) * 100}%`;
 
-        // 題目顯示邏輯
-        if (currentTab === 'past') {
+        // 顯示題目
+        if (activeCategory === 'past') {
             document.getElementById('q-text').innerText = qData.q;
-            document.getElementById('q-hint').innerText = `(${qData.m})`; // 提示中文
+            document.getElementById('q-hint').innerText = `(${qData.m})`;
         } else {
             document.getElementById('q-text').innerText = qData.q;
             document.getElementById('q-hint').innerText = "";
         }
 
-        // 選項生成
+        // 生成選項
         const optArea = document.getElementById('options-area');
         optArea.innerHTML = "";
         
-        // 產生 3 個錯誤選項
         let options = [qData.a];
-        let allData = vocabData[currentTab];
+        let allData = vocabData[activeCategory];
         while (options.length < 4) {
             let randItem = allData[Math.floor(Math.random() * allData.length)];
-            if (!options.includes(randItem.a)) {
-                options.push(randItem.a);
-            }
+            if (!options.includes(randItem.a)) options.push(randItem.a);
         }
         options = shuffle(options);
 
@@ -403,7 +414,6 @@
             score += (100 / quizList.length);
         } else {
             btn.classList.add('wrong');
-            // 標示正確答案
             btns.forEach(b => {
                 if (b.innerText === correctAns) b.classList.add('correct');
             });
@@ -416,34 +426,25 @@
         }, 1000);
     }
 
-    function showResult() {
-        document.getElementById('view-quiz').style.display = 'none';
-        document.getElementById('view-result').style.display = 'block';
-        document.getElementById('mode-btn').style.display = 'none'; // 隱藏懸浮按鈕
+    function endQuiz() {
+        switchView('view-result');
         document.getElementById('final-score').innerText = Math.round(score);
 
         const area = document.getElementById('mistake-area');
         area.innerHTML = "";
         if (mistakes.length > 0) {
-            area.innerHTML = "<h3 style='color:#dc2626'>錯題複習</h3>";
+            area.innerHTML = "<h3 style='color:#ef4444'>錯題複習</h3>";
             mistakes.forEach(m => {
                 const div = document.createElement('div');
                 div.className = 'mistake-item';
-                if(currentTab === 'past') {
-                    div.innerText = `${m.q} (${m.m}) ⮕ 正解: ${m.a}`;
+                if(activeCategory === 'past') {
+                    div.innerText = `${m.q} (${m.m}) ⮕ ${m.a}`;
                 } else {
-                    div.innerText = `${m.q} ⮕ 正解: ${m.a}`;
+                    div.innerText = `${m.q} ⮕ ${m.a}`;
                 }
                 area.appendChild(div);
             });
         }
-    }
-
-    function restartQuiz() {
-        document.getElementById('view-result').style.display = 'none';
-        document.getElementById('mode-btn').style.display = 'block';
-        startQuiz();
-        document.getElementById('view-quiz').style.display = 'block';
     }
 
     function shuffle(array) {
